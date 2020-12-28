@@ -1,0 +1,7 @@
+body {
+    background: none;
+}
+.comment-list{
+    height: 500px;
+    overflow: auto;
+}
