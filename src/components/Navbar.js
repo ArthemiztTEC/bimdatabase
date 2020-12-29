@@ -111,21 +111,31 @@ function Navbar(props) {
         <SideNav.Nav defaultSelected="home">
           <NavItem eventKey="home">
             <NavIcon>
-              <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
+              <img
+                  height={20}
+                  src={`/asset/Home_select.png`}
+                />
+              {/* <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} /> */}
             </NavIcon>
             <NavText>หน้าแรก</NavText>
           </NavItem>
 
           <NavItem eventKey="repair">
             <NavIcon>
-              <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
+              <img
+                // height={18}
+                src={`/asset/Inform_select.png`}
+              />
             </NavIcon>
             <NavText>แจ้งซ่อม</NavText>
           </NavItem>
 
           <NavItem eventKey="issue">
             <NavIcon>
-              <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
+              <img
+                // height={18}
+                src={`/asset/List_select.png`}
+              />
             </NavIcon>
             <NavText>จัดการ Account</NavText>
           </NavItem>
