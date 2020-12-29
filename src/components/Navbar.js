@@ -23,7 +23,8 @@ import SideNav, {
   NavIcon,
   NavText
 } from "@trendmicro/react-sidenav";
-import "@trendmicro/react-sidenav/dist/react-sidenav.css";
+// import "@trendmicro/react-sidenav/dist/react-sidenav.css";
+import './Navbar.css';
 
 const MenuGrid = styled(Grid)`
   margin-bottom: 50px;
