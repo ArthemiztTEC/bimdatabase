@@ -16,12 +16,24 @@ import {
   MailOutlined,
 } from '@ant-design/icons';
 
+import SideNav, {
+  Toggle,
+  Nav,
+  NavItem,
+  NavIcon,
+  NavText
+} from "@trendmicro/react-sidenav";
+import "@trendmicro/react-sidenav/dist/react-sidenav.css";
+
 const MenuGrid = styled(Grid)`
   margin-bottom: 50px;
 `
 const MenuStyle = styled(Menu)`
   background: transparent; 
 `
+
+// import { FaBeer } from "@react-icons/all-files/fa/FaBeer";
+
 
 
 function Navbar(props) {
@@ -88,24 +100,55 @@ function Navbar(props) {
 
   return (
     <>
-    <div>test เอาhtml มาผสม</div>
+      <SideNav
+        onSelect={selected => {
+          // Add your code here
+         }}
+      >
 
-        <div className='navbar'>
-          <a to='#' className='menu-bars'>
-            <a />
-          </a>
-        </div>
-        <nav className='nav-menu active'>
-          <ul className='nav-menu-items' >
-            <li className='navbar-toggle'>
-              <a className='menu-bars'>
-               
-              </a>
-            </li>
-          </ul>
-        </nav>
+      <SideNav.Toggle />
+        <SideNav.Nav defaultSelected="home">
+          <NavItem eventKey="home">
+            <NavIcon>
+              <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
+            </NavIcon>
+            <NavText>หน้าแรก</NavText>
+          </NavItem>
 
-    <MenuGrid container >
+          <NavItem eventKey="repair">
+            <NavIcon>
+              <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
+            </NavIcon>
+            <NavText>แจ้งซ่อม</NavText>
+          </NavItem>
+
+          <NavItem eventKey="issue">
+            <NavIcon>
+              <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
+            </NavIcon>
+            <NavText>จัดการ Account</NavText>
+          </NavItem>
+            
+          <NavItem eventKey="charts">
+            <NavIcon>
+              <i
+                className="fa fa-fw fa-line-chart"
+                style={{ fontSize: "1.75em" }}
+              />
+            </NavIcon>
+            <NavText>เมนูย่อย ทดสอบ</NavText>
+              <NavItem eventKey="charts/linechart">
+                <NavText>Line Chart</NavText>
+              </NavItem>
+              <NavItem eventKey="charts/barchart">
+                <NavText>Bar Chart</NavText>
+              </NavItem>
+
+            </NavItem>
+        </SideNav.Nav>
+      </SideNav>
+
+    {/* <MenuGrid container >
 
       <Grid item xs={2} style={{backgroundColor: "lightblue"}}>
       <MenuStyle onClick={handleClick} selectedKeys={props.sceneKey} mode="inline">
@@ -117,7 +160,7 @@ function Navbar(props) {
               <Menu.Item key={item.id}>
                 <img
                   height={20}
-                  // src={`/asset/${item.icon}${props.sceneKey === item.id ? '_select' : ''}.png`}
+                  src={`/asset/${item.icon}${props.sceneKey === item.id ? '_select' : ''}.png`}
                 />{' '}
                 {item.title}
               </Menu.Item>
@@ -125,7 +168,7 @@ function Navbar(props) {
       </MenuStyle>
       </Grid>
       
-    </MenuGrid>
+    </MenuGrid> */}
     </>
   )
 }

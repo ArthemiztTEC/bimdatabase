@@ -42,6 +42,17 @@ import AccessHistory from '../components/AccessHistory'
 import Chat from '../components/Chat'
 import Test1 from '../components/Test1'
 
+// import SideNav, {
+//   Toggle,
+//   Nav,
+//   NavItem,
+//   NavIcon,
+//   NavText
+// } from "@trendmicro/react-sidenav";
+// import "@trendmicro/react-sidenav/dist/react-sidenav.css";
+
+// import "./styles.css";
+
 const RedDot = styled(FiberManualRecordIcon)`
   color: red;
   font-size: 10px !important;
@@ -661,113 +672,169 @@ function Home(props) {
     >
     {/* div กำหนดรูปแบบของหน้าจอ */}
 
-      {/* เมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
+      {/* container คลุมกรอบใหญ่ของหน้าจอ */}
       <Grid container>
-        <Grid container item xs={5} spacing={1}></Grid>
-        <Grid container item xs={7}>
+
+          {/* เปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
           <Navbar
             {...props}
             setMode={(mode) => {
               setMode(mode)
             }}
-        />
+          />
+          {/* <SideNav
+            onSelect={selected => {
+              // Add your code here
+            }}
+          >
+            <SideNav.Toggle />
+            <SideNav.Nav defaultSelected="home">
+              <NavItem eventKey="home">
+                <NavIcon>
+                  <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
+                </NavIcon>
+                <NavText>หน้าแรก</NavText>
+              </NavItem>
+              <NavItem eventKey="repair">
+                <NavIcon>
+                  <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
+                </NavIcon>
+                <NavText>แจ้งซ่อม</NavText>
+              </NavItem>
+              <NavItem eventKey="issue">
+                <NavIcon>
+                  <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
+                </NavIcon>
+                <NavText>จัดการ Account</NavText>
+              </NavItem>
+            
+              <NavItem eventKey="charts">
+                <NavIcon>
+                  <i
+                    className="fa fa-fw fa-line-chart"
+                    style={{ fontSize: "1.75em" }}
+                  />
+                </NavIcon>
+                <NavText>เมนูย่อย ทดสอบ</NavText>
+                <NavItem eventKey="charts/linechart">
+                  <NavText>Line Chart</NavText>
+                </NavItem>
+                <NavItem eventKey="charts/barchart">
+                  <NavText>Bar Chart</NavText>
+                </NavItem>
+              </NavItem>
+            </SideNav.Nav>
+          </SideNav> */}
+        {/* ปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
+
+        {/* เปิดlayoutของหน้าจอ เปรียบเป็นpageหลัก*/}
+        <Grid item xs={12} style={{ paddingLeft: "5em" }}>
+          {/* <Navbar
+            {...props}
+            setMode={(mode) => {
+              setMode(mode)
+            }}
+          /> */}
+
+          {/* เปิดlogo link And Menu rightbar */}
+          <Layout id={selectedmodel} />
+          {/* ปิดlogo link And Menu rightbar */}
+        
+            {/* เปิดส่วนของ SELECT BOX เลือก Model 3D*/}
+              {props.sceneKey !== 'issue' ? (
+                <Grid container spacing={1} >
+                  <Grid item xs={5}>
+                    <InputGrid>
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupIconNoRound>
+                          <DomainIcon />
+                        </InputGroupIconNoRound>
+                      </InputGroupAddon>
+                      <InputField
+                        type="select"
+                        onChange={(e) => {
+                          console.log('Model', modelList)
+                          console.log(modelList[e.target.value])
+                          try {
+                            viewer.finish()
+                            viewer2d.finish()
+                          } catch (e) {}
+
+                          setModel(modelList[e.target.value].value)
+                        }}
+                      >
+                        {modelList.map((item, index) => (
+                          <option key={`model1${index}`} value={index}>
+                            {item.name || item.projectName}
+                          </option>
+                        ))}
+                      </InputField>
+                    </InputGrid>
+                  </Grid>
+                  <Grid>
+                    {' '}
+                    <ButtonToggle
+                      onClick={() => {
+                        if (modelItem) {
+                          const { file } = modelItem
+                          axios
+                            .get(file.location, {
+                              headers: {
+                                Authorization: `Bearer ${token.access_token}`,
+                              },
+                            })
+                            .then((res) => {
+                              showloading()
+                              FileDownload(res.data, 'model.ifc')
+                            })
+                        }
+                      }}
+                      style={{
+                        marginTop: 10,
+                      }}
+                      color={'primary'}
+                    >
+                      Download
+                    </ButtonToggle>
+                  </Grid>
+                </Grid>
+              ) : (
+                ''
+              )}
+            {/* ปิดส่วนของ SELECT BOX เลือก Model 3D*/}
+
+            <br />
+
+            {/* เปิดเมนูย่อย ตัวแปรTabs จัดเรียงค่าเมนูใหม่*/}
+              {props.sceneKey === 'repair' ? (
+               ''
+              ) : (
+                <MenuBar
+                  tabs={Tabs}
+                  sceneKey={mode}
+                  setMode={(mode) => {
+                    setMode(mode)
+                  }}
+                />
+              )} 
+            {/* ปิดเมนูย่อย ตัวแปรTabs จัดเรียงค่าเมนูใหม่*/}
+
         </Grid>
-        {/* <Grid container item xs={5} spacing={1}></Grid> */}
+        {/* ปิดlayoutของหน้าจอ เปรียบเป็นpageหลัก */}
       </Grid>
-      {/* เมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
+      {/* ปิดcontainer คลุมกรอบใหญ่ของหน้าจอ */}
 
-      <Layout id={selectedmodel} />
-      {/* logo link And Menu rightbar */}
 
-      {/* <MenuBar
-        {...props}
-        setMode={(mode) => {
-          setMode(mode)
-        }}
-      /> */}
-      {/* เมนูหลัก เปลี่ยนหน้า */}
-
-      {/* เปิดส่วนของ SELECT BOX เลือก Model */}
-      {props.sceneKey !== 'issue' ? (
-        <Grid container spacing={1}>
-          <Grid item xs={5}>
-            <InputGrid>
-              <InputGroupAddon addonType="prepend">
-                <InputGroupIconNoRound>
-                  <DomainIcon />
-                </InputGroupIconNoRound>
-              </InputGroupAddon>
-              <InputField
-                type="select"
-                onChange={(e) => {
-                  console.log('Model', modelList)
-                  console.log(modelList[e.target.value])
-                  try {
-                    viewer.finish()
-                    viewer2d.finish()
-                  } catch (e) {}
-
-                  setModel(modelList[e.target.value].value)
-                }}
-              >
-                {modelList.map((item, index) => (
-                  <option key={`model1${index}`} value={index}>
-                    {item.name || item.projectName}
-                  </option>
-                ))}
-              </InputField>
-            </InputGrid>
-          </Grid>
-          <Grid>
-            {' '}
-            <ButtonToggle
-              onClick={() => {
-                if (modelItem) {
-                  const { file } = modelItem
-                  axios
-                    .get(file.location, {
-                      headers: {
-                        Authorization: `Bearer ${token.access_token}`,
-                      },
-                    })
-                    .then((res) => {
-                      showloading()
-                      FileDownload(res.data, 'model.ifc')
-                    })
-                }
-              }}
-              style={{
-                marginTop: 10,
-              }}
-              color={'primary'}
-            >
-              Download
-            </ButtonToggle>
-          </Grid>
-        </Grid>
-      ) : (
-        ''
-      )}
-
-      {/* ปิดส่วนของ SELECT BOX เลือก Model */}
-
-      <br />
-
-      {/* เปิดเมนูย่อย ตัวแปรTabs จัดเรียงค่าเมนูใหม่*/}
-      {props.sceneKey === 'repair' ? (
-        ''
-      ) : (
-        <MenuBar
-          tabs={Tabs}
-          sceneKey={mode}
-          setMode={(mode) => {
-            setMode(mode)
-          }}
-        />
-      )} 
-      {/* ปิดเมนูย่อย ตัวแปรTabs จัดเรียงค่าเมนูใหม่*/}
+          {/* <MenuBar
+            {...props}
+            setMode={(mode) => {
+              setMode(mode)
+            }}
+          /> */}
+          {/* เมนูหลัก เปลี่ยนหน้า */}
       
-      <Grid container>
+      
+      <Grid container style={{ paddingLeft: "5em" }}>
       {/* ฟังก์ชั่นอาจใช้ได้ marginright={5} */}
       {/* ทดสอบกำหนดหน้าจอเพิ่ม <ModeGrid xs={4}></ModeGrid> */}
       {/*  mode === 'scurve' คือการส่ง id scurve ไปเช็คถ้าจริงให้ =12 ไม่จริง =7*/}
