@@ -728,7 +728,7 @@ function Home(props) {
         {/* ปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
 
         {/* เปิดlayoutของหน้าจอ เปรียบเป็นpageหลัก*/}
-        <Grid item xs={12} style={{ paddingLeft: "5em" }}>
+        <Grid item xs={12} style={{ paddingLeft: "12em" }}>
           {/* <Navbar
             {...props}
             setMode={(mode) => {
@@ -773,7 +773,7 @@ function Home(props) {
                   </Grid>
                   <Grid>
                     {' '}
-                    <ButtonToggle
+                    <Grid
                       onClick={() => {
                         if (modelItem) {
                           const { file } = modelItem
@@ -789,13 +789,9 @@ function Home(props) {
                             })
                         }
                       }}
-                      style={{
-                        marginTop: 10,
-                      }}
-                      color={'primary'}
                     >
-                      Download
-                    </ButtonToggle>
+                      {/* Download  Grid ก่อน(ButtonToggle)*/}
+                    </Grid>
                   </Grid>
                 </Grid>
               ) : (
@@ -834,7 +830,7 @@ function Home(props) {
           {/* เมนูหลัก เปลี่ยนหน้า */}
       
       
-      <Grid container style={{ paddingLeft: "5em" }}>
+      <Grid container style={{ paddingLeft: "12em" }}>
       {/* ฟังก์ชั่นอาจใช้ได้ marginright={5} */}
       {/* ทดสอบกำหนดหน้าจอเพิ่ม <ModeGrid xs={4}></ModeGrid> */}
       {/*  mode === 'scurve' คือการส่ง id scurve ไปเช็คถ้าจริงให้ =12 ไม่จริง =7*/}
@@ -869,7 +865,8 @@ function Home(props) {
                 <h3>โครงการ {_.get(select, 'name', _.get(select, 'projectName', ''))}</h3>
               </Grid>
               <Grid item>
-                <h3>{_.size(modelList)} โครงการ</h3>
+                {/* <h3>{_.size(modelList)} โครงการ</h3> */} 
+                {/* จำนวนโครงการ */}
               </Grid>
             </Grid>
           )}
@@ -1191,7 +1188,9 @@ function Home(props) {
               item
               xs={4}
             >
-              {/* <ModeGrid container justify={'center'}>
+              {/* -----------------เปิดปฎิทิน---------------------- */}
+              <ModeGrid container justify={'center'}>
+                
                 <Calendar
                   style={{
                     width: 600,
@@ -1217,9 +1216,9 @@ function Home(props) {
                   }}
                   value={date}
                 />
-              </ModeGrid>
+              
               <br />
-              <ModeGrid container justify={'center'}>
+              <Grid container style={{ paddingTop: "2em" }} justify={'center'}>
                 <ActivityList
                   project={_.find(modelList, (item) => item.value === selectedmodel)}
                   repairList={_.slice(
@@ -1228,7 +1227,10 @@ function Home(props) {
                     3
                   )}
                 />
-              </ModeGrid> */}
+                </Grid>
+              </ModeGrid>
+              {/* เอาModeGrid รวมกัน */}
+              {/* -----------------ปิดปฎิทิน---------------------- */}
             </Grid>
           </>
         ) : (
@@ -1395,8 +1397,8 @@ function Home(props) {
         ''
       ) : (
         <>
-          <Grid container>
-            <Grid item xs={7}>
+          <Grid container style={{ paddingLeft: "13em" }}>
+            <Grid item xs={7} style={{ paddingTop: "1em" }}>
               <Grid container justify={'space-between'}>
                 <Grid item>
                   <h3>รายการแจ้งซ่อม</h3>

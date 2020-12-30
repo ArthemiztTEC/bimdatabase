@@ -92,9 +92,9 @@ function Layout(props) {
           width: '90%',
         }}
       >
-        <NavbarBrand href="/">
+        {/* <NavbarBrand href="/">
           <img height={'50px'} src={'/logo.png'} />
-        </NavbarBrand>
+        </NavbarBrand> */}
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="justify-content-end" style={{ width: '100%' }} navbar>
