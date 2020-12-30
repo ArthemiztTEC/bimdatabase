@@ -31,6 +31,7 @@ const MenuGrid = styled(Grid)`
 `
 const MenuStyle = styled(Menu)`
   background: transparent; 
+  color: white;
 `
 
 // import { FaBeer } from "@react-icons/all-files/fa/FaBeer";
@@ -40,7 +41,7 @@ const MenuStyle = styled(Menu)`
 function Navbar(props) {
   console.log(props)
   const handleClick = (e) => {
-    console.log('click ', e)
+    // console.log('click ', e)
     if (props.tabs) {
       props.setMode(e.key)
     } else {
@@ -50,26 +51,41 @@ function Navbar(props) {
       }
     }
   }
+
+  const handleClickRe = (e) =>{
+  return (
+     <Menu.Item key='repair'>repair</Menu.Item>
+  )
+
+    // else {
+    //   if (e.key !== 'issue') {
+    //     props.history.push(`/${e.key}`)
+    //     props.setMode('3d')
+    //   }
+    // }
+ }
+
+
   let Tabs = [
     {
       title: 'หน้าแรก',
       id: 'dashboard',
-      icon: 'Home',
+      icon: 'Home_select',
     },
     {
       title: 'แจ้งซ่อม',
       id: 'repair',
-      icon: 'Inform',
+      icon: 'Inform_select',
     },
     {
       title: 'จัดการ Account',
       id: 'account',
-      icon: 'manage',
+      icon: 'manage_select',
     },
     {
       title: 'ทดสอบเพิ่มเมนู',
       id: 'report',
-      icon: 'manage',
+      icon: 'manage_select',
     },
   ]
   if (!props.tabs) {
@@ -104,23 +120,30 @@ function Navbar(props) {
       <SideNav
         onSelect={selected => {
           // Add your code here
+         
+          // const to = '/' + selected;
+          //           if (location.pathname !== to) {
+          //               history.push(to);
+          //           }
+
          }}
       >
+        
+        <SideNav.Nav>
+                <> <img height={50} style={{ padding: "10px" }} src={`/logoMenu.png`}/> </>
 
-      <SideNav.Toggle />
-        <SideNav.Nav defaultSelected="home">
-          <NavItem eventKey="home">
+          {/* <NavItem eventKey="home" onClick={handleClick} selectedKeys={props.sceneKey} >
             <NavIcon>
               <img
                   height={20}
                   src={`/asset/Home_select.png`}
                 />
-              {/* <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} /> */}
             </NavIcon>
             <NavText>หน้าแรก</NavText>
           </NavItem>
 
-          <NavItem eventKey="repair">
+          <NavItem onClick={handleClickRe} key='repair' selectedKeys={props.sceneKey}>
+          
             <NavIcon>
               <img
                 // height={18}
@@ -142,9 +165,9 @@ function Navbar(props) {
             
           <NavItem eventKey="charts">
             <NavIcon>
-              <i
-                className="fa fa-fw fa-line-chart"
-                style={{ fontSize: "1.75em" }}
+              <img
+                // height={18}
+                src={`/asset/List_select.png`}
               />
             </NavIcon>
             <NavText>เมนูย่อย ทดสอบ</NavText>
@@ -155,7 +178,26 @@ function Navbar(props) {
                 <NavText>Bar Chart</NavText>
               </NavItem>
 
-            </NavItem>
+            </NavItem> */}
+
+          <NavItem>
+            <MenuStyle onClick={handleClick} selectedKeys={props.sceneKey} mode="inline">
+                {props.tabs ? props.tabs.map((item, index) => {
+                      return <Menu.Item key={item.id}>{item.title}</Menu.Item>
+                    })
+                  : Tabs.map((item, index) => (
+                    <Menu.Item key={item.id}>
+                    <img
+                      height={20}
+                      src={`/asset/${item.icon}${props.sceneKey === item.id ? '' : ''}.png`}
+                    />{'  '}
+                    {item.title} 
+                  
+                  </Menu.Item>
+                    ))}
+              </MenuStyle>
+          </NavItem>
+
         </SideNav.Nav>
       </SideNav>
 
@@ -163,8 +205,7 @@ function Navbar(props) {
 
       <Grid item xs={2} style={{backgroundColor: "lightblue"}}>
       <MenuStyle onClick={handleClick} selectedKeys={props.sceneKey} mode="inline">
-        {props.tabs
-          ? props.tabs.map((item, index) => {
+        {props.tabs ? props.tabs.map((item, index) => {
               return <Menu.Item key={item.id}>{item.title}</Menu.Item>
             })
           : Tabs.map((item, index) => (
