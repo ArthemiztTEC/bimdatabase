@@ -727,21 +727,11 @@ function Home(props) {
           </SideNav> */}
         {/* ปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
 
-        {/* เปิดlayoutของหน้าจอ เปรียบเป็นpageหลัก*/}
-        <Grid item xs={12} style={{ paddingLeft: "12em" }}>
-          {/* <Navbar
-            {...props}
-            setMode={(mode) => {
-              setMode(mode)
-            }}
-          /> */}
+        {/* เปิด Header*/}
 
-          {/* เปิดlogo link And Menu rightbar */}
-          <Layout id={selectedmodel} />
-          {/* ปิดlogo link And Menu rightbar */}
-        
-            {/* เปิดส่วนของ SELECT BOX เลือก Model 3D*/}
-              {props.sceneKey !== 'issue' ? (
+        <Grid item xs={8} style={{ paddingLeft: "14em" , paddingTop: "1em"}}>
+          {/* เปิดส่วนของ SELECT BOX เลือก Model 3D*/}
+          {props.sceneKey !== 'issue' ? (
                 <Grid container spacing={1} >
                   <Grid item xs={5}>
                     <InputGrid>
@@ -798,8 +788,26 @@ function Home(props) {
                 ''
               )}
             {/* ปิดส่วนของ SELECT BOX เลือก Model 3D*/}
+        </Grid>
 
-            <br />
+        <Grid item xs={4} style={{paddingTop: "1em"}}>
+          {/* เปิดlogo link And Menu rightbar */}
+          <Layout id={selectedmodel} />
+          {/* ปิดlogo link And Menu rightbar */}
+        </Grid>
+
+        {/* ปิด Header*/}
+
+        {/* เปิดlayoutของหน้าจอ เปรียบเป็นpageหลัก*/}
+        <Grid item xs={12} style={{ paddingLeft: "12em" }}>
+          {/* <Navbar
+            {...props}
+            setMode={(mode) => {
+              setMode(mode)
+            }}
+          /> */}
+            
+          <br/>
 
             {/* เปิดเมนูย่อย ตัวแปรTabs จัดเรียงค่าเมนูใหม่*/}
               {props.sceneKey === 'repair' ? (

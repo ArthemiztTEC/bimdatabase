@@ -185,7 +185,7 @@ const Account = (props) => {
       <Breadcrumbs aria-label="breadcrumb">
         <Text size={18}>จัดการ Account</Text>
       </Breadcrumbs>
-      <Contents>
+      <Contents style={{ paddingLeft: "12em" }}>
         <Grid container justify={'space-between'}>
           <Grid item xs={2}>
             <InputGroup>
@@ -262,9 +262,11 @@ const Account = (props) => {
         </Grid>
       </Contents>
       {selected === 'all' ? (
-        <Table
+        <Table 
           style={{
             width: '100%',
+            paddingLeft: "12em",
+            paddingRight: "1.5em",
           }}
           columns={columns}
           dataSource={_.map(users, (item, index) => ({ ...item, id: index }))}
