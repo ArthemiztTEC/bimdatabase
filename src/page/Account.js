@@ -25,6 +25,7 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { Table } from 'antd'
 import { BitlyClient } from 'bitly'
+import Navbar from '../components/Navbar'
 const InputGroupIcon = styled(InputGroupText)`
   background: none;
   border-left: 0px;
@@ -175,12 +176,12 @@ const Account = (props) => {
   return (
     <div
       style={{
-        padding: 10,
-        margin: 10,
+        padding: 0,
+        margin: 0,
       }}
     >
       <Layout />
-      <MenuBar {...props} />
+      <Navbar {...props} />
       <Breadcrumbs aria-label="breadcrumb">
         <Text size={18}>จัดการ Account</Text>
       </Breadcrumbs>
