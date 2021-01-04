@@ -886,7 +886,7 @@ function Home(props) {
                 <>
                   {' '}
                   <ViewerGrid item xs={12}>
-                    {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
+                    {/* {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''} */}
                     <Forge id={'MyViewerDiv'} />
                   </ViewerGrid>
                   <ViewerGrid
@@ -896,18 +896,18 @@ function Home(props) {
                     item
                     xs={4}
                   >
-                    {isError['model2'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
+                    {/* {isError['model2'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''} */}
                     <Forge id={'my2dView'} />
                   </ViewerGrid>
                 </>
               ) : mode === '3d' || mode === 'property' ? (
                 <ViewerGrid item xs={12}>
-                  {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
+                  {/* {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''} */}
                   <Forge id={'MyViewerDiv'} />
                 </ViewerGrid>
               ) : mode === '2d' ? (
                 <ViewerGrid item xs={12}>
-                  {isError['model2'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
+                  {/* {isError['model2'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''} */}
                   <Forge id={'my2dView'} />
                 </ViewerGrid>
               ) : mode === 'scurve' ? (
@@ -942,7 +942,8 @@ function Home(props) {
             </Grid>
           </ModeGrid>
 
-          {/* ส่วนของการเรียก Tabs เมนูย่อยต่างๆ ขึ้นมาแสดง*/}
+          {/* ---------------------------------------------------------------------------------------------------- ส่วนของการเรียก Tabs เมนูย่อยต่างๆ ขึ้นมาแสดง*/}
+          {/* ---------------------------------------------------------------------------------------------------- ส่วนของหน้า แจ้งซ่อม */}
           {props.sceneKey === 'repair' ? (
             <ModeGrid item xs={4}>
               <Grid item>
@@ -1099,6 +1100,9 @@ function Home(props) {
                 </Grid>
               </Grid>{' '}
             </ModeGrid>
+
+
+          // ---------------------------------------------------------------------------------------------------- ส่วนของ ???????
           ) : props.sceneKey === 'issue' ? (
             <ModeGrid marginleft={10} item xs={4}>
               <Grid container spacing={1}>
@@ -1132,6 +1136,10 @@ function Home(props) {
                 ''
               )}
             </ModeGrid>
+
+
+            // ---------------------------------------------------------------------------------------------------- ส่วนของ ปฎิทิน 
+            // -------------------------------------------------------------------------- ฟังก์ชั่นนี้ในหน้า scurve กับ property ไม่แสดง
           ) : mode !== 'scurve' && mode !== 'property' ? (
             <>
               <Grid
@@ -1143,7 +1151,7 @@ function Home(props) {
                 item
                 xs={4}
               >
-                {/* -----------------เปิดปฎิทิน---------------------- */}
+                {/* ----------------------------------------------------------------------------------------------------------เปิดปฎิทิน*/}
                 <ModeGrid container justify={'center'}>
                   
                   <Calendar
@@ -1185,9 +1193,12 @@ function Home(props) {
                   </Grid>
                 </ModeGrid>
                 {/* เอาModeGrid รวมกัน */}
-                {/* -----------------ปิดปฎิทิน---------------------- */}
+                {/* ----------------------------------------------------------------------------------------------------------ปิดปฎิทิน */}
               </Grid>
             </>
+            
+
+            // --------------------------------------------------------------------------------------------------- ส่วนของ ???????
           ) : (
             <Grid
               style={{
@@ -1346,9 +1357,206 @@ function Home(props) {
                 ''
               )}
             </Grid>
+          
+          
           )}
+
+
         </Grid>
         {/* ปิดหน้าแรกของ Dashboard Model Bim */}
+
+        {/* เปิดฟังก์ชั่นแสดงรายการแจ้งซ่อมในหน้า Dashboard ไม่แสดงในหน้า chat กับหน้า property*/}
+        {mode === 'chat' || mode === 'property' ? (
+          ''
+        ) : (
+          <>
+            <Grid container style={{ paddingLeft: "13em" }}>
+              <Grid item xs={7} style={{ paddingTop: "1em" }}>
+                <Grid container justify={'space-between'}>
+                  <Grid item>
+                    <h3>รายการแจ้งซ่อม</h3>
+                  </Grid>
+                  <Grid item>
+                    <h3>{_.size(allList)} ทั้งหมด</h3>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            {props.sceneKey === 'issue' ? (
+              <ModeGrid xs={7}>
+                <Grid item>
+                  <Grid container align={'center'}>
+                    <ForgetTitle>แจ้งซ่อมตัวอาคาร</ForgetTitle>
+                    {_.get(seletedIssue, 'repairData', false) ? (
+                      <Grid container justify={'space-between'}>
+                        <Text size={16}>
+                          รายละเอียดการแจ้งซ่อม {_.get(seletedIssue, 'repairData.description', false)}
+                        </Text>
+                        <div
+                          item
+                          style={{
+                            height: '50%',
+                            width: '50%',
+                          }}
+                        >
+                          {_.get(seletedIssue, 'repairData.images', false) ? (
+                            <Carousel>
+                              {_.map(seletedIssue.repairData.images, (image) => {
+                                return (
+                                  <div align={'center'}>
+                                    <a href={image}>
+                                      <img height={300} src={image} />
+                                    </a>
+                                  </div>
+                                )
+                              })}
+                            </Carousel>
+                          ) : (
+                            ''
+                          )}
+                        </div>
+                      </Grid>
+                    ) : (
+                      ''
+                    )}
+                    <>
+                      <Grid
+                        container
+                        justify={'center'}
+                        style={{
+                          marginTop: 20,
+                        }}
+                      >
+                        <InputGrid>
+                          <Input
+                            placeholder="รายละเอียด"
+                            value={repairForm.description}
+                            type="textarea"
+                            onChange={(e) => {
+                              setRepairForm({
+                                ...repairForm,
+                                description: e.target.value,
+                              })
+                            }}
+                          />
+                        </InputGrid>
+                      </Grid>
+                      <Grid
+                        container
+                        justify={'center'}
+                        style={{
+                          marginTop: 20,
+                        }}
+                      >
+                        <input
+                          type="file"
+                          multiple
+                          onChange={(e) => {
+                            setRepairForm({ ...repairForm, files: [...e.target.files] })
+                          }}
+                        />
+                      </Grid>
+                      <Grid
+                        container
+                        justify={'center'}
+                        style={{
+                          marginTop: 30,
+                        }}
+                      >
+                        <Grid xs={3}>
+                          <FullWidthButton
+                            color="warning"
+                            type={'submit'}
+                            onClick={() => {
+                              showloading()
+                              const issueRef = firebase
+                                .database()
+                                .ref(
+                                  `/model/${seletedIssue.selectedmodel}/${seletedIssue.modelNumber}/${seletedIssue.date}/${seletedIssue.keyid}/repairData`
+                                )
+                              issueRef
+                                .set({
+                                  ...repairForm,
+                                  updateBy: user,
+                                  updated_at: moment().format('YYYY-MM-DD'),
+                                })
+                                .then((snap) => {
+                                  firebase
+                                    .database()
+                                    .ref(
+                                      `/model/${seletedIssue.selectedmodel}/${seletedIssue.modelNumber}/${seletedIssue.date}/${seletedIssue.keyid}/status`
+                                    )
+                                    .set('updated')
+                                })
+                              let imageCount = 0
+                              _.forEach(repairForm.files, (item) => {
+                                const uploadTask = firebase
+                                  .storage()
+                                  .ref(`/images/${seletedIssue.keyid}/${item.name}`)
+                                  .put(item)
+                                uploadTask.on(
+                                  'state_changed',
+                                  (snapshot) => {
+                                    // progress function ...
+                                    const progress = Math.round(
+                                      (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                                    )
+                                    //console.log('Progress', progress)
+                                  },
+                                  (error) => {
+                                    // Error function ...
+                                    //console.log(error)
+                                  },
+                                  () => {
+                                    imageCount++
+                                    // complete function ...
+                                    firebase
+                                      .storage()
+                                      .ref(`/images/${seletedIssue.keyid}`)
+                                      .child(item.name)
+                                      .getDownloadURL()
+                                      .then((url) => {
+                                        firebase
+                                          .database()
+                                          .ref(
+                                            `/model/${seletedIssue.selectedmodel}/${seletedIssue.modelNumber}/${seletedIssue.date}/${seletedIssue.keyid}/repairData/images`
+                                          )
+                                          .push(url)
+                                          .then(() => {
+                                            if (imageCount === _.size(repairForm.files)) {
+                                              hideloading()
+                                            }
+                                          })
+                                      })
+                                  }
+                                )
+                              })
+                            }}
+                          >
+                            ตกลง
+                          </FullWidthButton>
+                        </Grid>
+                      </Grid>
+                    </>
+                  </Grid>
+                </Grid>{' '}
+              </ModeGrid>
+            ) : (
+              ''
+            )}
+            <ModeGrid xs={12}>
+              <RepairTable
+                setList={setAllList}
+                select={select}
+                repairList={allList}
+                setIssue={(issue) => {
+                  props.history.push(`/issue/${issue.keyid}/${issue.selectedmodel}/`)
+                }}
+              />
+            </ModeGrid>
+          </>
+        )}
+        {/* ปิดฟังก์ชั่นแสดงรายการแจ้งซ่อมในหน้า Dashboard */}
 
       </Grid>
       {/* ปิดcontainer คลุมกรอบใหญ่ของหน้าจอ */}
@@ -1358,200 +1566,9 @@ function Home(props) {
         setMode={(mode) => {
           setMode(mode)
         }}
-      /> */}
-      {/* เมนูหลัก เปลี่ยนหน้า */}
+      />
+      เมนูหลัก เปลี่ยนหน้า */}
       
-      {/*  */}
-      {mode === 'chat' || mode === 'property' ? (
-        ''
-      ) : (
-        <>
-          <Grid container style={{ paddingLeft: "13em" }}>
-            <Grid item xs={7} style={{ paddingTop: "1em" }}>
-              <Grid container justify={'space-between'}>
-                <Grid item>
-                  <h3>รายการแจ้งซ่อม</h3>
-                </Grid>
-                <Grid item>
-                  <h3>{_.size(allList)} ทั้งหมด</h3>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          {props.sceneKey === 'issue' ? (
-            <ModeGrid xs={7}>
-              <Grid item>
-                <Grid container align={'center'}>
-                  <ForgetTitle>แจ้งซ่อมตัวอาคาร</ForgetTitle>
-                  {_.get(seletedIssue, 'repairData', false) ? (
-                    <Grid container justify={'space-between'}>
-                      <Text size={16}>
-                        รายละเอียดการแจ้งซ่อม {_.get(seletedIssue, 'repairData.description', false)}
-                      </Text>
-                      <div
-                        item
-                        style={{
-                          height: '50%',
-                          width: '50%',
-                        }}
-                      >
-                        {_.get(seletedIssue, 'repairData.images', false) ? (
-                          <Carousel>
-                            {_.map(seletedIssue.repairData.images, (image) => {
-                              return (
-                                <div align={'center'}>
-                                  <a href={image}>
-                                    <img height={300} src={image} />
-                                  </a>
-                                </div>
-                              )
-                            })}
-                          </Carousel>
-                        ) : (
-                          ''
-                        )}
-                      </div>
-                    </Grid>
-                  ) : (
-                    ''
-                  )}
-                  <>
-                    <Grid
-                      container
-                      justify={'center'}
-                      style={{
-                        marginTop: 20,
-                      }}
-                    >
-                      <InputGrid>
-                        <Input
-                          placeholder="รายละเอียด"
-                          value={repairForm.description}
-                          type="textarea"
-                          onChange={(e) => {
-                            setRepairForm({
-                              ...repairForm,
-                              description: e.target.value,
-                            })
-                          }}
-                        />
-                      </InputGrid>
-                    </Grid>
-                    <Grid
-                      container
-                      justify={'center'}
-                      style={{
-                        marginTop: 20,
-                      }}
-                    >
-                      <input
-                        type="file"
-                        multiple
-                        onChange={(e) => {
-                          setRepairForm({ ...repairForm, files: [...e.target.files] })
-                        }}
-                      />
-                    </Grid>
-                    <Grid
-                      container
-                      justify={'center'}
-                      style={{
-                        marginTop: 30,
-                      }}
-                    >
-                      <Grid xs={3}>
-                        <FullWidthButton
-                          color="warning"
-                          type={'submit'}
-                          onClick={() => {
-                            showloading()
-                            const issueRef = firebase
-                              .database()
-                              .ref(
-                                `/model/${seletedIssue.selectedmodel}/${seletedIssue.modelNumber}/${seletedIssue.date}/${seletedIssue.keyid}/repairData`
-                              )
-                            issueRef
-                              .set({
-                                ...repairForm,
-                                updateBy: user,
-                                updated_at: moment().format('YYYY-MM-DD'),
-                              })
-                              .then((snap) => {
-                                firebase
-                                  .database()
-                                  .ref(
-                                    `/model/${seletedIssue.selectedmodel}/${seletedIssue.modelNumber}/${seletedIssue.date}/${seletedIssue.keyid}/status`
-                                  )
-                                  .set('updated')
-                              })
-                            let imageCount = 0
-                            _.forEach(repairForm.files, (item) => {
-                              const uploadTask = firebase
-                                .storage()
-                                .ref(`/images/${seletedIssue.keyid}/${item.name}`)
-                                .put(item)
-                              uploadTask.on(
-                                'state_changed',
-                                (snapshot) => {
-                                  // progress function ...
-                                  const progress = Math.round(
-                                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                                  )
-                                  //console.log('Progress', progress)
-                                },
-                                (error) => {
-                                  // Error function ...
-                                  //console.log(error)
-                                },
-                                () => {
-                                  imageCount++
-                                  // complete function ...
-                                  firebase
-                                    .storage()
-                                    .ref(`/images/${seletedIssue.keyid}`)
-                                    .child(item.name)
-                                    .getDownloadURL()
-                                    .then((url) => {
-                                      firebase
-                                        .database()
-                                        .ref(
-                                          `/model/${seletedIssue.selectedmodel}/${seletedIssue.modelNumber}/${seletedIssue.date}/${seletedIssue.keyid}/repairData/images`
-                                        )
-                                        .push(url)
-                                        .then(() => {
-                                          if (imageCount === _.size(repairForm.files)) {
-                                            hideloading()
-                                          }
-                                        })
-                                    })
-                                }
-                              )
-                            })
-                          }}
-                        >
-                          ตกลง
-                        </FullWidthButton>
-                      </Grid>
-                    </Grid>
-                  </>
-                </Grid>
-              </Grid>{' '}
-            </ModeGrid>
-          ) : (
-            ''
-          )}
-          <ModeGrid xs={12}>
-            <RepairTable
-              setList={setAllList}
-              select={select}
-              repairList={allList}
-              setIssue={(issue) => {
-                props.history.push(`/issue/${issue.keyid}/${issue.selectedmodel}/`)
-              }}
-            />
-          </ModeGrid>
-        </>
-      )}
     </div>
   )
 }
