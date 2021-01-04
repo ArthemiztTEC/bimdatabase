@@ -105,10 +105,10 @@ function Home(props) {
           .database()
           .ref(`/user/${userResult.uid}`)
           .once('value', (data) => {
-            console.log('Current User', user)
+            //console.log('Current User', user)
 
             if (_.isEmpty(user)) {
-              console.log('Result User', userResult)
+              //console.log('Result User', userResult)
 
               setUser({ ...data.val(), uid: userResult.uid })
             }
@@ -128,12 +128,12 @@ function Home(props) {
   const [editForm, setOpenEditForm] = useState({ isOpen: false, data: {} })
   const [isInsert, toggleInsert] = useState(false)
   const [allList, setAllList] = useState([])
-  console.log('editForm', editForm)
+  //console.log('editForm', editForm)
   const [seletedIssue, setIssue] = useState({})
   useEffect(() => {
-    console.log('Let find issue')
+    //console.log('Let find issue')
     if (props.sceneKey === 'issue') {
-      console.log('param', props.match.params)
+      //console.log('param', props.match.params)
       setIssue(_.find(allList, (item) => item.keyid === props.match.params.id))
       const issue = _.find(allList, (item) => item.keyid === props.match.params.id)
       if (PushPinExtensionHandle && issue) {
@@ -187,7 +187,7 @@ function Home(props) {
           }
 
           if (_.size(selectedmodel) < 4) {
-            console.log('Selected default model')
+            //console.log('Selected default model')
             setModel(output[0].value)
           }
         }
@@ -260,15 +260,15 @@ function Home(props) {
                   setRepairForm({ title: '', description: '' })
                   let imagesUrl = []
                   if (_.size(_.get(e.value, 'itemData.files', [])) === 0) {
-                    console.log(`Notify to ${_.size(datamodel.users)} of user `)
+                    //console.log(`Notify to ${_.size(datamodel.users)} of user `)
 
                     _.forEach(datamodel.users, (user) => {
-                      console.log('Notify', user)
+                      //console.log('Notify', user)
                       const notifyUser = firebase
                         .database()
                         .ref(`/user/${user.uid}`)
                         .once('value', (data) => {
-                          console.log('notifyUser', data.val())
+                          //console.log('notifyUser', data.val())
                           const lineUser = data.val()
                           if (_.get(lineUser, 'lineToken', false)) {
                             axios.post(
@@ -301,7 +301,7 @@ function Home(props) {
                       },
                       (error) => {
                         // Error function ...
-                        console.log(error)
+                        //console.log(error)
                       },
                       () => {
                         // complete function ...
@@ -319,7 +319,7 @@ function Home(props) {
                                   .database()
                                   .ref(`/user/${user.uid}`)
                                   .once('value', (data) => {
-                                    console.log('notifyUser', data.val())
+                                    //console.log('notifyUser', data.val())
                                     const lineUser = data.val()
                                     if (_.get(lineUser, 'lineToken', false)) {
                                       axios.post(
@@ -354,9 +354,9 @@ function Home(props) {
             .database()
             .ref(`/model/${selectedmodel}/${id}/`)
             .on('value', (snap) => {
-              console.log('selectedmodel has updated', selectedmodel)
-              console.log('id has updated', id)
-              console.log('Data has updated', snap.val())
+              //console.log('selectedmodel has updated', selectedmodel)
+              //console.log('id has updated', id)
+              //console.log('Data has updated', snap.val())
               _.forEach(snap.val(), (item, date) => {
                 _.forEach(item, (repairItem, index) => {
                   _.set(result, `${date}.${index}`, {
@@ -367,7 +367,7 @@ function Home(props) {
                   })
                 })
               })
-              console.log('Set Repair List', result)
+              //console.log('Set Repair List', result)
               setRepairList(result)
               let output = []
               _.forEach(result, (item) => {
@@ -378,28 +378,28 @@ function Home(props) {
                   })
                 })
               })
-              console.log('Set Repair List', output)
+              //console.log('Set Repair List', output)
 
               setAllList(output)
 
-              console.log('props.sceneKey', props.sceneKey)
+              //console.log('props.sceneKey', props.sceneKey)
               if (props.sceneKey === 'issue') {
               } else {
                 extension.pushPinManager.removeAllItems()
 
                 _.forEach(snap.val(), (item, date) => {
                   _.forEach(item, (item, index) => {
-                    console.log('Generate Issue', {
-                      ...item,
-                      id: index,
-                      label: item.label,
-                      status: item.status,
-                      position: item.position,
-                      type: item.type,
-                      objectId: item.objectId,
-                      viewerState: item.viewerState,
-                      custom: { date, index },
-                    })
+                    // console.log('Generate Issue', {
+                    //   ...item,
+                    //   id: index,
+                    //   label: item.label,
+                    //   status: item.status,
+                    //   position: item.position,
+                    //   type: item.type,
+                    //   objectId: item.objectId,
+                    //   viewerState: item.viewerState,
+                    //   custom: { date, index },
+                    // })
                     try {
                       viewer.viewerState.restoreState(item.viewerState, true)
                       extension.pushPinManager.createItem({
@@ -414,7 +414,7 @@ function Home(props) {
                         custom: { date, index },
                       })
                     } catch (e) {
-                      console.log('Cant Create issue', e)
+                      //console.log('Cant Create issue', e)
                     }
                   })
                 })
@@ -427,7 +427,7 @@ function Home(props) {
       document.getElementById('toolbar-modelStructureTool').click()
       document.getElementById('toolbar-propertiesTool').click()
     } catch (e) {
-      console.log(e)
+      //console.log(e)
     }
   }
 
@@ -537,7 +537,7 @@ function Home(props) {
     env: 'AutodeskProduction',
     accessToken: '',
   }
-  console.log('selectedmodel', selectedmodel)
+  //console.log('selectedmodel', selectedmodel)
   let documentId = `urn:${selectedmodel}`
 
   useEffect(() => {
@@ -596,7 +596,7 @@ function Home(props) {
     const modelItem = _.find(modelList, (item) => item.value === selectedmodel)
   }, [token, selectedmodel, option, props.sceneKey, mode])
   const [imageAsFile, setImageAsFile] = useState([])
-  console.log('imageAsFile', imageAsFile)
+  //console.log('imageAsFile', imageAsFile)
   useEffect(() => {
     const result = axios.post(
       'https://developer.api.autodesk.com/authentication/v1/authenticate',
@@ -649,10 +649,10 @@ function Home(props) {
       title: 'ข้อมูลโมเดล',
       id: 'property',
     },
-    {
-      title: 'ทดสอบ1',
-      id: 'test1',
-    },
+    // {
+    //   title: 'ทดสอบ1',
+    //   id: 'test1',
+    // },
   ]
 {/* ปิดส่วนของการ สร้างตัวแปรTabs เมนูย่อยต่างๆในหน้าแรก */}
   const select = _.find(modelList, (item) => item.value === selectedmodel)
@@ -661,7 +661,7 @@ function Home(props) {
   `
   const classes = useStyles()
   const modelItem = _.find(modelList, (item) => item.value === selectedmodel)
-  console.log('modelItem', modelItem)
+  //console.log('modelItem', modelItem)
   return (
     
     <div 
@@ -675,127 +675,82 @@ function Home(props) {
       {/* container คลุมกรอบใหญ่ของหน้าจอ */}
       <Grid container>
 
-          {/* เปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
-          <Navbar
-            {...props}
-            setMode={(mode) => {
-              setMode(mode)
-            }}
-          />
-          {/* <SideNav
-            onSelect={selected => {
-              // Add your code here
-            }}
-          >
-            <SideNav.Toggle />
-            <SideNav.Nav defaultSelected="home">
-              <NavItem eventKey="home">
-                <NavIcon>
-                  <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
-                </NavIcon>
-                <NavText>หน้าแรก</NavText>
-              </NavItem>
-              <NavItem eventKey="repair">
-                <NavIcon>
-                  <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
-                </NavIcon>
-                <NavText>แจ้งซ่อม</NavText>
-              </NavItem>
-              <NavItem eventKey="issue">
-                <NavIcon>
-                  <i className="fa fa-fw fa-home" style={{ fontSize: "1.75em" }} />
-                </NavIcon>
-                <NavText>จัดการ Account</NavText>
-              </NavItem>
-            
-              <NavItem eventKey="charts">
-                <NavIcon>
-                  <i
-                    className="fa fa-fw fa-line-chart"
-                    style={{ fontSize: "1.75em" }}
-                  />
-                </NavIcon>
-                <NavText>เมนูย่อย ทดสอบ</NavText>
-                <NavItem eventKey="charts/linechart">
-                  <NavText>Line Chart</NavText>
-                </NavItem>
-                <NavItem eventKey="charts/barchart">
-                  <NavText>Bar Chart</NavText>
-                </NavItem>
-              </NavItem>
-            </SideNav.Nav>
-          </SideNav> */}
+        {/* เปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
+        <Navbar
+          {...props}
+          setMode={(mode) => {
+            setMode(mode)
+          }}
+        />
         {/* ปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
 
         {/* เปิด Header*/}
-
         <Grid item xs={8} style={{ paddingLeft: "14em" , paddingTop: "1em"}}>
           {/* เปิดส่วนของ SELECT BOX เลือก Model 3D*/}
           {props.sceneKey !== 'issue' ? (
-                <Grid container spacing={1} >
-                  <Grid item xs={5}>
-                    <InputGrid>
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupIconNoRound>
-                          <DomainIcon />
-                        </InputGroupIconNoRound>
-                      </InputGroupAddon>
-                      <InputField
-                        type="select"
-                        onChange={(e) => {
-                          console.log('Model', modelList)
-                          console.log(modelList[e.target.value])
-                          try {
-                            viewer.finish()
-                            viewer2d.finish()
-                          } catch (e) {}
-
-                          setModel(modelList[e.target.value].value)
-                        }}
-                      >
-                        {modelList.map((item, index) => (
-                          <option key={`model1${index}`} value={index}>
-                            {item.name || item.projectName}
-                          </option>
-                        ))}
-                      </InputField>
-                    </InputGrid>
-                  </Grid>
-                  <Grid>
-                    {' '}
-                    <Grid
-                      onClick={() => {
-                        if (modelItem) {
-                          const { file } = modelItem
-                          axios
-                            .get(file.location, {
-                              headers: {
-                                Authorization: `Bearer ${token.access_token}`,
-                              },
-                            })
-                            .then((res) => {
-                              showloading()
-                              FileDownload(res.data, 'model.ifc')
-                            })
-                        }
-                      }}
-                    >
-                      {/* Download  Grid ก่อน(ButtonToggle)*/}
-                    </Grid>
-                  </Grid>
+            <Grid container spacing={1}>
+              <Grid item xs={5}>
+                <InputGrid>
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupIconNoRound>
+                      <DomainIcon />
+                    </InputGroupIconNoRound>
+                  </InputGroupAddon>
+                  <InputField
+                    type="select"
+                    onChange={(e) => {
+                    //console.log('Model', modelList)
+                    //console.log(modelList[e.target.value])
+                    try {
+                      viewer.finish()
+                      viewer2d.finish()
+                    } catch (e) {}
+                      setModel(modelList[e.target.value].value)
+                    }}
+                  >
+                      {modelList.map((item, index) => (
+                        <option key={`model1${index}`} value={index}>
+                          {item.name || item.projectName}
+                        </option>
+                      ))}
+                  </InputField>
+                </InputGrid>
+              </Grid>
+              <Grid>{' '}
+                <Grid
+                  onClick={() => {
+                    if (modelItem) {
+                      const { file } = modelItem
+                      axios
+                      .get(file.location, {
+                      headers: {
+                        Authorization: `Bearer ${token.access_token}`,
+                      },
+                      })
+                      .then((res) => {
+                        showloading()
+                        FileDownload(res.data, 'model.ifc')
+                      })
+                    }
+                  }}
+                >
+                {/* Download  Grid ก่อน(ButtonToggle) ปกติจะมีปุ่มชื่อ Download*/}
                 </Grid>
-              ) : (
-                ''
-              )}
-            {/* ปิดส่วนของ SELECT BOX เลือก Model 3D*/}
+              </Grid>
+            </Grid>
+          ) : (
+            ''  )
+          }
+          {/* ปิดส่วนของ SELECT BOX เลือก Model 3D*/}
         </Grid>
 
         <Grid item xs={4} style={{paddingTop: "1em"}}>
+
           {/* เปิดlogo link And Menu rightbar */}
           <Layout id={selectedmodel} />
           {/* ปิดlogo link And Menu rightbar */}
-        </Grid>
 
+        </Grid>
         {/* ปิด Header*/}
 
         {/* เปิดlayoutของหน้าจอ เปรียบเป็นpageหลัก*/}
@@ -806,7 +761,7 @@ function Home(props) {
               setMode(mode)
             }}
           /> */}
-            
+
           <br/>
 
             {/* เปิดเมนูย่อย ตัวแปรTabs จัดเรียงค่าเมนูใหม่*/}
@@ -823,502 +778,176 @@ function Home(props) {
               )} 
             {/* ปิดเมนูย่อย ตัวแปรTabs จัดเรียงค่าเมนูใหม่*/}
 
+          
+
         </Grid>
         {/* ปิดlayoutของหน้าจอ เปรียบเป็นpageหลัก */}
-      </Grid>
-      {/* ปิดcontainer คลุมกรอบใหญ่ของหน้าจอ */}
 
-
-          {/* <MenuBar
-            {...props}
-            setMode={(mode) => {
-              setMode(mode)
-            }}
-          /> */}
-          {/* เมนูหลัก เปลี่ยนหน้า */}
-      
-      
-      <Grid container style={{ paddingLeft: "12em" }}>
-      {/* ฟังก์ชั่นอาจใช้ได้ marginright={5} */}
-      {/* ทดสอบกำหนดหน้าจอเพิ่ม <ModeGrid xs={4}></ModeGrid> */}
-      {/*  mode === 'scurve' คือการส่ง id scurve ไปเช็คถ้าจริงให้ =12 ไม่จริง =7*/}
-        <ModeGrid item marginLeft={5} xs={mode === 'scurve' ? 12 : 7} >
-          {props.sceneKey === 'issue' ? (
-            <div>
-              <Grid container justify={'space-between'}>
-                <Grid item>
-                  <Text size={16}>
-                    การแจ้งซ่อมโครงการ {_.get(select, 'name', _.get(select, 'projectName', ''))}
-                  </Text>
+        {/* เปิดหน้าแรกของ Dashboard Model Bim */}
+        <Grid container style={{ paddingLeft: "12em" }}>
+          {/*  mode === 'scurve' คือการส่ง id scurve ไปเช็คถ้าจริงให้ =12 ไม่จริง =7*/}
+          <ModeGrid item marginLeft={5} xs={mode === 'scurve' ? 12 : 7} >
+            {props.sceneKey === 'issue' ? (
+              <div>
+                <Grid container justify={'space-between'}>
+                  <Grid item>
+                    <Text size={16}>
+                      การแจ้งซ่อมโครงการ {_.get(select, 'name', _.get(select, 'projectName', ''))}
+                    </Text>
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid container spacing={1}>
-                <Grid item>
-                  <Text size={16}>การแจ้งซ่อมตัวอาคาร</Text>
+                <Grid container spacing={1}>
+                  <Grid item>
+                    <Text size={16}>การแจ้งซ่อมตัวอาคาร</Text>
+                  </Grid>
+                  <Grid item>
+                    <Text size={16}>
+                      ผู้แจ้งซ่อม {_.get(seletedIssue, 'user.firstName', '')}{' '}
+                      {_.get(seletedIssue, 'user.lastname', '')}
+                    </Text>
+                  </Grid>
+                  <Grid item>
+                    <Text size={16}>สถานะ {_.get(seletedIssue, 'status', '')}</Text>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Text size={16}>
-                    ผู้แจ้งซ่อม {_.get(seletedIssue, 'user.firstName', '')}{' '}
-                    {_.get(seletedIssue, 'user.lastname', '')}
-                  </Text>
-                </Grid>
-                <Grid item>
-                  <Text size={16}>สถานะ {_.get(seletedIssue, 'status', '')}</Text>
-                </Grid>
-              </Grid>
-            </div>
-          ) : (
-            <Grid container justify={'space-between'}>
-              <Grid item>
-                <h3>โครงการ {_.get(select, 'name', _.get(select, 'projectName', ''))}</h3>
-              </Grid>
-              <Grid item>
-                {/* <h3>{_.size(modelList)} โครงการ</h3> */} 
-                {/* จำนวนโครงการ */}
-              </Grid>
-            </Grid>
-          )}
-          <Grid container spacing={2}>
-            {props.sceneKey === 'repair' ? (
-              <>
-                <Grid item xs={3}>
-                  <Input
-                    defaultValue={option.model1}
-                    type="select"
-                    name="select"
-                    onChange={(e) => {
-                      document.getElementById('MyViewerDiv').innerHTML = ''
-                      viewer.finish()
-                      viewer = null
-
-                      PushPinExtensionHandle = null
-                      viewer2d.finish()
-                      viewer2d = null
-                      Autodesk.Viewing.shutdown()
-                      setOption({ ...option, model1: e.target.value })
-                    }}
-                  >
-                    {plans.map((item, index) => (
-                      <option key={`model1${index}`} value={index}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </Input>
-                </Grid>
-                <Grid item xs={3}>
-                  <Input
-                    defaultValue={option.model2}
-                    type="select"
-                    name="select"
-                    onChange={(e) => {
-                      document.getElementById('my2dView').innerHTML = ''
-                      viewer.finish()
-                      viewer = null
-
-                      PushPinExtensionHandle = null
-                      viewer2d.finish()
-                      viewer2d = null
-                      Autodesk.Viewing.shutdown()
-                      setOption({ ...option, model2: e.target.value })
-                    }}
-                  >
-                    {plans.map((item, index) => (
-                      <option key={`model2${index}`} value={index}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </Input>
-                </Grid>
-              </>
+              </div>
             ) : (
-              ''
+              <Grid container justify={'space-between'}>
+                <Grid item paddingTop={10} >
+                  <h3>{' '}</h3>
+                  {/* <h3>โครงการ {_.get(select, 'name', _.get(select, 'projectName', ''))}</h3> */}
+                  {/* ชื่อโครงการ */}
+                </Grid>
+                <Grid item>
+                  {/* <h3>{_.size(modelList)} โครงการ</h3> */} 
+                  {/* จำนวนโครงการ */}
+                </Grid>
+              </Grid>
             )}
-          </Grid>
-          
-          <Grid container>
-            {props.sceneKey === 'repair' ? (
-              <>
-                {' '}
+            <Grid container spacing={2}>
+              {props.sceneKey === 'repair' ? (
+                <>
+                  <Grid item xs={3}>
+                    <Input
+                      defaultValue={option.model1}
+                      type="select"
+                      name="select"
+                      onChange={(e) => {
+                        document.getElementById('MyViewerDiv').innerHTML = ''
+                        viewer.finish()
+                        viewer = null
+
+                        PushPinExtensionHandle = null
+                        viewer2d.finish()
+                        viewer2d = null
+                        Autodesk.Viewing.shutdown()
+                        setOption({ ...option, model1: e.target.value })
+                      }}
+                    >
+                      {plans.map((item, index) => (
+                        <option key={`model1${index}`} value={index}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </Input>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Input
+                      defaultValue={option.model2}
+                      type="select"
+                      name="select"
+                      onChange={(e) => {
+                        document.getElementById('my2dView').innerHTML = ''
+                        viewer.finish()
+                        viewer = null
+
+                        PushPinExtensionHandle = null
+                        viewer2d.finish()
+                        viewer2d = null
+                        Autodesk.Viewing.shutdown()
+                        setOption({ ...option, model2: e.target.value })
+                      }}
+                    >
+                      {plans.map((item, index) => (
+                        <option key={`model2${index}`} value={index}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </Input>
+                  </Grid>
+                </>
+              ) : (
+                ''
+              )}
+            </Grid>
+            
+            <Grid container>
+              {props.sceneKey === 'repair' ? (
+                <>
+                  {' '}
+                  <ViewerGrid item xs={12}>
+                    {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
+                    <Forge id={'MyViewerDiv'} />
+                  </ViewerGrid>
+                  <ViewerGrid
+                    style={{
+                      display: 'none',
+                    }}
+                    item
+                    xs={4}
+                  >
+                    {isError['model2'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
+                    <Forge id={'my2dView'} />
+                  </ViewerGrid>
+                </>
+              ) : mode === '3d' || mode === 'property' ? (
                 <ViewerGrid item xs={12}>
                   {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
                   <Forge id={'MyViewerDiv'} />
                 </ViewerGrid>
-                <ViewerGrid
-                  style={{
-                    display: 'none',
-                  }}
-                  item
-                  xs={4}
-                >
+              ) : mode === '2d' ? (
+                <ViewerGrid item xs={12}>
                   {isError['model2'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
                   <Forge id={'my2dView'} />
                 </ViewerGrid>
-              </>
-            ) : mode === '3d' || mode === 'property' ? (
-              <ViewerGrid item xs={12}>
-                {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
-                <Forge id={'MyViewerDiv'} />
-              </ViewerGrid>
-            ) : mode === '2d' ? (
-              <ViewerGrid item xs={12}>
-                {isError['model2'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''}
-                <Forge id={'my2dView'} />
-              </ViewerGrid>
-            ) : mode === 'scurve' ? (
-              <ViewerGrid item xs={12}>
-                <h1
-                  style={{
-                    color: 'red',
-                  }}
-                >
-                  {modelItem?.scurve ? '' : 'กรุณาอัพโหลดที่จัดการ โครงการ'}
-                </h1>
-                <iframe
-                  height="500px"
-                  width="100%"
-                  src={
-                    `https://view.officeapps.live.com/op/embed.aspx?src=${_.get(
-                      modelItem,
-                      'scurve',
-                      false
-                    )}` || ''
-                  }
-                />
-              </ViewerGrid>
-            ) : mode === 'history' ? (
-              <AccessHistory id={selectedmodel} />
-            )
-            : mode === 'test1' ? (
-              <Test1 />
-            ) : (
-              <Chat id={selectedmodel} user={user} />
-            )}
-          </Grid>
-        </ModeGrid>
-
-        {/* ส่วนของการเรียก Tabs เมนูย่อยต่างๆ ขึ้นมาแสดง*/}
-        {props.sceneKey === 'repair' ? (
-          <ModeGrid item xs={4}>
-            <Grid item>
-              <Grid container align={'center'} justify={'center'}>
-                <ForgetTitle>มาร์คจุดแจ้งซ่อม​</ForgetTitle>
-                <Grid
-                  container
-                  justify={'center'}
-                  style={{
-                    marginTop: 20,
-                  }}
-                >
-                  <InputGrid>
-                    <NoIconInputField
-                      placeholder="ตำแหน่งแจ้งซ่อม"
-                      type="text"
-                      value={repairForm.title}
-                      onChange={(e) => {
-                        setRepairForm({
-                          ...repairForm,
-                          title: e.target.value,
-                        })
-                      }}
-                    />
-                  </InputGrid>
-                </Grid>
-                <Grid container justify={'center'}>
-                  <InputGrid>
-                    <NoIconInputField
-                      placeholder="รายละเอียด"
-                      value={repairForm.description}
-                      type="text"
-                      onChange={(e) => {
-                        setRepairForm({
-                          ...repairForm,
-                          description: e.target.value,
-                        })
-                      }}
-                    />
-                  </InputGrid>
-                </Grid>
-                <h2>ราคาประเมินการซ่อม</h2>
-                <div style={{ width: '100%' }}>
-                  <PriceComponent repairForm={repairForm} setRepairForm={setRepairForm} />
-                </div>
-
-                <Grid
-                  container
-                  justify={'center'}
-                  style={{
-                    marginTop: 20,
-                  }}
-                >
-                  <InputField
-                    type="select"
-                    onChange={(e) => {
-                      console.log('Repair Form', repairForm)
-                      console.log('Repair Form', e.target.value)
-                      setRepairForm({
-                        ...repairForm,
-                        priority: e.target.value,
-                      })
+              ) : mode === 'scurve' ? (
+                <ViewerGrid item xs={12}>
+                  <h1
+                    style={{
+                      color: 'red',
                     }}
                   >
-                    <option value={1}>แจ้งซ่อม</option>
-                    <option value={2}>ด่วนมาก</option>
-                    <option value={3}>ด่วนที่สุด</option>
-                  </InputField>
-                </Grid>
-                <Grid
-                  container
-                  justify={'center'}
-                  style={{
-                    marginTop: 20,
-                  }}
-                >
-                  <input
-                    type="file"
-                    multiple
-                    onChange={(e) => {
-                      setRepairForm({ ...repairForm, files: [...e.target.files] })
-                    }}
-                  />
-                </Grid>
-                <Grid
-                  container
-                  justify={'center'}
-                  style={{
-                    marginTop: 20,
-                  }}
-                >
-                  {_.map(repairForm.files, (image) => {
-                    console.log('image file', image)
-                    return <img height={300} src={URL.createObjectURL(image)} />
-                  })}
-                </Grid>
-                <Grid
-                  container
-                  justify={'center'}
-                  style={{
-                    marginTop: 30,
-                  }}
-                >
-                  <Grid xs={3}>
-                    <FullWidthButton
-                      color="warning"
-                      type={'submit'}
-                      onClick={() => {
-                        SetCreating(true)
-                        if (_.isEmpty(repairForm.title) && _.isEmpty(repairForm.description)) {
-                          notification.error({
-                            message: 'กรุณากรอกข้อมูล',
-                            description: 'กรุณากรอกรายละเอียด',
-                            onClick: () => {
-                              console.log('Notification Clicked!')
-                            },
-                          })
-                        } else {
-                          const {
-                            title = '',
-                            description = '',
-                            files = [],
-                            priority = 1,
-                            price = '',
-                          } = repairForm
-                          PushPinExtensionHandle.startCreateItem({
-                            ...repairForm,
-                            label: title,
-                            description: description,
-                            files: files,
-                            priority,
-                            price,
-                            status: 'open',
-                            type: 'issues',
-                            isAction: true,
-                          })
-
-                          notification.open({
-                            message: 'กรุณามาร์คจุดแจ้งซ่อม',
-                            description: 'กรุณาคลิกจุดที่ต้องการแจ้งซ่อม',
-                            onClick: () => {
-                              console.log('Notification Clicked!')
-                            },
-                          })
-                        }
-
-                        toggleRepareForm(false)
-                      }}
-                    >
-                      ตกลง
-                    </FullWidthButton>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>{' '}
-          </ModeGrid>
-        ) : props.sceneKey === 'issue' ? (
-          <ModeGrid marginleft={10} item xs={4}>
-            <Grid container spacing={1}>
-              <Grid item>
-                <Text size={16}>
-                  โครงการ {_.get(select, 'name', _.get(select, 'projectName', ''))}
-                </Text>
-              </Grid>
-            </Grid>
-            <Grid container spacing={1}>
-              <Grid item>
-                <Text size={16}>
-                  รายละเอียดการแจ้งซ่อม {_.get(seletedIssue, 'description', '')}
-                </Text>
-              </Grid>
-            </Grid>
-            {_.get(seletedIssue, 'images', false) ? (
-              <Carousel>
-                {_.map(seletedIssue.images, (image) => {
-                  console.log('Carousel image', image)
-                  return (
-                    <div align={'center'}>
-                      <a href={image}>
-                        <img height={300} src={image} />
-                      </a>
-                    </div>
-                  )
-                })}
-              </Carousel>
-            ) : (
-              ''
-            )}
-          </ModeGrid>
-        ) : mode !== 'scurve' && mode !== 'property' ? (
-          <>
-            <Grid
-              style={{
-                marginLeft: 20,
-                height: '100%',
-              }}
-              item
-              xs={4}
-            >
-              {/* -----------------เปิดปฎิทิน---------------------- */}
-              <ModeGrid container justify={'center'}>
-                
-                <Calendar
-                  style={{
-                    width: 600,
-                  }}
-                  tileContent={({ activeStartDate, date, view }) => {
-                    const currentDate = moment(date).format('YYYY-MM-DD')
-                    return repairList[currentDate] ? (
-                      <div>
-                        {_.map(repairList[currentDate], (item) => {
-                          return (
-                            <>
-                              -{item.label} <br />
-                            </>
-                          )
-                        })}
-                      </div>
-                    ) : (
-                      <div></div>
-                    )
-                  }}
-                  onChange={(date) => {
-                    setDate(date)
-                  }}
-                  value={date}
-                />
-              
-              <br />
-              <Grid container style={{ paddingTop: "2em" }} justify={'center'}>
-                <ActivityList
-                  project={_.find(modelList, (item) => item.value === selectedmodel)}
-                  repairList={_.slice(
-                    _.filter(allList, (item) => item.date === moment(date).format('YYYY-MM-DD')),
-                    0,
-                    3
-                  )}
-                />
-                </Grid>
-              </ModeGrid>
-              {/* เอาModeGrid รวมกัน */}
-              {/* -----------------ปิดปฎิทิน---------------------- */}
-            </Grid>
-          </>
-        ) : (
-          <Grid
-            style={{
-              marginLeft: 20,
-              height: '100%',
-            }}
-            item
-            xs={4}
-          >
-            {editForm.isOpen ? (
-              <ModeGrid container justify={'center'}>
-                <InputGrid>
-                  <FullWidthButton
-                    color="primary"
-                    type={'submit'}
-                    onClick={() => {
-                      toggleInsert(true)
-                    }}
-                  >
-                    เพิ่มข้อมูล
-                  </FullWidthButton>
-                </InputGrid>
-                <CustomProperty
-                  selectedmodel={selectedmodel}
-                  data={editForm}
-                  edit={setOpenEditForm}
-                  toggleInsert={toggleInsert}
-                />
-                <AModal
-                  title={`เพิ่มข้อมูล โมเดล ${editForm.data.id}`}
-                  visible={isInsert}
-                  onOk={() => {
-                    if (_.get(editForm, 'isEdit', false)) {
-                      firebase
-                        .database()
-                        .ref(
-                          `/modelProperty/${selectedmodel}/properties/${editForm.data.id}/${editForm.editID}`
-                        )
-                        .set({
-                          ...editForm.input,
-                          hidden: false,
-                        })
-                    } else {
-                      firebase
-                        .database()
-                        .ref(
-                          `/modelProperty/${selectedmodel}/properties/${editForm.data.id}/${editForm.input.displayName}`
-                        )
-                        .set({
-                          ...editForm.input,
-                          hidden: false,
-                        })
+                    {modelItem?.scurve ? '' : 'กรุณาอัพโหลดที่จัดการ โครงการ'}
+                  </h1>
+                  <iframe
+                    height="500px"
+                    width="100%"
+                    src={
+                      `https://view.officeapps.live.com/op/embed.aspx?src=${_.get(
+                        modelItem,
+                        'scurve',
+                        false
+                      )}` || ''
                     }
+                  />
+                </ViewerGrid>
+              ) : mode === 'history' ? (
+                <AccessHistory id={selectedmodel} />
+              )
+              : mode === 'test1' ? (
+                <Test1 />
+              ) : (
+                <Chat id={selectedmodel} user={user} />
+              )}
+            </Grid>
+          </ModeGrid>
 
-                    notification.success({
-                      message: 'สำเร็จ',
-                      description: 'บันทึกข้อมูลแล้ว',
-                      onClick: () => {
-                        console.log('Notification Clicked!')
-                      },
-                    })
-                    console.log('Edit From', editForm.input)
-                    setOpenEditForm({
-                      ...editForm,
-                      input: {},
-                      isEdit: false,
-                    })
-                    toggleInsert(false)
-                  }}
-                  onCancel={() => {
-                    setOpenEditForm({
-                      ...editForm,
-                      input: {},
-                      isEdit: false,
-                    })
-                    toggleInsert(false)
-                  }}
-                >
+          {/* ส่วนของการเรียก Tabs เมนูย่อยต่างๆ ขึ้นมาแสดง*/}
+          {props.sceneKey === 'repair' ? (
+            <ModeGrid item xs={4}>
+              <Grid item>
+                <Grid container align={'center'} justify={'center'}>
+                  <ForgetTitle>มาร์คจุดแจ้งซ่อม​</ForgetTitle>
                   <Grid
                     container
                     justify={'center'}
@@ -1327,17 +956,14 @@ function Home(props) {
                     }}
                   >
                     <InputGrid>
-                      <Input
-                        placeholder="หัวข้อ"
-                        value={_.get(editForm, 'input.displayName', '')}
-                        type="title"
+                      <NoIconInputField
+                        placeholder="ตำแหน่งแจ้งซ่อม"
+                        type="text"
+                        value={repairForm.title}
                         onChange={(e) => {
-                          setOpenEditForm({
-                            ...editForm,
-                            input: {
-                              ...editForm.input,
-                              displayName: e.target.value,
-                            },
+                          setRepairForm({
+                            ...repairForm,
+                            title: e.target.value,
                           })
                         }}
                       />
@@ -1345,62 +971,397 @@ function Home(props) {
                   </Grid>
                   <Grid container justify={'center'}>
                     <InputGrid>
-                      <Input
+                      <NoIconInputField
                         placeholder="รายละเอียด"
-                        value={_.get(editForm, 'input.displayValue', '')}
-                        type="title"
+                        value={repairForm.description}
+                        type="text"
                         onChange={(e) => {
-                          setOpenEditForm({
-                            ...editForm,
-                            input: {
-                              ...editForm.input,
-                              displayValue: e.target.value,
-                            },
-                          })
-                        }}
-                      />
-                    </InputGrid>
-                    <InputGrid>
-                      <Input
-                        placeholder="หมวดหมู่"
-                        value={_.get(editForm, 'input.displayCategory', '')}
-                        type="title"
-                        onChange={(e) => {
-                          setOpenEditForm({
-                            ...editForm,
-                            input: {
-                              ...editForm.input,
-                              displayCategory: e.target.value,
-                            },
-                          })
-                        }}
-                      />
-                    </InputGrid>
-                    <InputGrid>
-                      <Input
-                        placeholder="หน่วย"
-                        value={_.get(editForm, 'input.units', '')}
-                        type="title"
-                        onChange={(e) => {
-                          setOpenEditForm({
-                            ...editForm,
-                            input: {
-                              ...editForm.input,
-                              units: e.target.value,
-                            },
+                          setRepairForm({
+                            ...repairForm,
+                            description: e.target.value,
                           })
                         }}
                       />
                     </InputGrid>
                   </Grid>
-                </AModal>
-              </ModeGrid>
-            ) : (
-              ''
-            )}
-          </Grid>
-        )}
+                  <h2>ราคาประเมินการซ่อม</h2>
+                  <div style={{ width: '100%' }}>
+                    <PriceComponent repairForm={repairForm} setRepairForm={setRepairForm} />
+                  </div>
+
+                  <Grid
+                    container
+                    justify={'center'}
+                    style={{
+                      marginTop: 20,
+                    }}
+                  >
+                    <InputField
+                      type="select"
+                      onChange={(e) => {
+                        //console.log('Repair Form', repairForm)
+                        //console.log('Repair Form', e.target.value)
+                        setRepairForm({
+                          ...repairForm,
+                          priority: e.target.value,
+                        })
+                      }}
+                    >
+                      <option value={1}>แจ้งซ่อม</option>
+                      <option value={2}>ด่วนมาก</option>
+                      <option value={3}>ด่วนที่สุด</option>
+                    </InputField>
+                  </Grid>
+                  <Grid
+                    container
+                    justify={'center'}
+                    style={{
+                      marginTop: 20,
+                    }}
+                  >
+                    <input
+                      type="file"
+                      multiple
+                      onChange={(e) => {
+                        setRepairForm({ ...repairForm, files: [...e.target.files] })
+                      }}
+                    />
+                  </Grid>
+                  <Grid
+                    container
+                    justify={'center'}
+                    style={{
+                      marginTop: 20,
+                    }}
+                  >
+                    {_.map(repairForm.files, (image) => {
+                      //console.log('image file', image)
+                      return <img height={300} src={URL.createObjectURL(image)} />
+                    })}
+                  </Grid>
+                  <Grid
+                    container
+                    justify={'center'}
+                    style={{
+                      marginTop: 30,
+                    }}
+                  >
+                    <Grid xs={3}>
+                      <FullWidthButton
+                        color="warning"
+                        type={'submit'}
+                        onClick={() => {
+                          SetCreating(true)
+                          if (_.isEmpty(repairForm.title) && _.isEmpty(repairForm.description)) {
+                            notification.error({
+                              message: 'กรุณากรอกข้อมูล',
+                              description: 'กรุณากรอกรายละเอียด',
+                              onClick: () => {
+                                //console.log('Notification Clicked!')
+                              },
+                            })
+                          } else {
+                            const {
+                              title = '',
+                              description = '',
+                              files = [],
+                              priority = 1,
+                              price = '',
+                            } = repairForm
+                            PushPinExtensionHandle.startCreateItem({
+                              ...repairForm,
+                              label: title,
+                              description: description,
+                              files: files,
+                              priority,
+                              price,
+                              status: 'open',
+                              type: 'issues',
+                              isAction: true,
+                            })
+
+                            notification.open({
+                              message: 'กรุณามาร์คจุดแจ้งซ่อม',
+                              description: 'กรุณาคลิกจุดที่ต้องการแจ้งซ่อม',
+                              onClick: () => {
+                                //console.log('Notification Clicked!')
+                              },
+                            })
+                          }
+
+                          toggleRepareForm(false)
+                        }}
+                      >
+                        ตกลง
+                      </FullWidthButton>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>{' '}
+            </ModeGrid>
+          ) : props.sceneKey === 'issue' ? (
+            <ModeGrid marginleft={10} item xs={4}>
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Text size={16}>
+                    โครงการ {_.get(select, 'name', _.get(select, 'projectName', ''))}
+                  </Text>
+                </Grid>
+              </Grid>
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Text size={16}>
+                    รายละเอียดการแจ้งซ่อม {_.get(seletedIssue, 'description', '')}
+                  </Text>
+                </Grid>
+              </Grid>
+              {_.get(seletedIssue, 'images', false) ? (
+                <Carousel>
+                  {_.map(seletedIssue.images, (image) => {
+                    //console.log('Carousel image', image)
+                    return (
+                      <div align={'center'}>
+                        <a href={image}>
+                          <img height={300} src={image} />
+                        </a>
+                      </div>
+                    )
+                  })}
+                </Carousel>
+              ) : (
+                ''
+              )}
+            </ModeGrid>
+          ) : mode !== 'scurve' && mode !== 'property' ? (
+            <>
+              <Grid
+                style={{
+                  marginLeft: 20,
+                  height: '100%',
+                  marginTop: -10,
+                }}
+                item
+                xs={4}
+              >
+                {/* -----------------เปิดปฎิทิน---------------------- */}
+                <ModeGrid container justify={'center'}>
+                  
+                  <Calendar
+                    style={{
+                      width: 600,
+                    }}
+                    tileContent={({ activeStartDate, date, view }) => {
+                      const currentDate = moment(date).format('YYYY-MM-DD')
+                      return repairList[currentDate] ? (
+                        <div>
+                          {_.map(repairList[currentDate], (item) => {
+                            return (
+                              <>
+                                -{item.label} <br />
+                              </>
+                            )
+                          })}
+                        </div>
+                      ) : (
+                        <div></div>
+                      )
+                    }}
+                    onChange={(date) => {
+                      setDate(date)
+                    }}
+                    value={date}
+                  />
+                
+                <br />
+                <Grid container style={{ paddingTop: "2em" }} justify={'center'}>
+                  <ActivityList
+                    project={_.find(modelList, (item) => item.value === selectedmodel)}
+                    repairList={_.slice(
+                      _.filter(allList, (item) => item.date === moment(date).format('YYYY-MM-DD')),
+                      0,
+                      3
+                    )}
+                  />
+                  </Grid>
+                </ModeGrid>
+                {/* เอาModeGrid รวมกัน */}
+                {/* -----------------ปิดปฎิทิน---------------------- */}
+              </Grid>
+            </>
+          ) : (
+            <Grid
+              style={{
+                marginLeft: 20,
+                height: '100%',
+              }}
+              item
+              xs={4}
+            >
+              {editForm.isOpen ? (
+                <ModeGrid container justify={'center'}>
+                  <InputGrid>
+                    <FullWidthButton
+                      color="primary"
+                      type={'submit'}
+                      onClick={() => {
+                        toggleInsert(true)
+                      }}
+                    >
+                      เพิ่มข้อมูล
+                    </FullWidthButton>
+                  </InputGrid>
+                  <CustomProperty
+                    selectedmodel={selectedmodel}
+                    data={editForm}
+                    edit={setOpenEditForm}
+                    toggleInsert={toggleInsert}
+                  />
+                  <AModal
+                    title={`เพิ่มข้อมูล โมเดล ${editForm.data.id}`}
+                    visible={isInsert}
+                    onOk={() => {
+                      if (_.get(editForm, 'isEdit', false)) {
+                        firebase
+                          .database()
+                          .ref(
+                            `/modelProperty/${selectedmodel}/properties/${editForm.data.id}/${editForm.editID}`
+                          )
+                          .set({
+                            ...editForm.input,
+                            hidden: false,
+                          })
+                      } else {
+                        firebase
+                          .database()
+                          .ref(
+                            `/modelProperty/${selectedmodel}/properties/${editForm.data.id}/${editForm.input.displayName}`
+                          )
+                          .set({
+                            ...editForm.input,
+                            hidden: false,
+                          })
+                      }
+
+                      notification.success({
+                        message: 'สำเร็จ',
+                        description: 'บันทึกข้อมูลแล้ว',
+                        onClick: () => {
+                          //console.log('Notification Clicked!')
+                        },
+                      })
+                      //console.log('Edit From', editForm.input)
+                      setOpenEditForm({
+                        ...editForm,
+                        input: {},
+                        isEdit: false,
+                      })
+                      toggleInsert(false)
+                    }}
+                    onCancel={() => {
+                      setOpenEditForm({
+                        ...editForm,
+                        input: {},
+                        isEdit: false,
+                      })
+                      toggleInsert(false)
+                    }}
+                  >
+                    <Grid
+                      container
+                      justify={'center'}
+                      style={{
+                        marginTop: 20,
+                      }}
+                    >
+                      <InputGrid>
+                        <Input
+                          placeholder="หัวข้อ"
+                          value={_.get(editForm, 'input.displayName', '')}
+                          type="title"
+                          onChange={(e) => {
+                            setOpenEditForm({
+                              ...editForm,
+                              input: {
+                                ...editForm.input,
+                                displayName: e.target.value,
+                              },
+                            })
+                          }}
+                        />
+                      </InputGrid>
+                    </Grid>
+                    <Grid container justify={'center'}>
+                      <InputGrid>
+                        <Input
+                          placeholder="รายละเอียด"
+                          value={_.get(editForm, 'input.displayValue', '')}
+                          type="title"
+                          onChange={(e) => {
+                            setOpenEditForm({
+                              ...editForm,
+                              input: {
+                                ...editForm.input,
+                                displayValue: e.target.value,
+                              },
+                            })
+                          }}
+                        />
+                      </InputGrid>
+                      <InputGrid>
+                        <Input
+                          placeholder="หมวดหมู่"
+                          value={_.get(editForm, 'input.displayCategory', '')}
+                          type="title"
+                          onChange={(e) => {
+                            setOpenEditForm({
+                              ...editForm,
+                              input: {
+                                ...editForm.input,
+                                displayCategory: e.target.value,
+                              },
+                            })
+                          }}
+                        />
+                      </InputGrid>
+                      <InputGrid>
+                        <Input
+                          placeholder="หน่วย"
+                          value={_.get(editForm, 'input.units', '')}
+                          type="title"
+                          onChange={(e) => {
+                            setOpenEditForm({
+                              ...editForm,
+                              input: {
+                                ...editForm.input,
+                                units: e.target.value,
+                              },
+                            })
+                          }}
+                        />
+                      </InputGrid>
+                    </Grid>
+                  </AModal>
+                </ModeGrid>
+              ) : (
+                ''
+              )}
+            </Grid>
+          )}
+        </Grid>
+        {/* ปิดหน้าแรกของ Dashboard Model Bim */}
+
       </Grid>
+      {/* ปิดcontainer คลุมกรอบใหญ่ของหน้าจอ */}
+
+      {/* <MenuBar
+        {...props}
+        setMode={(mode) => {
+          setMode(mode)
+        }}
+      /> */}
+      {/* เมนูหลัก เปลี่ยนหน้า */}
+      
+      {/*  */}
       {mode === 'chat' || mode === 'property' ? (
         ''
       ) : (
@@ -1536,11 +1497,11 @@ function Home(props) {
                                   const progress = Math.round(
                                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                                   )
-                                  console.log('Progress', progress)
+                                  //console.log('Progress', progress)
                                 },
                                 (error) => {
                                   // Error function ...
-                                  console.log(error)
+                                  //console.log(error)
                                 },
                                 () => {
                                   imageCount++

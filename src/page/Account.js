@@ -97,20 +97,20 @@ const Account = (props) => {
           .database()
           .ref(`/user/${user.uid}`)
           .once('value', (data) => {
-            console.log('current user', data.val())
+            //console.log('current user', data.val())
             setCurrentUser({ ...data.val(), uid: user.uid })
 
             firebase
               .database()
               .ref('/models')
               .on('value', (snap) => {
-                console.log('setModelList', user)
+                //console.log('setModelList', user)
 
                 let output = []
                 _.forEach(snap.val(), (item, index) => {
                   _.forEach(item.users, (member) => {
                     if (member.uid === user.uid) {
-                      console.log('Member', member.uid === user.uid)
+                      //console.log('Member', member.uid === user.uid)
                       output.push({ ...item, key: index })
                     }
                   })
@@ -146,7 +146,7 @@ const Account = (props) => {
 
       render: (item) => {
         const { firstName = '', lastname = '' } = item
-        console.log('item', item)
+        //console.log('item', item)
         return `${firstName} ${lastname}`
       },
     },
@@ -154,7 +154,7 @@ const Account = (props) => {
       title: 'บริษัท',
       render: (item) => {
         const { company = '' } = item
-        console.log('item', item)
+        //console.log('item', item)
         return `${company}`
       },
     },
@@ -288,7 +288,7 @@ const Account = (props) => {
                       name="select"
                       id="exampleSelect"
                       onChange={(e) => {
-                        console.log(e.target.files[0])
+                        //console.log(e.target.files[0])
                         setProjectFile(e.target.files[0])
                       }}
                       default={null}
@@ -299,7 +299,7 @@ const Account = (props) => {
                       color={'primary'}
                       onClick={() => {
                         if (projectFile) {
-                          console.log('Project File is', projectFile)
+                          //console.log('Project File is', projectFile)
 
                           const storage = firebase.storage()
                           // /models/${modelList[selected].key}/users/${index}
@@ -317,7 +317,7 @@ const Account = (props) => {
                             }
                             alert('upload สำเร็จ')
 
-                            console.log(`File uploaded successfully. ${data.Location}`)
+                            //console.log(`File uploaded successfully. ${data.Location}`)
                             firebase
                               .database()
                               .ref(`/models/${modelList[selected].key}/scurve`)
@@ -331,11 +331,11 @@ const Account = (props) => {
                           //     const progress = Math.round(
                           //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                           //     )
-                          //     console.log('Progress', progress)
+                          //     //console.log('Progress', progress)
                           //   },
                           //   (error) => {
                           //     // Error function ...
-                          //     console.log(error)
+                          //     //console.log(error)
                           //   },
                           //   () => {
                           //     // complete function ...
@@ -350,7 +350,7 @@ const Account = (props) => {
                           //         bitly
                           //           .shorten(url)
                           //           .then(function (result) {
-                          //             console.log('Result file', result)
+                          //             //console.log('Result file', result)
                           //             firebase
                           //               .database()
                           //               .ref(`/models/${modelList[selected].key}/scurve`)
@@ -365,7 +365,7 @@ const Account = (props) => {
 
                           setProjectFile(null)
                         } else {
-                          console.log('Please Select')
+                          //console.log('Please Select')
                           alert('กรุณาเลือก')
                         }
                       }}
@@ -478,7 +478,7 @@ const Account = (props) => {
                           database.ref(`/models/${modelList[selected].key}/users`).push(memberForm)
                           setForm({})
                         } else {
-                          console.log('Please Select')
+                          //console.log('Please Select')
                           alert('กรุณาเลือก')
                         }
                       }}

@@ -82,11 +82,11 @@ function Navbar(props) {
       id: 'account',
       icon: 'manage_select',
     },
-    {
-      title: 'ทดสอบเพิ่มเมนู',
-      id: 'report',
-      icon: 'manage_select',
-    },
+    // {
+    //   title: 'ทดสอบเพิ่มเมนู',
+    //   id: 'report',
+    //   icon: 'manage_select',
+    // },
   ]
   if (!props.tabs) {
     if (props.sceneKey === 'issue') {
