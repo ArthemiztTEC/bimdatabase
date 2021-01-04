@@ -52,18 +52,18 @@ function Navbar(props) {
     }
   }
 
-  const handleClickRe = (e) =>{
-  return (
-     <Menu.Item key='repair'>repair</Menu.Item>
-  )
+//   const handleClickRe = (e) =>{
+//   return (
+//      <Menu.Item key='repair'>repair</Menu.Item>
+//   )
 
-    // else {
-    //   if (e.key !== 'issue') {
-    //     props.history.push(`/${e.key}`)
-    //     props.setMode('3d')
-    //   }
-    // }
- }
+//     // else {
+//     //   if (e.key !== 'issue') {
+//     //     props.history.push(`/${e.key}`)
+//     //     props.setMode('3d')
+//     //   }
+//     // }
+//  }
 
 
   let Tabs = [
