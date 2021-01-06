@@ -92,7 +92,7 @@ function Navbar(props) {
     if (props.sceneKey === 'issue') {
       Tabs = [
         {
-          title: 'หน้าแรก',
+          title: 'หน้าหลัก',
           id: 'dashboard',
           icon: 'Home',
         },
@@ -107,7 +107,7 @@ function Navbar(props) {
           icon: 'Inform',
         },
         {
-          title: 'จัดการ Account',
+          title: 'จัดการโครงการ',
           id: 'account',
           icon: 'manage',
         },
