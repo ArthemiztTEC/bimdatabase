@@ -221,8 +221,8 @@ function Home(props) {
       setError({ ...isError, model2: false })
     }
 
-    selectView.loadExtension('Autodesk.ModelStructure')
-    selectView.loadExtension('Autodesk.PropertiesManager')
+    // selectView.loadExtension('Autodesk.ModelStructure')
+    // selectView.loadExtension('Autodesk.PropertiesManager')
     selectView.loadExtension('Autodesk.DocumentBrowser')
     var extensionOptions = {
       hideIssuesButton: false,
