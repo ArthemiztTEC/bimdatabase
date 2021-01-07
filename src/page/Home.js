@@ -224,8 +224,11 @@ function Home(props) {
     // selectView.loadExtension('Autodesk.ModelStructure')
     // selectView.loadExtension('Autodesk.PropertiesManager')
     selectView.loadExtension('Autodesk.DocumentBrowser')
+    selectView.loadExtension('Autodesk.DefaultTools.NavTools')
+    selectView.loadExtension("NestedViewerExtension", { filter: ["2d"], crossSelection: true })
+    
     var extensionOptions = {
-      hideIssuesButton: false,
+      hideIssuesButton: true,
       hideRfisButton: true,
       hideFieldIssuesButton: true,
     }
@@ -471,7 +474,7 @@ function Home(props) {
           return
         }
         _blockEventSecondary = true
-        viewer.select(viewer2d.getSelection())
+        viewer.select(viewer2d.getSelection(0))
         viewer.fitToView(viewer2d.getSelection())
         _blockEventSecondary = false
       })
@@ -541,6 +544,7 @@ function Home(props) {
   //console.log('selectedmodel', selectedmodel)
   let documentId = `urn:${selectedmodel}`
 
+
   useEffect(() => {
     if (token) {
       options = {
@@ -571,14 +575,19 @@ function Home(props) {
               'Autodesk.Viewing.MarkupsCore',
               'Autodesk.Viewing.MarkupsGui',
               'Autodesk.PropertiesManager',
-            ],
+              'Autodesk.Viewing.Collaboration',  
+              'Autodesk.AEC.LevelsExtension',    
+              'Autodesk.VisualClusters'  
+            ]
           })
           viewer2d = new Autodesk.Viewing.GuiViewer3D(viewerDiv2, {
             extensions: [
               'Autodesk.DocumentBrowser',
               'Autodesk.Viewing.MarkupsCore',
               'Autodesk.Viewing.MarkupsGui',
-            ],
+              'Autodesk.AEC.LevelsExtension',
+              'Autodesk.Viewing.Collaboration'
+            ]
           })
           if (selectedmodel !== 0) {
             Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure)
