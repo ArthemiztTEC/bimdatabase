@@ -576,7 +576,7 @@ function Home(props) {
               'Autodesk.Viewing.MarkupsGui',
               'Autodesk.PropertiesManager',
               'Autodesk.Viewing.Collaboration',  
-              'Autodesk.AEC.LevelsExtension',    
+              // 'Autodesk.AEC.LevelsExtension',    
               'Autodesk.VisualClusters'  
             ]
           })

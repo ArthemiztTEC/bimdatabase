@@ -1,0 +1,16 @@
+#nestedViewerExtensionButton {
+    background-image: url('../img/shopd.png');
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: grayscale(20%);
+}
+
+#nestedViewerExtensionButton.active {
+    filter: none;
+}
+
+#nestedViewerExtensionDropdown {
+    background: #2e2e2e;
+    color: #fff;
+}
