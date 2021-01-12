@@ -18,7 +18,8 @@ import MenuBar from './components/MenuBar'
 import Scurve from './page/Scurve'
 import Reports from './page/Reports'
 import Navbar from './components/Navbar'
-// import Home from "./Home";
+
+import Manageuser from './page/Manageuser';
 
 const app = firebase.initializeApp({
   apiKey: 'AIzaSyDYI_T1lhuiUgZXHfFdSd3X2uLc_pzL3AA',
@@ -75,11 +76,15 @@ function App() {
             exact
             render={(props) => <Account sceneKey={'account'} {...props} />}
           />
-
           <Route
             path="/account/add"
             exact
             render={(props) => <AccountAdd sceneKey={'account'} {...props} />}
+          />
+          <Route
+            path="/manageuser"
+            exact
+            render={(props) => <Manageuser sceneKey={'manageuser'} {...props} />}
           />
         </Switch>
       </Router>
