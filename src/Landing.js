@@ -121,6 +121,7 @@ function Landing(props) {
       phone: '',
       company: '',
       taxnumber: '',
+      status: '1',
     },
 
     onSubmit: (values) => {

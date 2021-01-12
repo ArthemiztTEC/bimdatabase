@@ -378,4 +378,4 @@ if(_.size(positionList)>0){
     </>
   )
 }
-export default AccountAdd
+export default AccountAdd;
