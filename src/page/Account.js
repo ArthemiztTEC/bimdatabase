@@ -301,7 +301,7 @@ const Account = (props) => {
               <Grid item xs={6}>
                 <FormGroup row>
                   <Label for="exampleSelect" sm={3}>
-                    ไฟล :
+                    ไฟล์งาน :
                   </Label>
                   <Col sm={6}>
                     <Input
@@ -625,4 +625,4 @@ const Account = (props) => {
     </div>
   )
 }
-export default Account
+export default Account;

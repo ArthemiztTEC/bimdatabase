@@ -1406,14 +1406,14 @@ function Home(props) {
           ''
         ) : (
           <>
-            <Grid container style={{ paddingLeft: "13em" }}>
-              <Grid item xs={7} style={{ paddingTop: "1em" }}>
+            <Grid container style={{ paddingLeft: "60em" }}>
+              <Grid item xs={7} style={{ paddingTop: "5em" }}>
                 <Grid container justify={'space-between'}>
                   <Grid item>
-                    <h3>รายการแจ้งซ่อม</h3>
+                  <h3>มีการแจ้งซ่อมทั้งหมด {_.size(allList)} รายการ</h3>
                   </Grid>
                   <Grid item>
-                    <h3>{_.size(allList)} ทั้งหมด</h3>
+                  
                   </Grid>
                 </Grid>
               </Grid>
@@ -1618,4 +1618,4 @@ function Home(props) {
   )
 }
 
-export default Home
+export default Home;

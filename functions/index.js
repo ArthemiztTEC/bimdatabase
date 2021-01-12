@@ -55,5 +55,5 @@ exports.lineRegister = functions.https.onRequest((request, response) => {
   // HEADER:
   //   - Content-Type: application/x-www-form-urlencoded
 
-  response.send(`เชื่อมต่อไลน สำเร็จแล้ว กรุณาปิดหน้านี้`)
+  response.send(`เชื่อมต่อไลน์ สำเร็จแล้ว กรุณาปิดหน้านี้`)
 })
