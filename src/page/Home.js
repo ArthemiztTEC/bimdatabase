@@ -52,8 +52,6 @@ import Test1 from '../components/Test1'
 // import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
 
-// import "./styles.css";
-
 const RedDot = styled(FiberManualRecordIcon)`
   color: red;
   font-size: 10px !important;
@@ -575,9 +573,8 @@ function Home(props) {
               'Autodesk.Viewing.MarkupsCore',
               'Autodesk.Viewing.MarkupsGui',
               'Autodesk.PropertiesManager',
-              'Autodesk.Viewing.Collaboration',  
-              // 'Autodesk.AEC.LevelsExtension',    
-              'Autodesk.VisualClusters'  
+              'Autodesk.Viewing.Collaboration',   
+              'Autodesk.VisualClusters',
             ]
           })
           viewer2d = new Autodesk.Viewing.GuiViewer3D(viewerDiv2, {
@@ -586,7 +583,7 @@ function Home(props) {
               'Autodesk.Viewing.MarkupsCore',
               'Autodesk.Viewing.MarkupsGui',
               'Autodesk.AEC.LevelsExtension',
-              'Autodesk.Viewing.Collaboration'
+              'Autodesk.Viewing.Collaboration',
             ]
           })
           if (selectedmodel !== 0) {
@@ -640,10 +637,10 @@ function Home(props) {
       title: 'Model Bim',
       id: '3d',
     },
-    {
-      title: 'Shop Drawing',
-      id: '2d',
-    },
+    // {
+    //   title: 'Shop Drawing',
+    //   id: '2d',
+    // },
     {
       title: 'S Curve',
       id: 'scurve',
@@ -660,10 +657,6 @@ function Home(props) {
       title: 'ข้อมูลโมเดล',
       id: 'property',
     },
-    // {
-    //   title: 'ทดสอบ1',
-    //   id: 'test1',
-    // },
   ]
 {/* ---------------------------------------------------------------------------------- ปิดส่วนของการ สร้างตัวแปรTabs เมนูย่อยต่างๆในหน้าแรก */}
 
@@ -858,7 +851,7 @@ function Home(props) {
               {props.sceneKey === 'repair' ? (
                 <>
                   <Grid item xs={3}>
-                    <Input
+                    {/* <Input
                       defaultValue={option.model1}
                       type="select"
                       name="select"
@@ -881,8 +874,8 @@ function Home(props) {
                       ))}
                     </Input>
                   </Grid>
-                  <Grid item xs={3}>
-                    <Input
+                  <Grid item xs={3}> */}
+                    {/* <Input
                       defaultValue={option.model2}
                       type="select"
                       name="select"
@@ -903,7 +896,7 @@ function Home(props) {
                           {item.name}
                         </option>
                       ))}
-                    </Input>
+                    </Input> */}
                   </Grid>
                 </>
               ) : (
