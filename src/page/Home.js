@@ -583,6 +583,7 @@ function Home(props) {
               'Autodesk.PropertiesManager',
               'Autodesk.Viewing.Collaboration',   
               'Autodesk.VisualClusters',
+              'Autodesk.AEC.SheetSyncExtension'
             ]
           })
           viewer2d = new Autodesk.Viewing.GuiViewer3D(viewerDiv2, {
