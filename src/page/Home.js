@@ -50,6 +50,14 @@ import Test1 from '../components/Test1'
 //   NavText
 // } from "@trendmicro/react-sidenav";
 // import "@trendmicro/react-sidenav/dist/react-sidenav.css";
+function replaceSpinner() {
+  var spinners = document.getElementsByClassName("spinner");
+  if (spinners.length == 0) return;
+  var spinner = spinners[0];
+  spinner.classList.remove("spinner");
+  spinner.classList.add('lds-heart');
+  spinner.innerHTML = '<div></div>';
+}
 
 
 const RedDot = styled(FiberManualRecordIcon)`
@@ -930,8 +938,9 @@ function Home(props) {
                 </>
               ) : mode === '3d' || mode === 'property' ? (
                 <ViewerGrid item xs={12}>
+                  
                   {/* {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''} */}
-                  <Forge id={'MyViewerDiv'} />
+                  <Forge className={"lds-hourglass"} id={'MyViewerDiv'} />
                 </ViewerGrid>
               ) : mode === '2d' ? (
                 <ViewerGrid item xs={12}>
