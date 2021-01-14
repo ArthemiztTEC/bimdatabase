@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import { Card } from '@material-ui/core'
 import _ from 'lodash'
 import AWS from 'aws-sdk'
+import Modal from '@material-ui/core/Modal'
+
 
 import {
   ButtonToggle,
@@ -17,6 +19,7 @@ import {
   InputGroupText,
   Label,
 } from 'reactstrap'
+
 import { FullWidthButton, InputGrid } from '../Landing'
 import Link from '@material-ui/core/Link'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
@@ -26,6 +29,10 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { Table } from 'antd'
 import { BitlyClient } from 'bitly'
 import Navbar from '../components/Navbar'
+import Box from '@material-ui/core/Box'
+import { makeStyles } from '@material-ui/styles'
+
+
 const InputGroupIcon = styled(InputGroupText)`
   background: none;
   border-left: 0px;
@@ -64,6 +71,25 @@ const Contents = styled(Grid)`
   padding: 20px;
   margin: 20px;
 `
+export const WhiteBox = styled(Box)`
+  width: ${({ size = 600 }) => size}px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  padding: 20px;
+`
+export const ForgetTitle = styled.div`
+  font-size: 20px;
+`
+export const NoIconInputField = styled(Input)`
+  border-radius: 50px;
+`
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}))
 
 const SPACES_KEY = '7L5CXYDG6YD6ZT5I7NBA'
 const SPACES_SECRET = 'jF0h/5ZWvGzhrisOjUdNzvP5S8IMfkoSni6seDS+FVk'
@@ -89,6 +115,11 @@ const Manageuser = (props) => {
   const [memberForm, setForm] = useState({})
   const [projectFile, setProjectFile] = useState(null)
   const [memberEditForm, setEditForm] = useState({})
+
+  const [forgetPassword, toggleForgetPassword] = useState(false)
+  const [email, setEmail] = useState('')
+  const classes = useStyles()
+
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
@@ -171,9 +202,32 @@ const Manageuser = (props) => {
         })
       },
     },
+    // {
+    //   title: 'ข้อมูลผู้ใช้',
+    //     render: (item) => <button type="button" className="btn btn-secondary" onClick={() => {
+    //       const {email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
+    //       alert(
+    //       "ชื่อ : "+firstName+" "+lastname+ '\n'+
+    //       "ที่อยู่ : "+company+ '\n'+
+    //       "อีเมล : "+email+ '\n'+
+    //       "โทร : "+phone+ '\n'+
+    //       "เลขบัตรประชาชน : "+idnum+ '\n'+
+    //       "เลขผู้เสียภาษี : "+taxnumber+ '\n'
+    //       );
+    //     }}>ข้อมูล</button> ,
+    // },
     {
       title: 'ข้อมูลผู้ใช้',
-        render: (Button) => <button className="btn btn-secondary">ข้อมูล</button> ,
+        render: (item) => <Link
+        href={'#'}
+        className="btn btn-secondary"
+        style={{ width: "100px", color:"white"}}
+        onClick={() => {
+          const {email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
+          // alert("Name : "+firstName)
+          toggleForgetPassword(true)
+        }}
+      >ข้อมูล</Link> 
     },
     {
       title: 'สถานะ',
@@ -183,7 +237,7 @@ const Manageuser = (props) => {
           return <p className="text-success">อนุมัติแล้ว</p>
         }
         if(status == 0){
-          return <button className="btn btn-primary">อนุมัติ</button> 
+          return <button className="btn btn-primary">อนุมัติ</button>
           //กดแล้วเพิ่ม 1 เข้าไปใน status
         }
       }
@@ -203,6 +257,7 @@ const Manageuser = (props) => {
         margin: 0,
       }}
     >
+
       {/* ---------------------------------------------------------------------------------------- หน้า Layout ICon ขวามือ*/}
       <Layout />
 
@@ -214,6 +269,93 @@ const Manageuser = (props) => {
       <Breadcrumbs aria-label="breadcrumb" style={{ paddingLeft: "12em" }}>
         <Text size={18} style={{ paddingBottom: "1em" }}>จัดการ บัญชีผู้ใช้</Text>
       </Breadcrumbs>
+
+          {/* <Link
+            href={'#'}
+            onClick={() => {
+              toggleForgetPassword(true)
+            }}
+            style={{ paddingLeft: "12em" }}
+          >
+            ทดสอบ Link popup
+          </Link>   */}
+      
+      <Modal
+        className={classes.modal}
+        open={forgetPassword}
+        onClose={() => {
+          toggleForgetPassword(false)
+        }}
+      >
+        
+        <WhiteBox>
+          
+          <Grid container justify={'center'}>
+            <ForgetTitle>xxx</ForgetTitle>
+            <Grid
+              container
+              justify={'center'}
+              style={{
+                marginTop: 20,
+              }}
+            >
+              <Grid xs={8}>
+                <InputGrid>
+                  <NoIconInputField
+                    placeholder="xxx"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                    }}
+                  />
+                </InputGrid>
+              </Grid>
+            </Grid>
+
+            <Grid
+              container
+              justify={'center'}
+              style={{
+                marginTop: 30,
+              }}
+            >
+              <Grid
+                xs={3}
+                style={{
+                  marginRight: 10,
+                }}
+              >
+                <FullWidthButton
+                  type={'submit'}
+                  onClick={() => {
+                    toggleForgetPassword(false)
+                  }}
+                >
+                  ยกเลิก
+                </FullWidthButton>
+              </Grid>
+              <Grid xs={3}>
+                <FullWidthButton
+                  color="warning"
+                  type={'submit'}
+                  onClick={() => {
+                    firebase
+                      .auth()
+                      .sendPasswordResetEmail(email)
+                      .then((res) => {
+                        alert('ข้อมูลการ รีเซ็ตพาสเวริดได้ถูกส่งไปที่ อีเมลของคุณแล้ว')
+                        toggleForgetPassword(false)
+                      })
+                  }}
+                >
+                  ตกลง
+                </FullWidthButton>
+              </Grid>
+            </Grid>
+          </Grid>
+        </WhiteBox>
+      </Modal>
+
 
     {/* ---------------------------------------------------------------------------------------- เปิดส่วนเลือกโครงการแต่ละอัน เพิ่มไฟล์ SCurve เพิ่มสมาชิกตำแหน่ง*/}
       
