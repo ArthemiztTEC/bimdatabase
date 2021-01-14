@@ -593,9 +593,11 @@ function Home(props) {
             Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure)
           }
         })
-        // Autodesk.Viewing.Initializer(options, function onInitialized() {
-        //   Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure)
-        // })
+
+        Autodesk.Viewing.Initializer(options, function onInitialized() {
+          Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure)
+        })
+
       } else {
         setError({
           model2: true,
@@ -640,10 +642,10 @@ function Home(props) {
       title: 'Model Bim',
       id: '3d',
     },
-    {
-      title: 'Shop Drawing',
-      id: '2d',
-    },
+    // {
+    //   title: 'Shop Drawing',
+    //   id: '2d',
+    // },
     {
       title: 'S Curve',
       id: 'scurve',
@@ -1406,7 +1408,7 @@ function Home(props) {
           ''
         ) : (
           <>
-            <Grid container style={{ paddingLeft: "60em" }}>
+            <Grid container style={{ paddingLeft: "13em" }}>
               <Grid item xs={7} style={{ paddingTop: "5em" }}>
                 <Grid container justify={'space-between'}>
                   <Grid item>

@@ -171,6 +171,29 @@ const Manageuser = (props) => {
         })
       },
     },
+    {
+      title: 'ข้อมูลผู้ใช้',
+        render: (Button) => <button className="btn btn-secondary">ข้อมูล</button> ,
+    },
+    {
+      title: 'สถานะ',
+      render: (item) => {
+        const { status = '' } = item
+        if(status == 1){
+          return <p className="text-success">อนุมัติแล้ว</p>
+        }
+        if(status == 0){
+          return <button className="btn btn-primary">อนุมัติ</button> 
+          //กดแล้วเพิ่ม 1 เข้าไปใน status
+        }
+      }
+      // render: (Button) => <button className="btn btn-secondary">อนุญาต</button>,
+      // render: (item) => {
+      //   const { approve = '' } = item
+      //   //console.log('item', item)
+      //   return `${approve}`
+      // },
+    },
   ]
 
   return (
