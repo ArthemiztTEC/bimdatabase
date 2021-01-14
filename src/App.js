@@ -32,6 +32,7 @@ const app = firebase.initializeApp({
   measurementId: 'G-Q2F7JHDD1D',
 })
 firebase.analytics()
+
 function App() {
   const StyledLoader = styled(LoadingOverlay)`
     ._loading_overlay_overlay {

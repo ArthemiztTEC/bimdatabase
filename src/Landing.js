@@ -121,6 +121,7 @@ function Landing(props) {
       phone: '',
       company: '',
       taxnumber: '',
+      idnum: '',
       status: '0',
     },
 
@@ -390,6 +391,19 @@ function Landing(props) {
                     </InputGrid>
                   </Grid> 
 
+                  <Grid container>
+                    <InputGrid>
+                      <Label for="company" sm={3}>
+                        ที่อยู่
+                      </Label>
+
+                      <NoIconInputField
+                        name={'companyAddress'}
+                        value={formik.values.companyAddress}
+                        onChange={formik.handleChange}
+                      />
+                    </InputGrid>
+                  </Grid>
 
                   <Grid container>
                     <InputGrid>
@@ -403,19 +417,20 @@ function Landing(props) {
                         onChange={formik.handleChange}
                       />
                     </InputGrid>
-                  </Grid>
-
-                  
+                  </Grid>         
+              
                   <Grid container>
                     <InputGrid>
                       <Label for="company" sm={3}>
-                        ที่อยู่บริษัท
+                        เลขบัตรประชาชน
                       </Label>
 
                       <NoIconInputField
-                        name={'companyAddress'}
-                        value={formik.values.companyAddress}
-                        onChange={formik.handleChange}
+                        name={'idnum'}
+                        value={formik.values.idnum}
+                        onChange={(e) => {
+                          formik.handleChange(e)
+                        }}
                       />
                     </InputGrid>
                   </Grid>

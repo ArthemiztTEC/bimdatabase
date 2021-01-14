@@ -21,6 +21,15 @@ const ViewerGrid = styled.div`
 const Autodesk = window.Autodesk
 let viewer
 
+function replaceSpinner() {
+  var spinners = document.getElementsByClassName("spinner");
+  if (spinners.length == 0) return;
+  var spinner = spinners[0];
+  spinner.classList.remove("spinner");
+  spinner.classList.add('lds-heart');
+  spinner.innerHTML = '<div></div>';
+}
+
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -89,6 +98,8 @@ class Home extends Component {
       }
 
       // Choose any of the avialble viewables
+      viewerApp.selectItem(viewables[0].data, onItemLoadSuccess, onItemLoadFail); // this line is already there
+      replaceSpinner();
       var initialViewable = viewables[0]
       var svfUrl = doc.getViewablePath(initialViewable)
       var modelOptions = {
