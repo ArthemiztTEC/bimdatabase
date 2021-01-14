@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Grid from '@material-ui/core/Grid'
 import axios from 'axios'
 import _ from 'lodash'
+
 const qs = require('querystring')
 const { Option } = Select
 const HomeStyle = styled(Grid)`
@@ -28,6 +29,7 @@ class Home extends Component {
       token: false,
     }
   }
+  
 
   componentDidMount() {
     const result = axios.post(
@@ -96,6 +98,7 @@ class Home extends Component {
       var viewerDiv = document.getElementById('MyViewerDiv')
       viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv)
       viewer.start(svfUrl, modelOptions, this.onLoadModelSuccess, this.onLoadModelError)
+    
     }
     /**
      * viewer.loadModel() failure callback.
