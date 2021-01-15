@@ -224,7 +224,6 @@ function Home(props) {
     selectView.loadExtension('Autodesk.DocumentBrowser')
     selectView.loadExtension('Autodesk.DefaultTools.NavTools')
     selectView.loadExtension("NestedViewerExtension", { filter: ["2d"], crossSelection: true })
-    
     var extensionOptions = {
       hideIssuesButton: true,
       hideRfisButton: true,
@@ -1121,7 +1120,6 @@ function Home(props) {
                               },
                             })
                           }
-
                           toggleRepareForm(false)
                         }}
                       >
