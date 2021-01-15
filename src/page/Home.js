@@ -915,6 +915,7 @@ function Home(props) {
                   {' '}
                   <ViewerGrid item xs={12}>
                     {/* {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''} */}
+                    <div id="loader"></div>
                     <Forge id={'MyViewerDiv'} />
                   </ViewerGrid>
                   <ViewerGrid
@@ -925,17 +926,20 @@ function Home(props) {
                     xs={4}
                   >
                     {/* {isError['model2'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''} */}
+                    <div id="loader"></div>
                     <Forge id={'my2dView'} />
                   </ViewerGrid>
                 </>
               ) : mode === '3d' || mode === 'property' ? (
                 <ViewerGrid item xs={12}>
                   {/* {isError['model1'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''} */}
-                  <Forge   id={'MyViewerDiv'} />
+                  <div id="loader"></div>
+                  <Forge id={'MyViewerDiv'} />
                 </ViewerGrid>
               ) : mode === '2d' ? (
                 <ViewerGrid item xs={12}>
                   {/* {isError['model2'] ? <Text size={28}>โมเดลยังไม่พร้อมใช้งาน</Text> : ''} */}
+                  <div id="loader"></div>
                   <Forge id={'my2dView'} />
                 </ViewerGrid>
               ) : mode === 'scurve' ? (

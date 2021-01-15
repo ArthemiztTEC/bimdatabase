@@ -76,4 +76,18 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 }
-
+#mask{
+    opacity: 0%;
+}
+.forge-spinner{
+    background-image: url('../img/tis.png');
+}
+.segment {
+    display: none;
+}
+.forge-spinner img{
+    display: none;
+}
+.forge-spinner svg{
+    display: none;
+}
