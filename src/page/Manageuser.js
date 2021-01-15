@@ -117,8 +117,9 @@ const Manageuser = (props) => {
   const [memberEditForm, setEditForm] = useState({})
 
   const [forgetPassword, toggleForgetPassword] = useState(false)
-  const [email, setEmail] = useState('')
+  // const [email, setEmail] = useState('')
   const classes = useStyles()
+  
 
 
   useEffect(() => {
@@ -219,13 +220,12 @@ const Manageuser = (props) => {
     {
       title: 'ข้อมูลผู้ใช้',
         render: (item) => <Link
-        href={'#'}
+        // href={'#'}
         className="btn btn-secondary"
         style={{ width: "100px", color:"white"}}
         onClick={() => {
           const {email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
-          // alert("Name : "+firstName)
-          toggleForgetPassword(true)
+          
         }}
       >ข้อมูล</Link> 
     },
@@ -249,8 +249,8 @@ const Manageuser = (props) => {
       // },
     },
   ]
-
-  return (
+  
+  return ( 
     <div
       style={{
         padding: 0,
@@ -269,16 +269,6 @@ const Manageuser = (props) => {
       <Breadcrumbs aria-label="breadcrumb" style={{ paddingLeft: "12em" }}>
         <Text size={18} style={{ paddingBottom: "1em" }}>จัดการ บัญชีผู้ใช้</Text>
       </Breadcrumbs>
-
-          {/* <Link
-            href={'#'}
-            onClick={() => {
-              toggleForgetPassword(true)
-            }}
-            style={{ paddingLeft: "12em" }}
-          >
-            ทดสอบ Link popup
-          </Link>   */}
       
       <Modal
         className={classes.modal}
@@ -287,11 +277,9 @@ const Manageuser = (props) => {
           toggleForgetPassword(false)
         }}
       >
-        
         <WhiteBox>
-          
           <Grid container justify={'center'}>
-            <ForgetTitle>xxx</ForgetTitle>
+            <ForgetTitle></ForgetTitle>
             <Grid
               container
               justify={'center'}
@@ -301,12 +289,12 @@ const Manageuser = (props) => {
             >
               <Grid xs={8}>
                 <InputGrid>
-                  <NoIconInputField
-                    placeholder="xxx"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value)
-                    }}
+                  <NoIconInputField 
+                    // placeholder={email}
+                    value = {props.firstName}
+                    // onChange={(e) => {
+                    //   setEmail(e.target.value)
+                    // }}
                   />
                 </InputGrid>
               </Grid>
@@ -339,13 +327,13 @@ const Manageuser = (props) => {
                   color="warning"
                   type={'submit'}
                   onClick={() => {
-                    firebase
-                      .auth()
-                      .sendPasswordResetEmail(email)
-                      .then((res) => {
-                        alert('ข้อมูลการ รีเซ็ตพาสเวริดได้ถูกส่งไปที่ อีเมลของคุณแล้ว')
-                        toggleForgetPassword(false)
-                      })
+                    // firebase
+                    //   .auth()
+                    //   .sendPasswordResetEmail(email)
+                    //   .then((res) => {
+                    //     alert('ข้อมูลการ รีเซ็ตพาสเวริดได้ถูกส่งไปที่ อีเมลของคุณแล้ว')
+                    //     toggleForgetPassword(false)
+                    //   })
                   }}
                 >
                   ตกลง
@@ -357,7 +345,7 @@ const Manageuser = (props) => {
       </Modal>
 
 
-    {/* ---------------------------------------------------------------------------------------- เปิดส่วนเลือกโครงการแต่ละอัน เพิ่มไฟล์ SCurve เพิ่มสมาชิกตำแหน่ง*/}
+  
       
         <Table 
           style={{
@@ -369,7 +357,7 @@ const Manageuser = (props) => {
           dataSource={_.map(users, (item, index) => ({ ...item, id: index }))}
         />
       
-{/* -----------------------------------------------------------------------------------------------------------  ปิดส่วนเลือกโครงการแต่ละอัน เพิ่มไฟล์ SCurve เพิ่มสมาชิกตำแหน่ง*/}
+
 
     </div>
   )

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import './Home.css'
 import crypto from 'crypto'
 import {
   Collapse,
