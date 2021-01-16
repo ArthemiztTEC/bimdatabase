@@ -185,7 +185,7 @@ function Navbar(props) {
 
             </NavItem> */}
 
-          <NavItem>
+          {/* <NavItem> */}
             <MenuStyle onClick={handleClick} selectedKeys={props.sceneKey} mode="inline">
                 {props.tabs ? props.tabs.map((item, index) => {
                       return <Menu.Item key={item.id}>{item.title}</Menu.Item>
@@ -201,7 +201,7 @@ function Navbar(props) {
                   </Menu.Item>
                     ))}
               </MenuStyle>
-          </NavItem>
+          {/* </NavItem> */}
 
         </SideNav.Nav>
       </SideNav>

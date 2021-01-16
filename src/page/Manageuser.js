@@ -203,32 +203,33 @@ const Manageuser = (props) => {
         })
       },
     },
-    // {
-    //   title: 'ข้อมูลผู้ใช้',
-    //     render: (item) => <button type="button" className="btn btn-secondary" onClick={() => {
-    //       const {email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
-    //       alert(
-    //       "ชื่อ : "+firstName+" "+lastname+ '\n'+
-    //       "ที่อยู่ : "+company+ '\n'+
-    //       "อีเมล : "+email+ '\n'+
-    //       "โทร : "+phone+ '\n'+
-    //       "เลขบัตรประชาชน : "+idnum+ '\n'+
-    //       "เลขผู้เสียภาษี : "+taxnumber+ '\n'
-    //       );
-    //     }}>ข้อมูล</button> ,
-    // },
     {
       title: 'ข้อมูลผู้ใช้',
-        render: (item) => <Link
-        // href={'#'}
-        className="btn btn-secondary"
-        style={{ width: "100px", color:"white"}}
-        onClick={() => {
-          const {email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
-          
-        }}
-      >ข้อมูล</Link> 
+        render: (item) => <button type="button" className="btn btn-secondary" onClick={() => {
+          const {uid='',email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
+          alert(
+          "uid : "+uid+'\n'+
+          "ชื่อ : "+firstName+" "+lastname+ '\n'+
+          "ที่อยู่ : "+company+ '\n'+
+          "อีเมล : "+email+ '\n'+
+          "โทร : "+phone+ '\n'+
+          "เลขบัตรประชาชน : "+idnum+ '\n'+
+          "เลขผู้เสียภาษี : "+taxnumber+ '\n'
+          );
+        }}>ข้อมูล</button> ,
     },
+    // {
+    //   title: 'ข้อมูลผู้ใช้',
+    //     render: (item) => <Link
+    //     // href={'#'}
+    //     className="btn btn-secondary"
+    //     style={{ width: "100px", color:"white"}}
+    //     onClick={() => {
+    //       const {email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
+          
+    //     }}
+    //   >ข้อมูล</Link> 
+    // },
     {
       title: 'สถานะ',
       render: (item) => {
