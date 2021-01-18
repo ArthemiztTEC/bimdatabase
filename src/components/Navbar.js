@@ -5,7 +5,9 @@ import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { Menu } from 'antd'
 import styled from 'styled-components'
+import firebase from 'firebase'
 import Grid from '@material-ui/core/Grid'
+import Layout from '../'
 import {
   AppstoreOutlined,
   MenuUnfoldOutlined,
@@ -25,6 +27,7 @@ import SideNav, {
 } from "@trendmicro/react-sidenav";
 // import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import './Navbar.css';
+import { useRadioGroup } from '@material-ui/core'
 
 const MenuGrid = styled(Grid)`
   margin-bottom: 50px;
@@ -64,61 +67,116 @@ function Navbar(props) {
 //     //   }
 //     // }
 //  }
-
-
-  let Tabs = [
-    {
-      title: 'หน้าแรก',
-      id: 'dashboard',
-      icon: 'Home_select',
-    },
-    {
-      title: 'แจ้งซ่อม',
-      id: 'repair',
-      icon: 'Inform_select',
-    },
-    {
-      title: 'จัดการ Account',
-      id: 'account',
-      icon: 'manage_select',
-    },
-    {
-      title: 'จัดการ บัญชี',
-      id: 'manageuser',
-      icon: 'manage_select',
-    },
-    // {
-    //   title: 'ทดสอบเพิ่มเมนู',
-    //   id: 'report',
-    //   icon: 'manage_select',
-    // },
-  ]
+const [user, setUser] = useState({})
+useEffect(() => {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      firebase
+        .database()
+        .ref(`/user/${user.uid}`)
+        .once('value', (data) => {
+          console.log('current user', data.val())
+          setUser({ ...data.val(), uid: user.uid })
+        })
+    } else {
+      // No user is signed in.
+    }
+  })
+}, [])
+let Tabs = []
+  if (user.status == 3){
+    Tabs = [
+      {
+        title: ' หน้าแรก',
+        id: 'dashboard',
+        icon: 'Home_select',
+      },
+      {
+        title: ' แจ้งซ่อม',
+        id: 'repair',
+        icon: 'Inform_select',
+      },
+      {
+        title: 'จัดการโครงการ',
+        id: 'account',
+        icon: 'List_select',
+      },
+      {
+        title: ' จัดการบัญชี',
+        id: 'manageuser',
+        icon: 'manage_select',
+      },
+    ]
+  }else{
+    Tabs = [
+      {
+        title: ' หน้าแรก',
+        id: 'dashboard',
+        icon: 'Home_select',
+      },
+      {
+        title: ' แจ้งซ่อม',
+        id: 'repair',
+        icon: 'Inform_select',
+      },
+      
+    ]
+  }
+   
   if (!props.tabs) {
     if (props.sceneKey === 'issue') {
       Tabs = [
         {
-          title: 'หน้าหลัก',
+          title: ' หน้าหลัก',
           id: 'dashboard',
-          icon: 'Home',
+          icon: 'Home_select',
         },
         {
-          title: 'แจ้งซ่อม',
+          title: ' แจ้งซ่อม',
           id: 'repair',
-          icon: 'Inform',
+          icon: 'Inform_select',
         },
         {
-          title: 'รายงานแจ้งซ่อม',
+          title: ' รายงานแจ้งซ่อม',
           id: 'issue',
-          icon: 'Inform',
-        },
-        {
-          title: 'จัดการโครงการ',
-          id: 'account',
-          icon: 'manage',
+          icon: 'Inform_select',
         },
       ]
     }
   }
+  if (!props.tabs) {
+    if (user.status == 3){
+    if (props.sceneKey === 'issue') {
+      Tabs = [
+        {
+          title: ' หน้าหลัก',
+          id: 'dashboard',
+          icon: 'Home_select',
+        },
+        {
+          title: ' แจ้งซ่อม',
+          id: 'repair',
+          icon: 'Inform_select',
+        },
+        {
+          title: ' รายงานแจ้งซ่อม',
+          id: 'issue',
+          icon: 'Inform_select',
+        },
+        {
+          title: 'จัดการโครงการ',
+          id: 'account',
+          icon: 'List_select',
+        },
+        {
+          title: ' จัดการบัญชี',
+          id: 'manageuser',
+          icon: 'manage_select',
+        },
+      ]
+    }
+  }
+}
 
   return (
     <>
@@ -137,62 +195,14 @@ function Navbar(props) {
         <SideNav.Nav>
                 <> <img height={50} style={{ padding: "10px" }} src={`/logoMenu.png`}/> </>
 
-          {/* <NavItem eventKey="home" onClick={handleClick} selectedKeys={props.sceneKey} >
-            <NavIcon>
-              <img
-                  height={20}
-                  src={`/asset/Home_select.png`}
-                />
-            </NavIcon>
-            <NavText>หน้าแรก</NavText>
-          </NavItem>
-
-          <NavItem onClick={handleClickRe} key='repair' selectedKeys={props.sceneKey}>
-          
-            <NavIcon>
-              <img
-                // height={18}
-                src={`/asset/Inform_select.png`}
-              />
-            </NavIcon>
-            <NavText>แจ้งซ่อม</NavText>
-          </NavItem>
-
-          <NavItem eventKey="issue">
-            <NavIcon>
-              <img
-                // height={18}
-                src={`/asset/List_select.png`}
-              />
-            </NavIcon>
-            <NavText>จัดการ Account</NavText>
-          </NavItem>
-            
-          <NavItem eventKey="charts">
-            <NavIcon>
-              <img
-                // height={18}
-                src={`/asset/List_select.png`}
-              />
-            </NavIcon>
-            <NavText>เมนูย่อย ทดสอบ</NavText>
-              <NavItem eventKey="charts/linechart">
-                <NavText>Line Chart</NavText>
-              </NavItem>
-              <NavItem eventKey="charts/barchart">
-                <NavText>Bar Chart</NavText>
-              </NavItem>
-
-            </NavItem> */}
-
-          {/* <NavItem> */}
             <MenuStyle onClick={handleClick} selectedKeys={props.sceneKey} mode="inline">
                 {props.tabs ? props.tabs.map((item, index) => {
                       return <Menu.Item key={item.id}>{item.title}</Menu.Item>
                     })
                   : Tabs.map((item, index) => (
                     <Menu.Item key={item.id}>
-                    <img
+                
+                    <img style={{ marginRight:"5px" , paddingBottom: "5px" }}
                       height={20}
                       src={`/asset/${item.icon}${props.sceneKey === item.id ? '' : ''}.png`}
                     />{'  '}
@@ -205,27 +215,6 @@ function Navbar(props) {
 
         </SideNav.Nav>
       </SideNav>
-
-    {/* <MenuGrid container >
-
-      <Grid item xs={2} style={{backgroundColor: "lightblue"}}>
-      <MenuStyle onClick={handleClick} selectedKeys={props.sceneKey} mode="inline">
-        {props.tabs ? props.tabs.map((item, index) => {
-              return <Menu.Item key={item.id}>{item.title}</Menu.Item>
-            })
-          : Tabs.map((item, index) => (
-              <Menu.Item key={item.id}>
-                <img
-                  height={20}
-                  src={`/asset/${item.icon}${props.sceneKey === item.id ? '_select' : ''}.png`}
-                />{' '}
-                {item.title}
-              </Menu.Item>
-            ))}
-      </MenuStyle>
-      </Grid>
-      
-    </MenuGrid> */}
     </>
   )
 }

@@ -203,22 +203,6 @@ const Manageuser = (props) => {
         })
       },
     },
-    // {
-    //   title: 'ข้อมูลผู้ใช้',
-    //     render: (item) => <button type="button" className="btn btn-secondary" onClick={() => {
-    //       const {uid='',email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
-    //       // alert(
-    //       // "uid : "+uid+'\n'+
-    //       // "ชื่อ : "+firstName+" "+lastname+ '\n'+
-    //       // "ที่อยู่ : "+company+ '\n'+
-    //       // "อีเมล : "+email+ '\n'+
-    //       // "โทร : "+phone+ '\n'+
-    //       // "เลขบัตรประชาชน : "+idnum+ '\n'+
-    //       // "เลขผู้เสียภาษี : "+taxnumber+ '\n'
-    //       // );
-    //       document.getElementById("uid").innerHTML = uid;
-    //     }}>ข้อมูล</button> ,
-    // },
     {
       title: 'ข้อมูลผู้ใช้',
         render: (item) => <a type="button" href="#popup1" className="btn btn-secondary"
@@ -233,9 +217,6 @@ const Manageuser = (props) => {
             document.getElementById("phone").innerHTML = phone;
             document.getElementById("taxnumber").innerHTML = taxnumber;
             document.getElementById("idnum").innerHTML = idnum;
-          // toggleForgetPassword(true)
-          // var uid = document.getElementsByClassName("uid");
-           
         }}
       >ข้อมูล</a> 
     },
@@ -248,15 +229,8 @@ const Manageuser = (props) => {
         }
         if(status == 0){
           return <button className="btn btn-primary">อนุมัติ</button>
-          //กดแล้วเพิ่ม 1 เข้าไปใน status
         }
       }
-      // render: (Button) => <button className="btn btn-secondary">อนุญาต</button>,
-      // render: (item) => {
-      //   const { approve = '' } = item
-      //   //console.log('item', item)
-      //   return `${approve}`
-      // },
     },
   ]
   
