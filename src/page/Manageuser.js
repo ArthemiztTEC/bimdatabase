@@ -203,33 +203,42 @@ const Manageuser = (props) => {
         })
       },
     },
-    {
-      title: 'ข้อมูลผู้ใช้',
-        render: (item) => <button type="button" className="btn btn-secondary" onClick={() => {
-          const {uid='',email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
-          alert(
-          "uid : "+uid+'\n'+
-          "ชื่อ : "+firstName+" "+lastname+ '\n'+
-          "ที่อยู่ : "+company+ '\n'+
-          "อีเมล : "+email+ '\n'+
-          "โทร : "+phone+ '\n'+
-          "เลขบัตรประชาชน : "+idnum+ '\n'+
-          "เลขผู้เสียภาษี : "+taxnumber+ '\n'
-          );
-        }}>ข้อมูล</button> ,
-    },
     // {
     //   title: 'ข้อมูลผู้ใช้',
-    //     render: (item) => <Link
-    //     // href={'#'}
-    //     className="btn btn-secondary"
-    //     style={{ width: "100px", color:"white"}}
-    //     onClick={() => {
-    //       const {email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
-          
-    //     }}
-    //   >ข้อมูล</Link> 
+    //     render: (item) => <button type="button" className="btn btn-secondary" onClick={() => {
+    //       const {uid='',email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
+    //       // alert(
+    //       // "uid : "+uid+'\n'+
+    //       // "ชื่อ : "+firstName+" "+lastname+ '\n'+
+    //       // "ที่อยู่ : "+company+ '\n'+
+    //       // "อีเมล : "+email+ '\n'+
+    //       // "โทร : "+phone+ '\n'+
+    //       // "เลขบัตรประชาชน : "+idnum+ '\n'+
+    //       // "เลขผู้เสียภาษี : "+taxnumber+ '\n'
+    //       // );
+    //       document.getElementById("uid").innerHTML = uid;
+    //     }}>ข้อมูล</button> ,
     // },
+    {
+      title: 'ข้อมูลผู้ใช้',
+        render: (item) => <a type="button" href="#popup1" className="btn btn-secondary"
+        style={{ width: "100px", color:"white"}} onClick={() => {
+          const {uid='',email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
+
+            document.getElementById("uid").innerHTML = uid;
+            document.getElementById("email").innerHTML = email;
+            document.getElementById("firstName").innerHTML = firstName;
+            document.getElementById("lastname").innerHTML = lastname;
+            document.getElementById("company").innerHTML = company;
+            document.getElementById("phone").innerHTML = phone;
+            document.getElementById("taxnumber").innerHTML = taxnumber;
+            document.getElementById("idnum").innerHTML = idnum;
+          // toggleForgetPassword(true)
+          // var uid = document.getElementsByClassName("uid");
+           
+        }}
+      >ข้อมูล</a> 
+    },
     {
       title: 'สถานะ',
       render: (item) => {
@@ -270,96 +279,32 @@ const Manageuser = (props) => {
       <Breadcrumbs aria-label="breadcrumb" style={{ paddingLeft: "12em" }}>
         <Text size={18} style={{ paddingBottom: "1em" }}>จัดการ บัญชีผู้ใช้</Text>
       </Breadcrumbs>
-      
-      <Modal
-        className={classes.modal}
-        open={forgetPassword}
-        onClose={() => {
-          toggleForgetPassword(false)
+
+      <Table 
+        style={{
+          width: '100%',
+          paddingLeft: "12em",
+          paddingRight: "1.5em",
         }}
-      >
-        <WhiteBox>
-          <Grid container justify={'center'}>
-            <ForgetTitle></ForgetTitle>
-            <Grid
-              container
-              justify={'center'}
-              style={{
-                marginTop: 20,
-              }}
-            >
-              <Grid xs={8}>
-                <InputGrid>
-                  <NoIconInputField 
-                    // placeholder={email}
-                    value = {props.firstName}
-                    // onChange={(e) => {
-                    //   setEmail(e.target.value)
-                    // }}
-                  />
-                </InputGrid>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              justify={'center'}
-              style={{
-                marginTop: 30,
-              }}
-            >
-              <Grid
-                xs={3}
-                style={{
-                  marginRight: 10,
-                }}
-              >
-                <FullWidthButton
-                  type={'submit'}
-                  onClick={() => {
-                    toggleForgetPassword(false)
-                  }}
-                >
-                  ยกเลิก
-                </FullWidthButton>
-              </Grid>
-              <Grid xs={3}>
-                <FullWidthButton
-                  color="warning"
-                  type={'submit'}
-                  onClick={() => {
-                    // firebase
-                    //   .auth()
-                    //   .sendPasswordResetEmail(email)
-                    //   .then((res) => {
-                    //     alert('ข้อมูลการ รีเซ็ตพาสเวริดได้ถูกส่งไปที่ อีเมลของคุณแล้ว')
-                    //     toggleForgetPassword(false)
-                    //   })
-                  }}
-                >
-                  ตกลง
-                </FullWidthButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        </WhiteBox>
-      </Modal>
-
-
-  
-      
-        <Table 
-          style={{
-            width: '100%',
-            paddingLeft: "12em",
-            paddingRight: "1.5em",
-          }}
           columns={columns}
           dataSource={_.map(users, (item, index) => ({ ...item, id: index }))}
-        />
-      
+      />
 
-
+      <div id="popup1" class="overlay">
+        <div class="popup">
+          <h2>ข้อมูลบัญชีผู้ใช้</h2>
+          <a class="close" href="#">&times;</a>
+          <div class="content">
+            Uid : <label id="uid"></label><br></br>
+            ชื่อ : <label id="firstName"></label> <label id="lastname"></label><br></br>
+            ที่อยู่ : <label id="company"></label><br></br>
+            อีเมล : <label id="email"></label><br></br>
+            โทร : <label id="phone"></label><br></br>
+            เลขบัตรประชาชน : <label id="idnum"></label><br></br>
+            เลขผู้เสียภาษี : <label id="taxnumber"></label><br></br>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

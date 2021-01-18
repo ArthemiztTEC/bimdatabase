@@ -40,10 +40,12 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    
     <script>
+
       var myVar;
       
-      function myFunction() {
+      function loaderFunction() {
         myVar = setTimeout(showPage, 4000);
       }
       
@@ -51,11 +53,13 @@
         document.getElementById("loader").style.display = "none";
         document.getElementById("myDiv").style.display = "block";
       }
+      
+      
     </script>
 
     <title>BIMdatabase</title>
   </head>
-  <body onload="myFunction()">
+  <body onload="loaderFunction()">
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -69,5 +73,4 @@
     -->
   </body>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
-
 </html>
