@@ -167,6 +167,13 @@ const Manageuser = (props) => {
     document.getElementsByTagName('body')[0].className = 'defaultLayout'
   }, [])
 
+  let TestStatus;
+  if (user.status == 1){TestStatus = window.location='dashboard';}
+  else if(user.status == 0){TestStatus = window.location='dashboard';}
+  else if(user.status == 2){TestStatus = window.location='dashboard';}
+  else if(user.status == 3){TestStatus = "Test";}
+  else if(user.status >= 4){TestStatus = window.location='dashboard';}
+
   const columns = [
     {
       title: '#',
@@ -194,7 +201,7 @@ const Manageuser = (props) => {
       title: 'โครงการ',
 
       render: (item) => {
-        return _.map(modelList, (project) => {
+        return _.map(modelList, (project) => { 
           if (_.find(project.users, (user) => item.uid === user.uid)) {
             return `${project.projectName || project.name},`
           } else {
@@ -203,22 +210,6 @@ const Manageuser = (props) => {
         })
       },
     },
-    // {
-    //   title: 'ข้อมูลผู้ใช้',
-    //     render: (item) => <button type="button" className="btn btn-secondary" onClick={() => {
-    //       const {uid='',email ='',firstName = '', lastname = '' ,company = '' ,phone = '',taxnumber ='',idnum =''} = item
-    //       // alert(
-    //       // "uid : "+uid+'\n'+
-    //       // "ชื่อ : "+firstName+" "+lastname+ '\n'+
-    //       // "ที่อยู่ : "+company+ '\n'+
-    //       // "อีเมล : "+email+ '\n'+
-    //       // "โทร : "+phone+ '\n'+
-    //       // "เลขบัตรประชาชน : "+idnum+ '\n'+
-    //       // "เลขผู้เสียภาษี : "+taxnumber+ '\n'
-    //       // );
-    //       document.getElementById("uid").innerHTML = uid;
-    //     }}>ข้อมูล</button> ,
-    // },
     {
       title: 'ข้อมูลผู้ใช้',
         render: (item) => <a type="button" href="#popup1" className="btn btn-secondary"
@@ -233,8 +224,6 @@ const Manageuser = (props) => {
             document.getElementById("phone").innerHTML = phone;
             document.getElementById("taxnumber").innerHTML = taxnumber;
             document.getElementById("idnum").innerHTML = idnum;
-          // toggleForgetPassword(true)
-          // var uid = document.getElementsByClassName("uid");
            
         }}
       >ข้อมูล</a> 
@@ -251,16 +240,14 @@ const Manageuser = (props) => {
           //กดแล้วเพิ่ม 1 เข้าไปใน status
         }
       }
-      // render: (Button) => <button className="btn btn-secondary">อนุญาต</button>,
-      // render: (item) => {
-      //   const { approve = '' } = item
-      //   //console.log('item', item)
-      //   return `${approve}`
-      // },
     },
   ]
+
+
   
-  return ( 
+
+  return (
+    
     <div
       style={{
         padding: 0,
@@ -268,8 +255,12 @@ const Manageuser = (props) => {
       }}
     >
 
+      <div id="loader1"></div>
+
       {/* ---------------------------------------------------------------------------------------- หน้า Layout ICon ขวามือ*/}
       <Layout />
+
+    
 
       {/* ---------------------------------------------------------------------------------------- เปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
       <Navbar {...props} />

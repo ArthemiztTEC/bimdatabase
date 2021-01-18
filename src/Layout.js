@@ -103,7 +103,9 @@ function Layout(props) {
                   <NavLink href="#">
                     <img src={'/user.png'} />
                     {'  '}
-                    {user.firstName}
+                    {user.firstName} 
+                    {user.status} 
+                    {/* status ตัวอย่าง */}
                   </NavLink>
                 </DropdownToggle>
                 <DropdownMenu
@@ -113,7 +115,7 @@ function Layout(props) {
                   }}
                 >
                   <DropdownItem>
-                    ชื่อ {user.firstName} {user.lastname}
+                    ชื่อ {user.firstName} {user.lastname} 
                   </DropdownItem>
                   <DropdownItem
                     onClick={() => {
