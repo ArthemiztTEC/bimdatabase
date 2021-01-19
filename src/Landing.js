@@ -85,7 +85,7 @@ export const WhiteBox = styled(Box)`
 function Landing(props) {
   const classes = useStyles()
   const { history, location } = props
-  console.log('gggggg' + props)
+  // console.log('gggggg' + props)
   const [register, setRegister] = useState(false)
   const [forgetPassword, toggleForgetPassword] = useState(false)
   const [isResetPassword, toggleResetPasswordUI] = useState(false)
@@ -95,7 +95,7 @@ function Landing(props) {
   useEffect(() => {
     document.getElementsByTagName('body')[0].className = 'home'
     const parsed = qs.parse(location.search)
-    console.log(parsed)
+    // console.log(parsed)
     if (parsed.oobCode) {
       firebase
         .auth()

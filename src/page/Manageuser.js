@@ -171,7 +171,7 @@ const Manageuser = (props) => {
   if (user.status == 1){TestStatus = window.location='dashboard';}
   else if(user.status == 0){TestStatus = window.location='dashboard';}
   else if(user.status == 2){TestStatus = window.location='dashboard';}
-  else if(user.status == 3){TestStatus = "Test";}
+  else if(user.status == 3){}
   else if(user.status >= 4){TestStatus = window.location='dashboard';}
 
   const columns = [
@@ -232,12 +232,14 @@ const Manageuser = (props) => {
       title: 'สถานะ',
       render: (item) => {
         const { status = '' } = item
+        if(status == 2){
+          return <p className="text-success">เจ้าของโครงการ</p>
+        }
         if(status == 1){
           return <p className="text-success">อนุมัติแล้ว</p>
         }
         if(status == 0){
           return <button className="btn btn-primary">อนุมัติ</button>
-          //กดแล้วเพิ่ม 1 เข้าไปใน status
         }
       }
     },
