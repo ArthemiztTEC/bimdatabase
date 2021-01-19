@@ -167,6 +167,13 @@ const Manageuser = (props) => {
     document.getElementsByTagName('body')[0].className = 'defaultLayout'
   }, [])
 
+  let TestStatus;
+  if (user.status == 1){TestStatus = window.location='dashboard';}
+  else if(user.status == 0){TestStatus = window.location='dashboard';}
+  else if(user.status == 2){TestStatus = window.location='dashboard';}
+  else if(user.status == 3){}
+  else if(user.status >= 4){TestStatus = window.location='dashboard';}
+
   const columns = [
     {
       title: '#',
@@ -194,7 +201,7 @@ const Manageuser = (props) => {
       title: 'โครงการ',
 
       render: (item) => {
-        return _.map(modelList, (project) => {
+        return _.map(modelList, (project) => { 
           if (_.find(project.users, (user) => item.uid === user.uid)) {
             return `${project.projectName || project.name},`
           } else {
@@ -217,6 +224,7 @@ const Manageuser = (props) => {
             document.getElementById("phone").innerHTML = phone;
             document.getElementById("taxnumber").innerHTML = taxnumber;
             document.getElementById("idnum").innerHTML = idnum;
+           
         }}
       >ข้อมูล</a> 
     },
@@ -224,6 +232,9 @@ const Manageuser = (props) => {
       title: 'สถานะ',
       render: (item) => {
         const { status = '' } = item
+        if(status == 2){
+          return <p className="text-success">เจ้าของโครงการ</p>
+        }
         if(status == 1){
           return <p className="text-success">อนุมัติแล้ว</p>
         }
@@ -233,8 +244,12 @@ const Manageuser = (props) => {
       }
     },
   ]
+
+
   
-  return ( 
+
+  return (
+    
     <div
       style={{
         padding: 0,
@@ -242,8 +257,12 @@ const Manageuser = (props) => {
       }}
     >
 
+      <div id="loader1"></div>
+
       {/* ---------------------------------------------------------------------------------------- หน้า Layout ICon ขวามือ*/}
       <Layout />
+
+    
 
       {/* ---------------------------------------------------------------------------------------- เปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
       <Navbar {...props} />
