@@ -164,6 +164,11 @@ function Home(props) {
     model1: 0,
     model2: 1,
   })
+  if (user.status == 0){ 
+    alert('กรุณาติดต่อผู้ดูแลระบบเพื่อยืนยันการเข้าใช้งานระบบ')
+    window.location='/'
+  }
+  else if(user.status >= 4){window.location='404.html'}
   useEffect(() => {
     firebase
       .database()
@@ -193,6 +198,12 @@ function Home(props) {
       })
     document.getElementsByTagName('body')[0].className = 'defaultLayout'
   }, [user.uid])
+
+  // if (user.status == 0){ 
+  //   alert('กรุณาติดต่อผู้ดูแลระบบเพื่อยืนยันการเข้าใช้งานระบบ')
+  //   window.location='/'
+  // }
+  // else if(user.status >= 4){window.location='404.html'}
   /**
    * Autodesk.Viewing.Document.load() failuire callback.
    */
@@ -355,9 +366,6 @@ function Home(props) {
             .database()
             .ref(`/model/${selectedmodel}/${id}/`)
             .on('value', (snap) => {
-              //console.log('selectedmodel has updated', selectedmodel)
-              //console.log('id has updated', id)
-              //console.log('Data has updated', snap.val())
               _.forEach(snap.val(), (item, date) => {
                 _.forEach(item, (repairItem, index) => {
                   _.set(result, `${date}.${index}`, {
@@ -573,7 +581,7 @@ function Home(props) {
               'Autodesk.Viewing.MarkupsGui',
               'Autodesk.PropertiesManager',
               'Autodesk.Viewing.Collaboration',   
-              'Autodesk.VisualClusters',
+              // 'Autodesk.VisualClusters',
               'Autodesk.AEC.SheetSyncExtension'
             ]
           })

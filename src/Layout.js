@@ -104,7 +104,7 @@ function Layout(props) {
                     <img src={'/user.png'} />
                     {'  '}
                     {user.firstName} 
-                    {user.status} 
+                    
                     {/* status ตัวอย่าง */}
                   </NavLink>
                 </DropdownToggle>

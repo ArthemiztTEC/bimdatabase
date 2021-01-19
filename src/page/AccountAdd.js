@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import Grid from '@material-ui/core/Grid'
 import { Card } from '@material-ui/core'
-
 import _ from 'lodash'
 import firebase from 'firebase'
 import LoadingOverlay from 'react-loading-overlay'
@@ -87,7 +86,9 @@ const AccountAdd = (props) => {
       }
     })
   }, [])
-  console.log('Token', token)
+  if (user.status <= 1){ window.location='404.html'}
+  else if(user.status >= 4){window.location='404.html'}
+  // console.log('Token', token)
   useEffect(() => {
     const result = axios.post(
       'https://developer.api.autodesk.com/authentication/v1/authenticate',
@@ -130,7 +131,7 @@ const AccountAdd = (props) => {
       >
         <Layout />
         <MenuBar {...props} />
-        <Breadcrumbs aria-label="breadcrumb">
+        <Breadcrumbs aria-label="breadcrumb" style={{ marginLeft: "20px" }}>
           <Link color="inherit" href="/account">
             จัดการ Account
           </Link>
@@ -139,7 +140,7 @@ const AccountAdd = (props) => {
           </Link>
         </Breadcrumbs>
         <Contents>
-          <Text size={18}>เพิ่มโครงการ</Text>
+          {/* <Text size={18}>เพิ่มโครงการ</Text> */}
           <Form>
             <FormGroup row>
               <Label for="projectName" sm={2}>

@@ -107,6 +107,25 @@ let Tabs = []
         icon: 'manage_select',
       },
     ]
+  }
+  else if (user.status == 2){
+    Tabs = [
+      {
+        title: ' หน้าแรก',
+        id: 'dashboard',
+        icon: 'Home_select',
+      },
+      {
+        title: ' แจ้งซ่อม',
+        id: 'repair',
+        icon: 'Inform_select',
+      },
+      {
+        title: 'จัดการโครงการ',
+        id: 'account',
+        icon: 'List_select',
+      },
+    ]
   }else{
     Tabs = [
       {
@@ -177,16 +196,11 @@ let Tabs = []
   }
 }
 
-  return (
+
+  return ( 
     <>
       <SideNav
         onSelect={selected => {
-          // Add your code here
-         
-          // const to = '/' + selected;
-          //           if (location.pathname !== to) {
-          //               history.push(to);
-          //           }
 
          }}
       >

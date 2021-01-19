@@ -122,7 +122,6 @@ const Account = (props) => {
         // No user is signed in.
       }
     })
-
     database.ref('/user').once('value', (snap) => {
       setUsers(
         _.map(snap.val(), (item, index) => ({
@@ -134,6 +133,8 @@ const Account = (props) => {
 
     document.getElementsByTagName('body')[0].className = 'defaultLayout'
   }, [])
+  if (user.status <= 1){ window.location='404.html'}
+  else if(user.status >= 4){window.location='404.html'}
 
   const columns = [
     {

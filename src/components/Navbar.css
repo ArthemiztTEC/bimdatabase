@@ -8,6 +8,7 @@
   left: 0;
   z-index: 1006;
   min-width: 64px;
+  height: auto;
   background: #292c2a;;
   -webkit-transition: min-width 0.2s;
   -moz-transition: min-width 0.2s;

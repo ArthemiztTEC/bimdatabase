@@ -22,7 +22,7 @@ function MenuBar(props) {
     } else {
       if (e.key !== 'issue') {
         props.history.push(`/${e.key}`)
-        props.setMode('3d')
+        // props.setMode('3d')
       }
     }
   }
@@ -40,11 +40,6 @@ function MenuBar(props) {
     {
       title: 'จัดการ Account',
       id: 'account',
-      icon: 'manage',
-    },
-    {
-      title: 'ทดสอบเพิ่มเมนู',
-      id: 'report',
       icon: 'manage',
     },
   ]

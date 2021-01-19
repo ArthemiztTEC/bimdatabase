@@ -8,7 +8,6 @@ import _ from 'lodash'
 import AWS from 'aws-sdk'
 import Modal from '@material-ui/core/Modal'
 
-
 import {
   ButtonToggle,
   Col,
@@ -90,7 +89,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
 }))
-
 const SPACES_KEY = '7L5CXYDG6YD6ZT5I7NBA'
 const SPACES_SECRET = 'jF0h/5ZWvGzhrisOjUdNzvP5S8IMfkoSni6seDS+FVk'
 const SPACES_NAME = 'ndf.server.bim'
@@ -131,7 +129,7 @@ const Manageuser = (props) => {
           .once('value', (data) => {
             //console.log('current user', data.val())
             setCurrentUser({ ...data.val(), uid: user.uid })
-
+            
             firebase
               .database()
               .ref('/models')
@@ -143,7 +141,7 @@ const Manageuser = (props) => {
                   _.forEach(item.users, (member) => {
                     if (member.uid === user.uid) {
                       //console.log('Member', member.uid === user.uid)
-                      output.push({ ...item, key: index })
+                      output.push({ ...item, key: index })                      
                     }
                   })
                 })
@@ -154,7 +152,6 @@ const Manageuser = (props) => {
         // No user is signed in.
       }
     })
-
     database.ref('/user').once('value', (snap) => {
       setUsers(
         _.map(snap.val(), (item, index) => ({
@@ -167,12 +164,11 @@ const Manageuser = (props) => {
     document.getElementsByTagName('body')[0].className = 'defaultLayout'
   }, [])
 
-  let TestStatus;
-  if (user.status == 1){TestStatus = window.location='dashboard';}
-  else if(user.status == 0){TestStatus = window.location='dashboard';}
-  else if(user.status == 2){TestStatus = window.location='dashboard';}
-  else if(user.status == 3){}
-  else if(user.status >= 4){TestStatus = window.location='dashboard';}
+  if (user.status <= 2){ window.location='404.html'}
+  else if(user.status >= 4){window.location='404.html'}
+    
+  
+  
 
   const columns = [
     {

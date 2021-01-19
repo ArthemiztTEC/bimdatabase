@@ -4,11 +4,12 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import React from 'react'
 
 const Scurve = (props)=>{
-  return   <div
+  return   (<div
     style={{
       padding: 10,
       margin: 10,
     }}
+    
   >
     <Layout />
     <MenuBar {...props} />
@@ -17,5 +18,6 @@ const Scurve = (props)=>{
 
     </Breadcrumbs>
   </div>
+  )
 }
 export default Scurve;

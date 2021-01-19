@@ -16,8 +16,6 @@ import { LoadingContext, LoadingProvider } from './components/LoadingProvider'
 import Layout from './Layout'
 import MenuBar from './components/MenuBar'
 import Scurve from './page/Scurve'
-import Reports from './page/Reports'
-import Navbar from './components/Navbar'
 
 import Manageuser from './page/Manageuser';
 
@@ -55,7 +53,6 @@ function App() {
         <Switch>
           <Route path="/" exact component={Landing} />
           <Route path="/scurve" exact component={Scurve} />
-          <Route path='/reports' exact component={Reports} />
           <Route path="/dashboard" render={(props) => <Home sceneKey={'dashboard'} {...props} />} />
           <Route path="/repair" render={(props) => <Home sceneKey={'repair'} {...props} />} />
           <Route
