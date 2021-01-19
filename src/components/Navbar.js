@@ -50,7 +50,7 @@ function Navbar(props) {
     } else {
       if (e.key !== 'issue') {
         props.history.push(`/${e.key}`)
-        props.setMode('3d')
+        // props.setMode('3d')
       }
     }
   }
