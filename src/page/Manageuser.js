@@ -117,8 +117,9 @@ const Manageuser = (props) => {
   const [forgetPassword, toggleForgetPassword] = useState(false)
   // const [email, setEmail] = useState('')
   const classes = useStyles()
-  
 
+  if (user.status <= 2){ window.location='404.html'}
+  else if(user.status >= 4){window.location='404.html'}
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
@@ -163,12 +164,6 @@ const Manageuser = (props) => {
 
     document.getElementsByTagName('body')[0].className = 'defaultLayout'
   }, [])
-
-  if (user.status <= 2){ window.location='404.html'}
-  else if(user.status >= 4){window.location='404.html'}
-    
-  
-  
 
   const columns = [
     {
