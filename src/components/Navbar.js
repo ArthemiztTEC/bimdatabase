@@ -119,7 +119,6 @@ let Tabs = []
         id: 'repair',
         icon: 'Inform_select',
       },
-      
     ]
   }
    
