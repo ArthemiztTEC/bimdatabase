@@ -568,6 +568,7 @@ function Home(props) {
             .update({
               ...user,
               loginDate: moment().format('HH:mm'),
+              
             })
         }
 

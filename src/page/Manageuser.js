@@ -95,6 +95,7 @@ const SPACES_NAME = 'ndf.server.bim'
 const SPACES_ENDPOINT = 'sgp1.digitaloceanspaces.com'
 const url = 'https://ndf.server.bim.sgp1.cdn.digitaloceanspaces.com/'
 const Manageuser = (props) => {
+  
   const spacesEndpoint = new AWS.Endpoint(SPACES_ENDPOINT)
 
   const [user, setCurrentUser] = useState({})
@@ -117,7 +118,18 @@ const Manageuser = (props) => {
   const [forgetPassword, toggleForgetPassword] = useState(false)
   // const [email, setEmail] = useState('')
   const classes = useStyles()
+
   
+<<<<<<< HEAD
+=======
+  // if(React.empty([users.status])){window.location='404.html'}
+ 
+  if(users.status <= 2){window.location='404.html'}
+  else if(users.status >= 4){window.location='404.html'}
+
+  // else {return (window.location='404.html')
+
+>>>>>>> 28eb2da4d60252a227585c8a17bab115eea881f5
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -160,10 +172,14 @@ const Manageuser = (props) => {
     })
 
     document.getElementsByTagName('body')[0].className = 'defaultLayout'
+<<<<<<< HEAD
   }, [user.status])
   
   if (user.status <= 2){window.location='404.html'}
   else if(user.status >= 4){window.location='404.html'}
+=======
+  }, [])
+>>>>>>> 28eb2da4d60252a227585c8a17bab115eea881f5
 
   const columns = [
     {
@@ -174,6 +190,9 @@ const Manageuser = (props) => {
     {
       title: 'ชื่อ',
       render: (item) => {
+        if(user.status != 3){window.location='404.html'}
+        console.log('Member', user.status)
+
         const { firstName = '', lastname = '' } = item
         //console.log('item', item)
         return `${firstName} ${lastname}`
@@ -234,9 +253,6 @@ const Manageuser = (props) => {
     },
   ]
 
-
-  
-
   return (
     
     <div
@@ -270,6 +286,7 @@ const Manageuser = (props) => {
         }}
           columns={columns}
           dataSource={_.map(users, (item, index) => ({ ...item, id: index }))}
+          
       />
 
       <div id="popup1" class="overlay">
