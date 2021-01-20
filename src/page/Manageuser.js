@@ -118,9 +118,6 @@ const Manageuser = (props) => {
   // const [email, setEmail] = useState('')
   const classes = useStyles()
   
-  if (user.status <= 2){ window.location='404.html'}
-  else if(user.status >= 4){window.location='404.html'}
-
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -163,12 +160,10 @@ const Manageuser = (props) => {
     })
 
     document.getElementsByTagName('body')[0].className = 'defaultLayout'
-  }, [])
-
+  }, [user.status])
   
-    
-  
-  
+  if (user.status <= 2){window.location='404.html'}
+  else if(user.status >= 4){window.location='404.html'}
 
   const columns = [
     {
@@ -178,7 +173,6 @@ const Manageuser = (props) => {
     },
     {
       title: 'ชื่อ',
-
       render: (item) => {
         const { firstName = '', lastname = '' } = item
         //console.log('item', item)
@@ -189,7 +183,6 @@ const Manageuser = (props) => {
       title: 'บริษัท',
       render: (item) => {
         const { company = '' } = item
-        //console.log('item', item)
         return `${company}`
       },
     },
