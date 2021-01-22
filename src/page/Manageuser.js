@@ -119,17 +119,9 @@ const Manageuser = (props) => {
   // const [email, setEmail] = useState('')
   const classes = useStyles()
 
+  if (user.status <= 2){window.location='404.html'}
+  else if(user.status >= 4){window.location='404.html'}
   
-<<<<<<< HEAD
-=======
-  // if(React.empty([users.status])){window.location='404.html'}
- 
-  if(users.status <= 2){window.location='404.html'}
-  else if(users.status >= 4){window.location='404.html'}
-
-  // else {return (window.location='404.html')
-
->>>>>>> 28eb2da4d60252a227585c8a17bab115eea881f5
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -172,15 +164,8 @@ const Manageuser = (props) => {
     })
 
     document.getElementsByTagName('body')[0].className = 'defaultLayout'
-<<<<<<< HEAD
-  }, [user.status])
+  },[])
   
-  if (user.status <= 2){window.location='404.html'}
-  else if(user.status >= 4){window.location='404.html'}
-=======
-  }, [])
->>>>>>> 28eb2da4d60252a227585c8a17bab115eea881f5
-
   const columns = [
     {
       title: '#',

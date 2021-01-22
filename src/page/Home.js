@@ -958,17 +958,20 @@ function Home(props) {
                       color: 'red',
                     }}
                   >
-                    {modelItem?.scurve ? '' : 'กรุณาอัพโหลดที่จัดการ โครงการ'}
+                    {/* {modelItem?.scurve ? '' : 'กรุณาอัพโหลดที่จัดการ โครงการ'} */}
                   </h1>
+                  {/* {console.log('modelItem', modelItem)}
+                      {console.log('modelscurve',modelItem.sc)} */}
                   <iframe
                     height="500px"
                     width="100%"
                     src={
-                      `https://view.officeapps.live.com/op/embed.aspx?src=${_.get(
-                        modelItem,
-                        'scurve',
-                        false
-                      )}` || ''
+                      modelItem.sc
+                      // `https://view.officeapps.live.com/op/embed.aspx?src=${_.get(
+                      //   modelItem,
+                      //   'scurve',
+                      //   false
+                      // )}` || ''
                     }
                   />
                 </ViewerGrid>
