@@ -431,7 +431,7 @@ const Account = (props) => {
                       color={'primary'}
                       onClick={() => {
                         if (memberForm.uid) {
-                          firebase.database().ref('/items')
+                          // firebase.database().ref('/items')
                           {console.log('modelList',modelList[selected])}
                           {console.log('memberForm',memberForm)}
                           {console.log('memberForm.uid',memberForm.uid)}
@@ -440,6 +440,7 @@ const Account = (props) => {
                           
                           database.ref(`/models/${modelList[selected].key}`).update({sc:memberForm.uid});
                           alert('เพิ่มข้อมูลเรียบร้อยแล้ว')
+                          window.location='dashboard'
 
                         } else {
                           //console.log('Please Select')

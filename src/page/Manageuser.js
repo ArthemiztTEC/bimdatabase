@@ -223,7 +223,7 @@ const Manageuser = (props) => {
     },
     {
       title: 'สถานะ',
-      render: (item) => {
+      render: (item) => { {console.log('item',item)} {console.log('item',item.status)}
         const { status = '' } = item
         if(status == 2){
           return <p className="text-success">เจ้าของโครงการ</p>
@@ -232,7 +232,15 @@ const Manageuser = (props) => {
           return <p className="text-success">อนุมัติแล้ว</p>
         }
         if(status == 0){
-          return <button className="btn btn-primary">อนุมัติ</button>
+          return <button className="btn btn-primary" 
+          onClick={() => {
+            {console.log('item',item)}
+            {console.log('item',item.status)}
+            {console.log('userid',item.uid)}
+            database.ref(`/user/${item.uid}`).update({status:"1"});
+            alert('เปลี่ยนสถานะเรียบร้อย')
+            window.location='/manageuser'
+          }}>อนุมัติ</button>
         }
       }
     },
