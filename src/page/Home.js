@@ -164,11 +164,11 @@ function Home(props) {
     model1: 0,
     model2: 1,
   })
-  if (user.status == 0){ 
-    alert('กรุณาติดต่อผู้ดูแลระบบเพื่อยืนยันการเข้าใช้งานระบบ')
-    window.location='/'
-  }
-  else if(user.status >= 4){window.location='404.html'}
+  // if (user.status == 0){ 
+  //   alert('กรุณาติดต่อผู้ดูแลระบบเพื่อยืนยันการเข้าใช้งานระบบ')
+  //   window.location='/'
+  // }
+  // else if(user.status >= 4){window.location='404.html'}
   useEffect(() => {
     firebase
       .database()
