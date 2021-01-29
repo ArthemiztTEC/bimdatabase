@@ -295,9 +295,10 @@ const Account = (props) => {
         />
       ) : (
         <>
-          <Contents>
+          <Contents style={{ paddingLeft: "12em" }}>
             <Text size={18}>แก้ไข S Curve</Text>
 
+            {/* ---------------------------------------------------------------------------------------------เเบบใช้ API */}
             <Grid container justify={'center'}>
               <Grid item xs={6}>
                 <FormGroup row>
@@ -398,8 +399,55 @@ const Account = (props) => {
                 </FormGroup>
               </Grid>
             </Grid>
+            {/* ---------------------------------------------------------------------------------------------เเบบใช้ API */}
+
+            {/* ------------------------------------------------------------------------------------------------------------- */}
+            <Grid container justify={'center'}>
+              <Grid item xs={6}>
+                <FormGroup row>
+                  <Label for="exampleSelect" sm={3}>
+                    Link SCurve :
+                  </Label>
+                  <Col sm={6}>
+                    <Input 
+                    type="text" 
+                    name="name"
+                    id="exampleSelect"
+                    placeholder="กรุณาใส่ Link ExcelSheet ที่แชร์แล้ว"
+                    onChange={(e) => {
+                      setForm({
+                        ...memberForm,
+                        uid: e.target.value,
+                      })
+                    }}
+                    default={null}
+                    >
+                    </Input>
+                    {console.log('memberForm',memberForm)}
+                  </Col>
+                  <Col sm={2}>
+                    <FullWidthButton
+                      color={'primary'}
+                      onClick={() => {
+                        if (memberForm.uid) {
+                          database.ref(`/models/${modelList[selected].key}/users`).push(memberForm)
+                          setForm({})
+                        } else {
+                          //console.log('Please Select')
+                          alert('ยังไม่ได้เพิ่ม Link')
+                        }
+                      }}
+                    >
+                      Save
+                    </FullWidthButton>
+                  </Col>
+                </FormGroup>
+              </Grid>
+            </Grid>
+            {/* ------------------------------------------------------------------------------------------------------------- */}
+
           </Contents>
-          <Contents>
+          <Contents style={{ paddingLeft: "12em" }}>
             <Text size={18}>เพิ่ม User</Text>
 
             <Grid container justify={'center'}>
@@ -515,7 +563,7 @@ const Account = (props) => {
           {_.map(_.get(modelList[selected], 'users', []), (item, index) => {
             const user = _.find(users, (userData) => userData.uid === item.uid)
             return (
-              <Contents>
+              <Contents style={{ paddingLeft: "12em" }}>
                 <Grid container spacing={1}>
                   <Grid
                     xs={1}

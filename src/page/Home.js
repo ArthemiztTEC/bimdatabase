@@ -821,6 +821,7 @@ function Home(props) {
                   </Grid>
                 </Grid>
 
+
                 <Grid container spacing={1}>
                   <Grid item>
                     <Text size={16}>การแจ้งซ่อมตัวอาคาร</Text>
@@ -952,7 +953,7 @@ function Home(props) {
                   <Forge id={'my2dView'} />
                 </ViewerGrid>
               ) : mode === 'scurve' ? (
-                <ViewerGrid item xs={12}>
+                <ViewerGrid item xs={12} style={{paddingBottom:"1000px"}}>
                   <h1
                     style={{
                       color: 'red',
@@ -960,10 +961,10 @@ function Home(props) {
                   >
                     {/* {modelItem?.scurve ? '' : 'กรุณาอัพโหลดที่จัดการ โครงการ'} */}
                   </h1>
-                  {/* {console.log('modelItem', modelItem)}
-                      {console.log('modelscurve',modelItem.sc)} */}
+                  {console.log('modelItem', modelItem)}
+                  {console.log('modelscurve',modelItem.sc)}
                   <iframe
-                    height="500px"
+                    height="1000px"
                     width="100%"
                     src={
                       modelItem.sc
