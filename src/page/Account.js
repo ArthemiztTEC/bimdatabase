@@ -299,7 +299,7 @@ const Account = (props) => {
             <Text size={18}>แก้ไข S Curve</Text>
 
             {/* ---------------------------------------------------------------------------------------------เเบบใช้ API */}
-            <Grid container justify={'center'}>
+            {/* <Grid container justify={'center'}>
               <Grid item xs={6}>
                 <FormGroup row>
                   <Label for="exampleSelect" sm={3}>
@@ -398,7 +398,7 @@ const Account = (props) => {
                   </Col>
                 </FormGroup>
               </Grid>
-            </Grid>
+            </Grid> */}
             {/* ---------------------------------------------------------------------------------------------เเบบใช้ API */}
 
             {/* ------------------------------------------------------------------------------------------------------------- */}
@@ -423,15 +423,24 @@ const Account = (props) => {
                     default={null}
                     >
                     </Input>
-                    {console.log('memberForm',memberForm)}
+                    
+
                   </Col>
                   <Col sm={2}>
                     <FullWidthButton
                       color={'primary'}
                       onClick={() => {
                         if (memberForm.uid) {
-                          database.ref(`/models/${modelList[selected].key}/users`).push(memberForm)
-                          setForm({})
+                          firebase.database().ref('/items')
+                          {console.log('modelList',modelList[selected])}
+                          {console.log('memberForm',memberForm)}
+                          {console.log('memberForm.uid',memberForm.uid)}
+                          {console.log('modelList.key',modelList[selected].key)}
+                          {console.log('modelList.sc',modelList[selected].sc)}
+                          
+                          database.ref(`/models/${modelList[selected].key}`).update({sc:memberForm.uid});
+                          alert('เพิ่มข้อมูลเรียบร้อยแล้ว')
+
                         } else {
                           //console.log('Please Select')
                           alert('ยังไม่ได้เพิ่ม Link')
