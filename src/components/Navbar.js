@@ -55,6 +55,18 @@ function Navbar(props) {
     }
   }
 
+//   const handleClickRe = (e) =>{
+//   return (
+//      <Menu.Item key='repair'>repair</Menu.Item>
+//   )
+
+//     // else {
+//     //   if (e.key !== 'issue') {
+//     //     props.history.push(`/${e.key}`)
+//     //     props.setMode('3d')
+//     //   }
+//     // }
+//  }
 const [user, setUser] = useState({})
 useEffect(() => {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -95,41 +107,41 @@ let Tabs = []
         icon: 'manage_select',
       },
     ]
-    if (user.status == 2){
-      Tabs = [
-        {
-          title: ' หน้าแรก',
-          id: 'dashboard',
-          icon: 'Home_select',
-        },
-        {
-          title: ' แจ้งซ่อม',
-          id: 'repair',
-          icon: 'Inform_select',
-        },
-        {
-          title: 'จัดการโครงการ',
-          id: 'account',
-          icon: 'List_select',
-        },
-      ]
-    }
-    if (user.status == 1){
-      Tabs = [
-        {
-          title: ' หน้าแรก',
-          id: 'dashboard',
-          icon: 'Home_select',
-        },
-        {
-          title: ' แจ้งซ่อม',
-          id: 'repair',
-          icon: 'Inform_select',
-        }
-      ]
-    }
   }
-  else{
+  if (user.status == 2){
+    Tabs = [
+      {
+        title: ' หน้าแรก',
+        id: 'dashboard',
+        icon: 'Home_select',
+      },
+      {
+        title: ' แจ้งซ่อม',
+        id: 'repair',
+        icon: 'Inform_select',
+      },
+      {
+        title: 'จัดการโครงการ',
+        id: 'account',
+        icon: 'List_select',
+      },
+    ]
+  }
+  if (user.status == 1){
+    Tabs = [
+      {
+        title: ' หน้าแรก',
+        id: 'dashboard',
+        icon: 'Home_select',
+      },
+      {
+        title: ' แจ้งซ่อม',
+        id: 'repair',
+        icon: 'Inform_select',
+      }
+    ]
+  }
+  else if(user.status < 1){
     Tabs = [
       {
         title: ' หน้าแรก',
