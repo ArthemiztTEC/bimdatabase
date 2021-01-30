@@ -128,6 +128,8 @@ let Tabs = []
     ]
   }
   if (user.status == 1){
+
+    
     Tabs = [
       {
         title: ' หน้าแรก',

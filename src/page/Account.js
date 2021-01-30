@@ -557,6 +557,7 @@ const Account = (props) => {
                         if (memberForm.uid) {
                           database.ref(`/models/${modelList[selected].key}/users`).push(memberForm)
                           setForm({})
+                          alert('เพิ่มข้อมูลเรียบร้อยแล้ว')
                         } else {
                           //console.log('Please Select')
                           alert('กรุณาเลือก')
