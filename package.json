@@ -46,10 +46,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "rimraf ./build && react-scripts build && rimraf ./build/**/*.map",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
+    },
   "eslintConfig": {
     "extends": "react-app"
   },

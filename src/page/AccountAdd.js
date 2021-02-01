@@ -356,7 +356,7 @@ if(_.size(positionList)>0){
                   .database()
                   .ref(`/models/${res.key}/value`)
                   .set(jobres.data.urn)
-                hideloading()
+                // hideloading()
                 props.history.goBack()
               })
           })
