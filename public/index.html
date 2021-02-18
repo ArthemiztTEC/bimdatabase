@@ -56,6 +56,78 @@
       
       
     </script>
+
+<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+ 
+ 
+    <script type="text/babel">
+ 
+        const divStyle = {
+            backgroundColor: '#F0F0F0',
+            pading: '10px',
+        };
+ 
+        const titleStyle = {
+            color: 'blue',
+        };
+ 
+        class Posts extends React.Component {
+ 
+            constructor(props, context) {
+                super(props, context);
+                this.state = {
+                    posts: [],
+                };
+            }
+ 
+            componentDidMount() {
+                fetch('https://jsonplaceholder.typicode.com/posts',{
+                  method:'get',
+                  headers:{
+                    'Content-Type':'application/json',
+                  }
+                })
+                    .then(response => response.json())
+                    .then((posts) => this.setState({ posts }))
+            }
+
+          // 'Accept': 'application/json',
+          // 'Content-Type': 'application/json',
+          // 'Authorization': 'Bearer ' + this.state.clientToken,
+          // 'Host': 'api.producthunt.com'
+ 
+            render() {
+                if(this.state.posts.length === 0 ){
+                    return <div>React Fetch Loading</div>
+ 
+                }
+                return (
+                    <div>
+                        <h3>React Fetch Posts</h3>
+                        <div>
+                            {
+                                this.state.posts.map((post) => (
+                                        <div style={divStyle}>
+                                            <p style={titleStyle}>{post.id} : {post.title}</p>
+                                            <p>{post.body}</p>
+                                        </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                )
+            }
+        }
+ 
+        ReactDOM.render(
+                <Posts />,
+            document.getElementById("posts")
+        );
+    </script>
+
     <script>
       window.fbAsyncInit = function() {
         FB.init({

@@ -136,43 +136,43 @@ const Account = (props) => {
   if (user.status <= 1){ window.location='404.html'}
   else if(user.status >= 4){window.location='404.html'}
 
-  const columns = [
-    {
-      title: '#',
+  // const columns = [
+  //   {
+  //     title: '#',
 
-      render: (text) => <img src={'/user.png'} />,
-    },
-    {
-      title: 'ชื่อ',
+  //     render: (text) => <img src={'/user.png'} />,
+  //   },
+  //   {
+  //     title: 'ชื่อ',
 
-      render: (item) => {
-        const { firstName = '', lastname = '' } = item
-        //console.log('item', item)
-        return `${firstName} ${lastname}`
-      },
-    },
-    {
-      title: 'บริษัท',
-      render: (item) => {
-        const { company = '' } = item
-        //console.log('item', item)
-        return `${company}`
-      },
-    },
-    {
-      title: 'โครงการ',
+  //     render: (item) => {
+  //       const { firstName = '', lastname = '' } = item
+  //       //console.log('item', item)
+  //       return `${firstName} ${lastname}`
+  //     },
+  //   },
+  //   {
+  //     title: 'บริษัท',
+  //     render: (item) => {
+  //       const { company = '' } = item
+  //       //console.log('item', item)
+  //       return `${company}`
+  //     },
+  //   },
+  //   {
+  //     title: 'โครงการ',
 
-      render: (item) => {
-        return _.map(modelList, (project) => {
-          if (_.find(project.users, (user) => item.uid === user.uid)) {
-            return `${project.projectName || project.name},`
-          } else {
-            return null
-          }
-        })
-      },
-    },
-  ]
+  //     render: (item) => {
+  //       return _.map(modelList, (project) => {
+  //         if (_.find(project.users, (user) => item.uid === user.uid)) {
+  //           return `${project.projectName || project.name},`
+  //         } else {
+  //           return null
+  //         }
+  //       })
+  //     },
+  //   },
+  // ]
 
   return (
     <div
@@ -190,7 +190,7 @@ const Account = (props) => {
 
       {/* ---------------------------------------------------------------------------------------- หัวข้อTextแสดงในหน้า Account*/}
       <Breadcrumbs aria-label="breadcrumb" style={{ paddingLeft: "12em" }}>
-        <Text size={18}>จัดการ Account</Text>
+        <Text size={18}>โครงการทั้งหมด</Text>
       </Breadcrumbs>
 
       {/* ---------------------------------------------------------------------------------------- เปิดช่อง แสดงUser โครงการ ทั้งหมด*/}
@@ -221,10 +221,10 @@ const Account = (props) => {
         </Grid>
 
         <Grid container justify={'center'}>
-          <ScrollingWrapper>
+          {/* <ScrollingWrapper> */}
             
             {/* -------------------------------------------- Card แรกแสดงจำนวน User ทั้งหมด */}
-            <CardItem
+            {/* <CardItem
               selected={selected === 'all'}
               onClick={() => {
                 setSelected('all')
@@ -238,14 +238,18 @@ const Account = (props) => {
                   <Text size={18}>ทั้งหมด</Text>
                 </span>
               </Grid>
-            </CardItem>
+            </CardItem> */}
             
 
             {_.map(modelList, (item, n) => {
+              console.log('number',n)
               return (
                 // {/* -------------------------------------------- Card ทั้งหมด ของโครงการ*/}
                 <CardItem
                   selected={selected === n}
+                  style={{
+                    width:'370px',
+                  }}
                   onClick={() => {
                     setSelected(n)
                   }}
@@ -259,11 +263,11 @@ const Account = (props) => {
                           height: 150,
                         }}
                       >
-                        <Text size={18}>โครงการ / บริษัท</Text>
+                        <Text size={18} style={{fontWeight: "bold"}}>โครงการ / บริษัท</Text>
 
-                        <Text size={30}> {item.name || item.projectName}</Text>
+                        <Text size={16}> {item.name || item.projectName}</Text>
                         <br />
-                        <Text size={30}>{item.projectOwner}</Text>
+                        <Text size={16}>{item.projectOwner}</Text>
                       </div>
                     </span>
                   </Grid>
@@ -276,7 +280,7 @@ const Account = (props) => {
                 
               )
             })}
-          </ScrollingWrapper>
+          {/* </ScrollingWrapper> */}
         </Grid>
 
       </Contents>
@@ -284,15 +288,25 @@ const Account = (props) => {
 
     {/* ---------------------------------------------------------------------------------------- เปิดส่วนเลือกโครงการแต่ละอัน เพิ่มไฟล์ SCurve เพิ่มสมาชิกตำแหน่ง*/}
       {selected === 'all' ? (
-        <Table 
+        // <Table 
+        //   style={{
+        //     width: '100%',
+        //     paddingLeft: "12em",
+        //     paddingRight: "1.5em",
+        //   }}
+        //   columns={columns}
+        //   dataSource={_.map(users, (item, index) => ({ ...item, id: index }))}
+        // />
+        <Contents 
           style={{
             width: '100%',
+            height: '650px',
+            backgroundColor:'#f3f3f3',
             paddingLeft: "12em",
             paddingRight: "1.5em",
           }}
-          columns={columns}
-          dataSource={_.map(users, (item, index) => ({ ...item, id: index }))}
-        />
+        >
+        </Contents>
       ) : (
         <>
           <Contents style={{ paddingLeft: "12em" }}>
@@ -440,8 +454,8 @@ const Account = (props) => {
                           
                           database.ref(`/models/${modelList[selected].key}`).update({sc:memberForm.uid});
                           alert('เพิ่มข้อมูลเรียบร้อยแล้ว')
-                          window.location='dashboard'
-
+                          window.location='account'
+   
                         } else {
                           //console.log('Please Select')
                           alert('ยังไม่ได้เพิ่ม Link')
