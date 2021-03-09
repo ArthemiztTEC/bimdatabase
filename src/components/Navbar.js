@@ -27,7 +27,7 @@ import SideNav, {
 } from "@trendmicro/react-sidenav";
 // import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import './Navbar.css';
-import { useRadioGroup } from '@material-ui/core'
+import { colors, useRadioGroup } from '@material-ui/core'
 
 const MenuGrid = styled(Grid)`
   margin-bottom: 50px;
@@ -36,6 +36,7 @@ const MenuStyle = styled(Menu)`
   background: transparent; 
   color: white;
 `
+
 
 // import { FaBeer } from "@react-icons/all-files/fa/FaBeer";
 
@@ -105,6 +106,16 @@ let Tabs = []
         title: ' จัดการบัญชี',
         id: 'manageuser',
         icon: 'manage_select',
+      },
+      {
+        title: 'เพิ่มอุปกรณ์',
+        id: 'tools',
+        icon: 'Inform_select',
+      },
+      {
+        title: 'เพิ่มปุ่มขึ้นมาทดสอบ',
+        id: 'test',
+        icon: 'Inform_select',
       },
     ]
   }
@@ -219,6 +230,7 @@ let Tabs = []
       >
         
         <SideNav.Nav>
+                  
                 <> <img height={50} style={{ padding: "10px" }} src={`/logoMenu.png`}/> </>
 
             <MenuStyle onClick={handleClick} selectedKeys={props.sceneKey} mode="inline">
@@ -227,14 +239,21 @@ let Tabs = []
                     })
                   : Tabs.map((item, index) => (
                     <Menu.Item key={item.id}>
-                
+
+                    {/* <ul>
+                      {props.tabs.map((item, index)  =>(
+                      <li>{item.id}{item.title}</li>
+                      ))}
+                    </ul> */}
+                    
                     <img style={{ marginRight:"5px" , paddingBottom: "5px" }}
                       height={20}
                       src={`/asset/${item.icon}${props.sceneKey === item.id ? '' : ''}.png`}
                     />{'  '}
-                    {item.title} 
-                  
+                    {item.title}
+
                   </Menu.Item>
+                   
                     ))}
               </MenuStyle>
           {/* </NavItem> */}

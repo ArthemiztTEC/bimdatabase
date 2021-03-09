@@ -262,7 +262,7 @@ const Manageuser = (props) => {
       <Layout />
 
     
-      <div id="posts"></div>
+      {/* <div id="posts"></div> */}
       {/* ---------------------------------------------------------------------------------------- เปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
       <Navbar {...props} />
        {/* --------------------------------------------------------------------------------------- ปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
@@ -275,7 +275,7 @@ const Manageuser = (props) => {
       <Table 
         style={{
           width: '100%',
-          paddingLeft: "12em",
+          paddingLeft: "13.5em",
           paddingRight: "1.5em",
         }}
           columns={columns}

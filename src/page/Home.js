@@ -657,16 +657,20 @@ function Home(props) {
       id: 'scurve',
     },
     {
+      title: 'เอกสาร',
+      id: 'msword',
+    },
+    {
+      title: 'ข้อมูลโมเดล',
+      id: 'property',
+    },
+    {
       title: 'ประวัติการเข้าใช้งาน',
       id: 'history',
     },
     {
       title: 'แชท',
       id: 'chat',
-    },
-    {
-      title: 'ข้อมูลโมเดล',
-      id: 'property',
     },
   ]
 {/* ---------------------------------------------------------------------------------- ปิดส่วนของการ สร้างตัวแปรTabs เมนูย่อยต่างๆในหน้าแรก */}
@@ -689,9 +693,6 @@ function Home(props) {
     >
     {/* div กำหนดรูปแบบของหน้าจอ */}
 
-      {/* container คลุมกรอบใหญ่ของหน้าจอ */}
-      <Grid container>
-
         {/* เปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
         <Navbar
           {...props}
@@ -700,6 +701,9 @@ function Home(props) {
           }}
         />
         {/* ปิดเมนู Navbar ชิดซ้ายที่จะทำขึ้นใหม่*/}
+
+      {/* container คลุมกรอบใหญ่ของหน้าจอ */}
+      <Grid container>
 
         {/* เปิด Header*/}
         <Grid item xs={8} style={{ paddingLeft: "14em" , paddingTop: "1em"}}>
@@ -771,7 +775,7 @@ function Home(props) {
         {/* ปิด Header*/}
 
         {/* เปิดlayoutของหน้าจอ เปรียบเป็นpageหลัก*/}
-        <Grid item xs={12} style={{ paddingLeft: "12em" }}>
+        <Grid item xs={12} style={{ paddingLeft: "13em" }}>
           {/* <Navbar
             {...props}
             setMode={(mode) => {
@@ -782,7 +786,7 @@ function Home(props) {
           <br/>
 
             {/* เปิดเมนูย่อย ตัวแปรTabs จัดเรียงค่าเมนูใหม่*/}
-              {props.sceneKey === 'repair' ? (
+              {props.sceneKey === 'repair' || props.sceneKey === 'tools'? (
                ''
               ) : (
                 <MenuBar
@@ -801,10 +805,10 @@ function Home(props) {
         {/* ปิดlayoutของหน้าจอ เปรียบเป็นpageหลัก */}
 
         {/* เปิดหน้าแรกของ Dashboard Model Bim */}
-        <Grid container style={{ paddingLeft: "12em" }}>
+        <Grid container style={{ paddingLeft: "14em" }}>
           {/*  mode === 'scurve' คือการส่ง id scurve ไปเช็คถ้าจริงให้ =12 ไม่จริง =7*/}
 
-          <ModeGrid item marginLeft={5} xs={mode === 'scurve' ? 12 : 7} >
+          <ModeGrid item marginLeft={5} xs={mode === 'scurve' || mode === 'msword' ? 12 : 7} >
             
             {/* ------------------------------------------------------------------------------------------------- ส่วนของ issue (รายงานการแจ้งซ่อม) */}
             {props.sceneKey === 'issue' ? (
@@ -974,13 +978,38 @@ function Home(props) {
                       //   false
                       // )}` || ''
                     }
+                  />่
+                </ViewerGrid>
+              ) : mode === 'msword' ? (
+                <ViewerGrid item xs={12} style={{paddingBottom:"1320px"}}>
+                  <h1
+                    style={{
+                      color: 'red',
+                    }}
+                  >
+                    {/* {modelItem?.scurve ? '' : 'กรุณาอัพโหลดที่จัดการ โครงการ'} */}
+                  </h1>
+                  {console.log('modelItem', modelItem)}
+                  {console.log('modelscurve',modelItem.sc)}
+                  <iframe
+                    height="1300px"
+                    width="100%"
+                    src={
+                      `https://docs.google.com/document/d/1Jc8ang51NQgTMlcO0IBupRYIX13Bcax0AG37lazNeQw/edit?usp=sharing`
+                      // modelItem.sc
+                      // `https://view.officeapps.live.com/op/embed.aspx?src=${_.get(
+                      //   modelItem,
+                      //   'scurve',
+                      //   false
+                      // )}` || ''
+                    }
                   />
                 </ViewerGrid>
-              ) : mode === 'history' ? (
+              ): mode === 'history' ? (
                 <AccessHistory id={selectedmodel} />
               )
-              : mode === 'test1' ? (
-                <Test1 />
+              : mode === 'tools' ? (
+                'Test tools'
               ) : (
                 <Chat id={selectedmodel} user={user} />
                 // กรณีไม่มี mode ไหนเลยจะมาเปิดส่วนนี้
@@ -991,7 +1020,173 @@ function Home(props) {
           </ModeGrid>
 
           {/* -------------------------------------------------------------------------------- ส่วนของการเรียก Tabs เมนูย่อยต่างๆ ขึ้นมาแสดง*/}
+
+{/* เพิ่มปุ่มทดสอบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบ */}
+          {props.sceneKey === 'tools' ? (
+            <ModeGrid item xs={4}>
+              <Grid item>
+                <Grid container align={'center'} justify={'center'}>
+                  <ForgetTitle>เพิ่มอุปกรณ์ IoT</ForgetTitle>
+                  <Grid
+                    container
+                    justify={'center'}
+                    style={{
+                      marginTop: 20,
+                    }}
+                  >
+                    <InputGrid>
+                      <NoIconInputField
+                        placeholder="ตำแหน่งที่เพิ่ม"
+                        type="text"
+                        value={repairForm.title}
+                        onChange={(e) => {
+                          setRepairForm({
+                            ...repairForm,
+                            title: e.target.value,
+                          })
+                        }}
+                      />
+                    </InputGrid>
+                  </Grid>
+                  <Grid container justify={'center'}>
+                    <InputGrid>
+                      <NoIconInputField
+                        placeholder="รายละเอียด"
+                        value={repairForm.description}
+                        type="text"
+                        onChange={(e) => {
+                          setRepairForm({
+                            ...repairForm,
+                            description: e.target.value,
+                          })
+                        }}
+                      />
+                    </InputGrid>
+                  </Grid>
+                  <h2 style={{paddingTop: '30px'}}>เพิ่มอุปกรณ์</h2>
+                  <div style={{ width: '100%' }}>
+                    {/* <PriceComponent repairForm={repairForm} setRepairForm={setRepairForm} /> */}
+                  </div>
+
+                  <Grid
+                    container
+                    justify={'center'}
+                    style={{
+                      marginTop: 20,
+                    }}
+                  >
+                    <InputField
+                      type="select"
+                      onChange={(e) => {
+                        //console.log('Repair Form', repairForm)
+                        //console.log('Repair Form', e.target.value)
+                        setRepairForm({
+                          ...repairForm,
+                          priority: e.target.value,
+                        })
+                      }}
+                    >
+                      <option value={1}>กล้อง</option>
+                      <option value={2}>เซนเซอร์</option>
+                      <option value={3}>ประตูอัตโนมัติ</option>
+                      <option value={4}>เมนูย่อย1</option>
+                      <option value={5}>เมนูย่อย2</option>
+                    </InputField>
+                  </Grid>
+                  <Grid
+                    container
+                    justify={'center'}
+                    style={{
+                      marginTop: 20,
+                    }}
+                  >
+                    <input
+                      type="file"
+                      multiple
+                      onChange={(e) => {
+                        setRepairForm({ ...repairForm, files: [...e.target.files] })
+                      }}
+                    />
+                  </Grid>
+                  <Grid
+                    container
+                    justify={'center'}
+                    style={{
+                      marginTop: 20,
+                    }}
+                  >
+                    {_.map(repairForm.files, (image) => {
+                      //console.log('image file', image)
+                      return <img height={300} src={URL.createObjectURL(image)} />
+                    })}
+                  </Grid>
+                  <Grid
+                    container
+                    justify={'center'}
+                    style={{
+                      marginTop: 30,
+                    }}
+                  >
+                    <Grid xs={3}>
+                      <FullWidthButton
+                        color="warning"
+                        type={'submit'}
+                        onClick={() => {
+                          SetCreating(true)
+                          if (_.isEmpty(repairForm.title) && _.isEmpty(repairForm.description)) {
+                            notification.error({
+                              message: 'กรุณากรอกข้อมูล',
+                              description: 'กรุณากรอกรายละเอียด',
+                              onClick: () => {
+                                //console.log('Notification Clicked!')
+                              },
+                            })
+                          } else {
+                            const {
+                              title = '',
+                              description = '',
+                              files = [],
+                              priority = 1,
+                              price = '',
+                            } = repairForm
+                            PushPinExtensionHandle.startCreateItem({
+                              ...repairForm,
+                              label: title,
+                              description: description,
+                              files: files,
+                              priority,
+                              price,
+                              status: 'open',
+                              type: 'issues',
+                              isAction: true,
+                            })
+
+                            notification.open({
+                              message: 'กรุณามาร์คจุดติดอุปกรณ์',
+                              description: 'กรุณาคลิกจุดที่ต้องการติดอุปกรณ์',
+                              onClick: () => {
+                                //console.log('Notification Clicked!')
+                              },
+                            })
+                          }
+                          toggleRepareForm(false)
+                        }}
+                      >
+                        ตกลง
+                      </FullWidthButton>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>{' '}
+            </ModeGrid>
+
+
+          // -------------------------------------------------------------------------------------------- ส่วนของ issue (รายงานการแจ้งซ่อม)
+          ) :('')}
+{/* เพิ่มปุ่มทดสอบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบบ */}
+          
           {/* ---------------------------------------------------------------------------------------------------- ส่วนของหน้า แจ้งซ่อม */}
+
           {props.sceneKey === 'repair' ? (
             <ModeGrid item xs={4}>
               <Grid item>
@@ -1187,7 +1382,7 @@ function Home(props) {
 
             // ------------------------------------------------------------------------------------------------------------ ส่วนของ ปฎิทิน 
             // ---------------------------------------------------------------------------------- ฟังก์ชั่นนี้ในหน้า scurve กับ property ไม่แสดง
-          ) : mode !== 'scurve' && mode !== 'property' ? (
+          ) : mode !== 'scurve' && mode !== 'property' && props.sceneKey !== 'tools' && mode !== 'msword'? (
             <>
               <Grid
                 style={{
@@ -1250,7 +1445,7 @@ function Home(props) {
             <Grid
               style={{
                 marginLeft: 20,
-                height: '100%',
+                // height: '100%',
               }}
               item
               xs={4}
@@ -1413,7 +1608,7 @@ function Home(props) {
         {/* ปิดหน้าแรกของ Dashboard Model Bim */}
 
         {/* ------------------------------------------------------------- เปิดฟังก์ชั่นแสดงรายการแจ้งซ่อมในหน้า Dashboard ไม่แสดงในหน้า chat กับหน้า property */}
-        {mode === 'chat' || mode === 'property' ? (
+        {mode === 'chat' || mode === 'property' || props.sceneKey === 'tools' || mode === 'msword' ? (
           ''
         ) : (
           <>
@@ -1433,7 +1628,7 @@ function Home(props) {
             {/* ---------------------------------------------------------------------------------------------------- ส่วนของ issue (รายงานการแจ้งซ่อม) */}
             {/* --------------------------------------------------------------------------------- เปิดส่วนของ issue (รายงานการแจ้งซ่อมอาคาร ช่องtextbox) */}
             {props.sceneKey === 'issue' ? (
-              <Grid container style={{ paddingLeft: "12em" , marginBottom: "1em"}}>
+              <Grid container style={{ paddingLeft: "13em" , marginBottom: "1em"}}>
                 <ModeGrid xs={7}>
                   <Grid item>
                     <Grid container align={'center'}>
@@ -1599,7 +1794,7 @@ function Home(props) {
               ''
             )}
             {/* -------------------------------------------------------------------------------------- เปิดส่วนของการแสดงรายการแจ้งซ่อม */}
-            <ModeGrid xs={12} style={{ paddingLeft: "12em" }}>
+            <ModeGrid xs={12} style={{ paddingLeft: "14em" }}>
               <RepairTable
                 setList={setAllList}
                 select={select}

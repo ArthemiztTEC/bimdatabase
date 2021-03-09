@@ -55,6 +55,7 @@ function App() {
           <Route path="/scurve" exact component={Scurve} />
           <Route path="/dashboard" render={(props) => <Home sceneKey={'dashboard'} {...props} />} />
           <Route path="/repair" render={(props) => <Home sceneKey={'repair'} {...props} />} />
+          <Route path="/tools" render={(props) => <Home sceneKey={'tools'} {...props} />} />
           <Route
             path="/issue/:id/:model"
             render={(props) => <Home sceneKey={'issue'} {...props} />}

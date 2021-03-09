@@ -7,10 +7,6 @@ body {
     border: 1px solid #D4D4D4;
 }
 
-.fvNVlf {
-  width: 370px;
-}
-
 #MyControls {
     position: absolute;
     /* top: 5px; */
@@ -169,6 +165,10 @@ body {
   .popup .content {
     max-height: 30%;
     overflow: auto;
+  }
+
+  .sidenav---sidenav---_2tBP{
+    min-height: 1150px;
   }
 
   @media screen and (max-width: 700px){
