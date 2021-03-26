@@ -41,6 +41,7 @@ import CustomProperty from '../components/CustomProperty'
 import AccessHistory from '../components/AccessHistory'
 import Chat from '../components/Chat'
 import Test1 from '../components/Test1'
+import { render } from 'react-dom'
 
 // import SideNav, {
 //   Toggle,
@@ -687,6 +688,40 @@ function Home(props) {
   const modelItem = _.find(modelList, (item) => item.value === selectedmodel)
   //console.log('modelItem', modelItem)
 
+  // var myJSON = '{"name": "Kate", "pet": {"dog": "Corgi", "cat": "Persian"}}';
+  // var myObj = JSON.parse(myJSON);
+  // var customerName = myObj.pet.dog;
+  // console.log("customerName",customerName);
+
+  var axios = require('axios');
+
+  var config = {
+    method: 'get',
+    url: 'https://api.knowledgecentric.com/api/v1/MJUSA/865234031814675',
+    headers: { 
+      'Authorization': 'cee6627c4e4dcb170676f1c985035d7a73dea704d2cbd6ad55d6a980e3cb9fe3'
+    }
+  };
+  
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+    const customData = JSON.stringify(response.data);
+    var myJSON = customData;
+    var myObj = JSON.parse(myJSON);
+    var customerName = myObj.Data.[0].TMP;
+    console.log("customerName",customerName);
+
+    document.getElementById("TMP").innerHTML = customerName;
+    // console.log("customData",customData[2]+customData[3]+customData[4]+customData[5]);
+  })
+
+  
+  .catch(function (error) {
+    console.log(error);
+  });
+
+
   return (
 
     <div 
@@ -1061,7 +1096,15 @@ function Home(props) {
             <ModeGrid item xs={4}>
               <Grid item>
                 <Grid container align={'center'} justify={'center'}>
-                  <ForgetTitle>เพิ่มอุปกรณ์ IoT</ForgetTitle>
+                  <ForgetTitle>ทดสอบข้อมูลจาก IoT :  อุณหภูมิ <label id="TMP"></label> องศา</ForgetTitle>
+                  {/* {"
+                  Info":{"Page":1,"Pages":1},"Data":
+                  [{"DID":"865234031814675","TIME":"2021-03-26 03:14:15","LTIME":"2021-03-26 10:14:15","CTIME":"2021-03-26 03:31:12","UTIME":"1017","TMP":"34.85","HUM":"39.37","PRE":"975.93","SENSOR1":"34.85","ACTUATOR1":"1.00","BATT":"3.30","SEQ":"7475",
+                  "SC":"6520","FC":"0","STAT":null,"LAT":null,"LON":null,"LCN":null,"CONTROL1":"3.50","CONTROL2":"4.00"}]} */}
+                  {/* {console.log('Infoxxx',Info)} */}
+                  {/* <text>{Info.DID}</text> */}
+
+
                   <Grid
                     container
                     justify={'center'}
