@@ -661,6 +661,10 @@ function Home(props) {
       id: 'msword',
     },
     {
+      title: 'แผนที่',
+      id: 'map',
+    },
+    {
       title: 'ข้อมูลโมเดล',
       id: 'property',
     },
@@ -808,7 +812,7 @@ function Home(props) {
         <Grid container style={{ paddingLeft: "14em" }}>
           {/*  mode === 'scurve' คือการส่ง id scurve ไปเช็คถ้าจริงให้ =12 ไม่จริง =7*/}
 
-          <ModeGrid item marginLeft={5} xs={mode === 'scurve' || mode === 'msword' ? 12 : 7} >
+          <ModeGrid item marginLeft={5} xs={mode === 'scurve' || mode === 'msword' || mode === 'map' ? 12 : 7} >
             
             {/* ------------------------------------------------------------------------------------------------- ส่วนของ issue (รายงานการแจ้งซ่อม) */}
             {props.sceneKey === 'issue' ? (
@@ -963,10 +967,11 @@ function Home(props) {
                       color: 'red',
                     }}
                   >
-                    {/* {modelItem?.scurve ? '' : 'กรุณาอัพโหลดที่จัดการ โครงการ'} */}
+                    {/* {modelItem.scx ? '' : 'กรุณาอัพโหลดที่จัดการ โครงการ'} */}
                   </h1>
                   {console.log('modelItem', modelItem)}
                   {console.log('modelscurve',modelItem.sc)}
+                  {modelItem.sc ? 
                   <iframe
                     height="1000px"
                     width="100%"
@@ -978,7 +983,9 @@ function Home(props) {
                       //   false
                       // )}` || ''
                     }
-                  />่
+                    
+                  /> : <h1 style={{color: 'red', marginTop:"5%", marginLeft:"35%"}}>ยังไม่ได้อัพโหลดไฟล์ S Curve</h1> 
+                  }
                 </ViewerGrid>
               ) : mode === 'msword' ? (
                 <ViewerGrid item xs={12} style={{paddingBottom:"1320px"}}>
@@ -995,7 +1002,9 @@ function Home(props) {
                     height="1300px"
                     width="100%"
                     src={
+                      // `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1750.854673565161!2d98.95885657553713!3d18.80595823111733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30da3a8ee9bb6e57%3A0xc8023eb74708fb5c!2sTrident%20Intelligence%20Service%20co.%2Cltd.!5e1!3m2!1sth!2sth!4v1615280519653!5m2!1sth!2sth"`
                       `https://docs.google.com/document/d/1Jc8ang51NQgTMlcO0IBupRYIX13Bcax0AG37lazNeQw/edit?usp=sharing`
+                      // `https://docs.google.com/presentation/d/1zoM-RPy-5PS85cxNW5JJyddMMyCa24VVPEeMXvFiVZc/edit#slide=id.gc6f80d1ff_0_0`
                       // modelItem.sc
                       // `https://view.officeapps.live.com/op/embed.aspx?src=${_.get(
                       //   modelItem,
@@ -1005,10 +1014,36 @@ function Home(props) {
                     }
                   />
                 </ViewerGrid>
-              ): mode === 'history' ? (
+              ) : mode === 'map' ? (
+                <ViewerGrid item xs={12} style={{paddingBottom:"700px"}}>
+                  <h1
+                    style={{
+                      color: 'red',
+                    }}
+                  >
+                    {/* {modelItem?.scurve ? '' : 'กรุณาอัพโหลดที่จัดการ โครงการ'} */}
+                  </h1>
+                  {console.log('modelItem', modelItem)}
+                  {console.log('modelscurve',modelItem.sc)}
+                  <iframe
+                    height="700px"
+                    width="100%"
+                    src={
+                      `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1750.854673565161!2d98.95885657553713!3d18.80595823111733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30da3a8ee9bb6e57%3A0xc8023eb74708fb5c!2sTrident%20Intelligence%20Service%20co.%2Cltd.!5e1!3m2!1sth!2sth!4v1615280519653!5m2!1sth!2sth"`
+                      // `https://docs.google.com/document/d/1Jc8ang51NQgTMlcO0IBupRYIX13Bcax0AG37lazNeQw/edit?usp=sharing`
+                      // `https://docs.google.com/presentation/d/1zoM-RPy-5PS85cxNW5JJyddMMyCa24VVPEeMXvFiVZc/edit#slide=id.gc6f80d1ff_0_0`
+                      // modelItem.sc
+                      // `https://view.officeapps.live.com/op/embed.aspx?src=${_.get(
+                      //   modelItem,
+                      //   'scurve',
+                      //   false
+                      // )}` || ''
+                    }
+                  />
+                </ViewerGrid>
+              ) : mode === 'history' ? (
                 <AccessHistory id={selectedmodel} />
-              )
-              : mode === 'tools' ? (
+              ) : mode === 'tools' ? (
                 'Test tools'
               ) : (
                 <Chat id={selectedmodel} user={user} />
@@ -1382,7 +1417,7 @@ function Home(props) {
 
             // ------------------------------------------------------------------------------------------------------------ ส่วนของ ปฎิทิน 
             // ---------------------------------------------------------------------------------- ฟังก์ชั่นนี้ในหน้า scurve กับ property ไม่แสดง
-          ) : mode !== 'scurve' && mode !== 'property' && props.sceneKey !== 'tools' && mode !== 'msword'? (
+          ) : mode !== 'scurve' && mode !== 'property' && props.sceneKey !== 'tools' && mode !== 'msword' && mode !== 'map'? (
             <>
               <Grid
                 style={{
@@ -1608,7 +1643,7 @@ function Home(props) {
         {/* ปิดหน้าแรกของ Dashboard Model Bim */}
 
         {/* ------------------------------------------------------------- เปิดฟังก์ชั่นแสดงรายการแจ้งซ่อมในหน้า Dashboard ไม่แสดงในหน้า chat กับหน้า property */}
-        {mode === 'chat' || mode === 'property' || props.sceneKey === 'tools' || mode === 'msword' ? (
+        {mode === 'chat' || mode === 'property' || props.sceneKey === 'tools' || mode === 'msword' || mode === 'map' ? (
           ''
         ) : (
           <>
