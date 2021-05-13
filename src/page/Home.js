@@ -237,7 +237,7 @@ function Home(props) {
     selectView.loadExtension('Autodesk.DefaultTools.NavTools')
     selectView.loadExtension("NestedViewerExtension", { filter: ["2d"], crossSelection: true })
     var extensionOptions = {
-      hideIssuesButton: true,
+      hideIssuesButton: false,
       hideRfisButton: true,
       hideFieldIssuesButton: true,
     }
@@ -396,7 +396,6 @@ function Home(props) {
               if (props.sceneKey === 'issue') {
               } else {
                 extension.pushPinManager.removeAllItems()
-
                 _.forEach(snap.val(), (item, date) => {
                   _.forEach(item, (item, index) => {
                     // console.log('Generate Issue', {
@@ -547,8 +546,9 @@ function Home(props) {
     env: 'AutodeskProduction',
     accessToken: '',
   }
-  //console.log('selectedmodel', selectedmodel)
+  console.log('selectedmodel', selectedmodel)
   let documentId = `urn:${selectedmodel}`
+  // let documentId = `urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bW9kZWwyMDIxLTA1LTA1LTAzLTExLTIwLWQ0MWQ4Y2Q5OGYwMGIyMDRlOTgwMDk5OGVjZjg0MjdlL0V2YXAuaWZj`
 
 
   useEffect(() => {
@@ -557,6 +557,7 @@ function Home(props) {
         env: 'AutodeskProduction',
         accessToken: token.access_token,
       }
+      console.log('access_token', token.access_token)
       if (selectedmodel != 0 && typeof selectedmodel !== 'undefined') {
         setError({
           model2: false,
@@ -612,7 +613,10 @@ function Home(props) {
         })
       }
     }
+
     const modelItem = _.find(modelList, (item) => item.value === selectedmodel)
+
+    // const selectedmodel = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bW9kZWwyMDIxLTA1LTA1LTAzLTExLTIwLWQ0MWQ4Y2Q5OGYwMGIyMDRlOTgwMDk5OGVjZjg0MjdlL0V2YXAuaWZj';
   }, [token, selectedmodel, option, props.sceneKey, mode])
   const [imageAsFile, setImageAsFile] = useState([])
   //console.log('imageAsFile', imageAsFile)
@@ -620,8 +624,8 @@ function Home(props) {
     const result = axios.post(
       'https://developer.api.autodesk.com/authentication/v1/authenticate',
       qs.stringify({
-        client_id: 'e9nb6uR1AOoFFY2vRoZspZA7RKRrwqxU',
-        client_secret: '5jt07IIPgNjrshWN',
+        client_id: 'oY08yQXPOVWDeLebAF6utxyO44fzNzww',
+        client_secret: 'gNWEgrA5krcPtv7K',
         grant_type: 'client_credentials',
         scope: 'data:read data:write data:create bucket:read bucket:create',
       }),
@@ -633,6 +637,7 @@ function Home(props) {
     )
     result.then((res) => {
       setToken(res.data)
+      console.log("res",res)
     })
   }, [mode])
 
@@ -709,10 +714,13 @@ function Home(props) {
     const customData = JSON.stringify(response.data);
     var myJSON = customData;
     var myObj = JSON.parse(myJSON);
-    var customerName = myObj.Data.[0].TMP;
-    console.log("customerName",customerName);
+    // var customerName = myObj.Data[0].TMP;
+    // console.log("customerName",customerName);
+    
 
-    document.getElementById("TMP").innerHTML = customerName;
+    document.getElementById("DID").innerHTML = myObj.Data[0].DID;
+    document.getElementById("TIME").innerHTML = myObj.Data[0].CTIME;
+    document.getElementById("TMP").innerHTML = myObj.Data[0].TMP;
     // console.log("customData",customData[2]+customData[3]+customData[4]+customData[5]);
   })
 
@@ -721,6 +729,7 @@ function Home(props) {
     console.log(error);
   });
 
+  console.log("token",token);
 
   return (
 
@@ -1096,14 +1105,16 @@ function Home(props) {
             <ModeGrid item xs={4}>
               <Grid item>
                 <Grid container align={'center'} justify={'center'}>
-                  <ForgetTitle>ทดสอบข้อมูลจาก IoT :  อุณหภูมิ <label id="TMP"></label> องศา</ForgetTitle>
+                  <ForgetTitle>ทดสอบข้อมูลจาก IoT :  อุณหภูมิ <a id="TMP" href="link.html"></a> องศา</ForgetTitle>
+                  <ForgetTitle>DID : <label id="DID"></label></ForgetTitle><br></br>
+                  <ForgetTitle>TIME : <label id="TIME"></label></ForgetTitle><br></br>
+                  {/* อุณหภูมิ <label id="TMP"></label> องศา */}
                   {/* {"
                   Info":{"Page":1,"Pages":1},"Data":
                   [{"DID":"865234031814675","TIME":"2021-03-26 03:14:15","LTIME":"2021-03-26 10:14:15","CTIME":"2021-03-26 03:31:12","UTIME":"1017","TMP":"34.85","HUM":"39.37","PRE":"975.93","SENSOR1":"34.85","ACTUATOR1":"1.00","BATT":"3.30","SEQ":"7475",
                   "SC":"6520","FC":"0","STAT":null,"LAT":null,"LON":null,"LCN":null,"CONTROL1":"3.50","CONTROL2":"4.00"}]} */}
                   {/* {console.log('Infoxxx',Info)} */}
                   {/* <text>{Info.DID}</text> */}
-
 
                   <Grid
                     container

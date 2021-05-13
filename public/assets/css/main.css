@@ -91,6 +91,11 @@ body {
     display: none;
 }
 
+.leaflet-text-label{
+  padding-left: 15px;
+  padding-right: 30px;
+}
+
 /* ปุ่ม popup */
   
   .box {

@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import Grid from '@material-ui/core/Grid'
 import { Card } from '@material-ui/core'
+
 import _ from 'lodash'
 import firebase from 'firebase'
 import LoadingOverlay from 'react-loading-overlay'
@@ -65,7 +66,7 @@ const CardItem = styled(Card)`
 const AccountAdd = (props) => {
   const { showloading, hideloading } = useContext(LoadingContext)
 
-  const bucket = 'tribucket'
+  const bucket = 'trident2021-05-10create'
   const [form, setForm] = useState({})
   const [token, setToken] = useState({})
   const [file, setFile] = useState(null)
@@ -86,15 +87,13 @@ const AccountAdd = (props) => {
       }
     })
   }, [])
-  if (user.status <= 1){ window.location='404.html'}
-  else if(user.status >= 4){window.location='404.html'}
-  // console.log('Token', token)
+  console.log('Token', token)
   useEffect(() => {
     const result = axios.post(
       'https://developer.api.autodesk.com/authentication/v1/authenticate',
       qs.stringify({
-        client_id: 'e9nb6uR1AOoFFY2vRoZspZA7RKRrwqxU',
-        client_secret: '5jt07IIPgNjrshWN',
+        client_id: 'oY08yQXPOVWDeLebAF6utxyO44fzNzww', //e9nb6uR1AOoFFY2vRoZspZA7RKRrwqxU
+        client_secret: 'gNWEgrA5krcPtv7K', //5jt07IIPgNjrshWN
         grant_type: 'client_credentials',
         scope: 'data:read data:write data:create bucket:read bucket:create',
       }),
@@ -106,6 +105,7 @@ const AccountAdd = (props) => {
     )
     result.then((res) => {
       setToken(res.data)
+      console.log("res",res)
     })
   }, [])
   const attachRef = useRef(null)
@@ -119,7 +119,7 @@ const AccountAdd = (props) => {
       [e.target.name]: e.target.value,
     })
   }
-  console.log(form, file)
+  console.log("form", file)
 
   return (
     <>
@@ -129,9 +129,19 @@ const AccountAdd = (props) => {
           margin: 10,
         }}
       >
+        {/* &redirect_uri=http%3A%2F%2Fsampleapp.com%2Foauth%2Fcallback%3Ffoo%3Dbar
+        http://sampleapp.com/oauth/callback?
+
+        &redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fforge%2Foauth%2Fcallback%2F
+        %3Ffoo%3Dbar
+        http://localhost:3000/api/forge/oauth/callback/ */}
+        
+        {/* <a href="https://developer.api.autodesk.com/authentication/v1/authorize?response_type=code&client_id=oY08yQXPOVWDeLebAF6utxyO44fzNzww&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fforge%2Foauth%2Fcallback%2F&scope=data:read data:write data:create bucket:read bucket:create">Click here to grant access to your data!</a><br></br> */}
+        {/* SseXaaQSspSfkvwgcxQbIc1qVumy54rGvl8x-J5W */}
+        {/* <a href="https://developer.api.autodesk.com/authentication/v1/authorize?response_type=token&client_id=oY08yQXPOVWDeLebAF6utxyO44fzNzww&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fforge%2Foauth%2Fcallback%2F&scope=data:read data:write data:create bucket:read bucket:create">Click here to grant access to your data+++++++++++++++++++++++++++++!</a> */}
         <Layout />
         <MenuBar {...props} />
-        <Breadcrumbs aria-label="breadcrumb" style={{ marginLeft: "20px" }}>
+        <Breadcrumbs aria-label="breadcrumb">
           <Link color="inherit" href="/account">
             จัดการ Account
           </Link>
@@ -140,7 +150,7 @@ const AccountAdd = (props) => {
           </Link>
         </Breadcrumbs>
         <Contents>
-          {/* <Text size={18}>เพิ่มโครงการ</Text> */}
+          <Text size={18}>เพิ่มโครงการ</Text>
           <Form>
             <FormGroup row>
               <Label for="projectName" sm={2}>
@@ -379,4 +389,4 @@ if(_.size(positionList)>0){
     </>
   )
 }
-export default AccountAdd;
+export default AccountAdd
